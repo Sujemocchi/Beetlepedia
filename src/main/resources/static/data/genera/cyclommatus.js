@@ -1,0 +1,1321 @@
+/*
+ * Cyclommatus Parry, 1863 — 가위사슴벌레속 (Lucanidae).
+ *
+ * Built from the research notes of 2026-10-06 (English, Japanese and Korean sources).
+ * Size ranges are [min, max] in mm; min is null where only a maximum (e.g. a BE-KUWA record) is published.
+ * Range codes are countries or keys of `areas` (islands / regions).
+ */
+BP.registerGenus({
+  "id": "cyclommatus",
+  "group": "lucanidae",
+  "sci": "Cyclommatus",
+  "authority": "Parry, 1863",
+  "map": "southeast-asia",
+  "color": "#D9B44A",
+  "name": { "ko": "가위사슴벌레속", "en": "Cyclommatus stag beetles" },
+  "shortName": { "ko": "가위사슴벌레", "en": "Cyclommatus" },
+  "taxonomy": [
+    {
+      "rank": { "ko": "아과", "en": "Subfamily" },
+      "name": "Lucaninae",
+      "common": { "ko": "사슴벌레아과", "en": "Typical stag beetles" }
+    },
+    {
+      "rank": { "ko": "족", "en": "Tribe" },
+      "name": "Cyclommatini",
+      "common": { "ko": "가위사슴벌레족", "en": "Cyclommatini" }
+    },
+    {
+      "rank": { "ko": "속", "en": "Genus" },
+      "name": "Cyclommatus",
+      "common": { "ko": "가위사슴벌레속", "en": "Cyclommatus" }
+    }
+  ],
+  "eyebrow": { "ko": "가늘고 긴 큰턱의 사슴벌레", "en": "Stag beetles with long, slender jaws" },
+  "lead": { "ko": "인도차이나에서 뉴기니까지, 섬마다 다른 종이 사는 가위사슴벌레속. 금속광택 몸과 가위처럼 긴 큰턱을 가진 10개 분류군을 소개합니다.", "en": "From Indochina to New Guinea, nearly every island has its own Cyclommatus. Meet ten taxa with metallic bodies and scissor-like mandibles." },
+  "overview": {
+    "kicker": { "ko": "Cyclommatus Parry, 1863", "en": "Cyclommatus Parry, 1863" },
+    "body": { "ko": "인도차이나반도와 히말라야·중국 남부, 대만, 필리핀, 말레이 제도(수마트라·보르네오·술라웨시·몰루카), 뉴기니와 솔로몬 제도에 분포한다. 각 종의 분포 범위가 좁은 편이다. 약 60종이 알려져 있다. 수컷은 암컷보다 크고 광택이 강하며, 대형 수컷은 몸길이의 절반에 이르는 긴 큰턱을 가진다. 암컷은 큰턱이 짧고 색이 수수하다. 수컷의 크기와 큰턱 길이는 유충기의 영양 상태에 따라 크게 달라진다.", "en": "Indochina, the Sino-Himalayan region and southern China, Taiwan, the Philippines, the Malay Archipelago (Sumatra, Borneo, Sulawesi, Moluccas), New Guinea and the Solomon Islands. Individual species tend to have narrow ranges. About 60 species are recognised. Males are larger and more lustrous than females; major males carry mandibles that can reach about half the body length. Females have short mandibles and duller colours. Male size and mandible length vary strongly with larval nutrition." },
+    "cards": [
+      {
+        "title": { "ko": "이름의 유래", "en": "Where the name comes from" },
+        "text": { "ko": "학명은 '둥근 눈'이라는 뜻이다. 그리스어 kyklos(둥근)와 omma(눈)를 합친 말로 해석된다.", "en": "The name means 'round eye'; it is generally read as Greek kyklos (circle) + omma (eye)." }
+      },
+      {
+        "title": { "ko": "가지 끝의 싸움꾼", "en": "Fighters on the twig tips" },
+        "text": { "ko": "이 속은 굵은 줄기의 수액보다 가는 가지 끝이나 새순, 풀꽃에 모이는 경향이 있다고 알려져 있다. 수컷의 가늘고 긴 몸과 큰턱은 가지 끝에서 벌이는 싸움에 맞게 진화했다고 보는 연구자도 있다.", "en": "Members of the genus are reported to visit twig tips, young shoots and flowers rather than sap flows on thick trunks; some researchers think the slender male body and long mandibles evolved for fighting on thin branches." }
+      },
+      {
+        "title": { "ko": "섬 무리와 대륙 무리", "en": "Island and continental clades" },
+        "text": { "ko": "분자계통 연구에 따르면 이 속은 단계통이며, 섬 지역 종(A군)과 대륙 종(B군)의 두 무리로 나뉜다. 두 무리는 약 2,490만 년 전(올리고세 후기)에 갈라진 것으로 추정된다. 연구진은 대륙 종을 Cyclommatinus Didier, 1927 속으로 분리할 것을 제안했다.", "en": "Molecular work finds the genus monophyletic, split into an island clade (A) and a continental clade (B) that diverged about 24.9 Mya in the late Oligocene. The authors proposed treating the continental clade as a separate genus, Cyclommatinus Didier, 1927." }
+      }
+    ],
+    "speciesNote": { "ko": "Catalogue of Life는 57종을 인정하고, Zhu 등(2023)은 60종 이상이라고 적는다. 영어 위키백과의 134종은 아종을 포함하거나 오래된 집계로 보이며 신뢰도가 낮다. 이 도감의 '엘라푸스 엘라푸스', '임페라토르 임페라토르' 같은 삼명법 이름은 아종을 나누는 일본 문헌(Mizunuma & Nagai 1994)의 체계를 따른 것으로, Catalogue of Life는 이 두 종에 아종을 두지 않는다.", "en": "Catalogue of Life lists 57 accepted species; Zhu et al. (2023) state 'more than 60 species'. The figure of 134 on English Wikipedia (from a defunct insectoid.info page) appears to count subspecies and is not reliable. Trinomials such as C. elaphus elaphus and C. imperator imperator follow the Japanese literature (Mizunuma & Nagai 1994), which recognises subspecies; the Catalogue of Life lists none for these two species." }
+  },
+  "lifecycle": {
+    "lead": { "ko": "아래 기간은 대부분 사육 기록에 바탕을 둡니다. 야생에서의 기간은 거의 알려지지 않았습니다.", "en": "Durations below come mostly from captive rearing; little is known about the wild." },
+    "stages": [
+      {
+        "stage": "egg",
+        "title": { "ko": "알", "en": "Egg" },
+        "time": { "ko": "기간: 자료 부족", "en": "Duration: insufficient data" },
+        "text": { "ko": "암컷이 썩은 나무를 갉거나 잘 발효된 톱밥 매트 속에 알을 낳는다.", "en": "Females chew into decaying wood or firmly packed fermented sawdust to lay eggs." }
+      },
+      {
+        "stage": "larva",
+        "title": { "ko": "유충", "en": "Larva" },
+        "time": { "ko": "사육 시 대체로 3~11개월 (대형 개체는 1년 반~2년 기록)", "en": "Mostly 3–11 months in captivity (up to 1.5–2 years recorded for large individuals)" },
+        "text": { "ko": "3령을 거치며 썩은 나무나 발효 톱밥을 먹고 자란다. 수컷의 몸 크기와 큰턱 길이는 이 시기의 영양 상태에 따라 크게 달라진다.", "en": "Larvae pass through three instars feeding on rotting wood or fermented sawdust. A male's adult size and mandible length depend strongly on its nutrition at this stage." }
+      },
+      {
+        "stage": "pupa",
+        "title": { "ko": "번데기", "en": "Pupa" },
+        "time": { "ko": "기간: 자료 부족", "en": "Duration: insufficient data" },
+        "text": { "ko": "사육 시 수컷이 암컷보다 늦게 우화하는 경향이 있어, 같은 배에서 난 암수의 짝을 맞추기 어렵다.", "en": "In captivity males tend to emerge later than females, which makes pairing siblings difficult." }
+      },
+      {
+        "stage": "adult",
+        "title": { "ko": "성충", "en": "Adult" },
+        "time": { "ko": "대개 1년 이내", "en": "Usually less than a year" },
+        "text": { "ko": "나무 수액이나 새순의 즙을 먹는다. 굵은 줄기보다 가는 가지 끝이나 새순에 모이는 경향이 있다.", "en": "Adults feed on sap or the juices of young shoots, tending to gather on twig tips and new growth rather than thick trunks." }
+      }
+    ]
+  },
+  "conservation": { "ko": "이 문서에서 다룬 종들은 모두 IUCN 적색목록 평가를 받지 않았다(NE). 표본과 살아있는 개체가 일본·대만 등의 애완곤충 시장으로 거래된다.", "en": "None of the species covered here has been assessed by the IUCN (Not Evaluated). Dried and live specimens are traded for the pet and collector markets, notably Japan and Taiwan." },
+  "care": [
+    { "ko": "대부분 고온에 약해 18~22℃ 정도의 서늘한 온도 관리가 필요하다. 산란에는 잘 발효된 고운 톱밥 매트나 손으로 부서질 정도로 썩은 산란목을 쓴다. 메탈리퍼가위사슴벌레는 약 25℃까지 견디고 번식이 쉬워 입문종으로 꼽힌다. 수컷 유충이 암컷보다 늦게 우화해 짝을 맞추기 어려운 점이 흔한 문제다.", "en": "Most species dislike heat and are kept cool (about 18-22 °C). Females lay in firmly packed fine fermented mat or well-rotted soft wood. C. metallifer tolerates up to about 25 °C and is regarded as the beginner species. Males typically take longer than females to emerge, which complicates pairing siblings." },
+    { "ko": "살아 있는 외국산 곤충의 반입은 나라마다 검역 규정이 있으므로(한국은 식물방역법 등) 먼저 확인해야 한다.", "en": "Importing live exotic insects is regulated by quarantine law in most countries — check before acquiring any." }
+  ],
+  "facts": [
+    { "ko": "메탈리퍼가위사슴벌레 수컷이 무는 힘은 암컷의 약 3배다. 긴 큰턱의 지레 손실을 커다란 머리 근육으로 보완한다.", "en": "Male C. metallifer bite about three times harder than females, compensating for their long mandibles with enlarged head muscles." },
+    { "ko": "수컷 큰턱이 얼마나 자랄지는 유충기의 영양과 유충호르몬(JH)이 결정하며, 성 결정 유전자 doublesex가 이 반응을 수컷에서만 켜 준다.", "en": "How long a male's mandibles grow depends on larval nutrition and juvenile hormone; the sex-determination gene doublesex makes this response male-specific." },
+    { "ko": "메탈리퍼가위사슴벌레의 금색과 청흑색 몸빛은 상염색체의 한 유전자로 정해지며, 금색이 우성이다.", "en": "Gold versus blue-black body colour in C. metallifer is controlled by a single autosomal gene, with gold dominant." },
+    { "ko": "큰턱이 무거운 수컷은 날 때 암컷보다 더 많은 힘을 써야 한다. 비행 비용이 큰턱 크기의 상한을 정하는 요인으로 꼽힌다.", "en": "Heavy mandibles make flight more costly for males, which is thought to cap how large the weapons can become." },
+    { "ko": "엘라푸스가위사슴벌레의 야외 기록 109.0mm는 이 속에서 가장 크다.", "en": "The wild-caught record of 109.0 mm for C. elaphus is the largest for the genus." }
+  ],
+  "defaults": {
+    "dimorphism": { "ko": "수컷은 암컷보다 크고 광택이 강하며, 대형 수컷은 몸길이의 절반에 이르는 긴 큰턱을 가진다. 암컷은 큰턱이 짧고 색이 수수하다. 수컷의 크기와 큰턱 길이는 유충기의 영양 상태에 따라 크게 달라진다.", "en": "Males are larger and more lustrous than females; major males carry mandibles that can reach about half the body length. Females have short mandibles and duller colours. Male size and mandible length vary strongly with larval nutrition." },
+    "food": { "ko": "유충: 썩은 나무, 발효 톱밥 · 성충: 나무 수액, 새순의 즙", "en": "Larva: rotting wood, fermented sawdust · Adult: tree sap, juices of young shoots" },
+    "season": { "ko": "열대 산지에 살아 종별 계절 자료가 적다. 메탈리퍼가위사슴벌레는 낮에 활동하는 것이 관찰되었다.", "en": "As tropical species, seasonal data are scarce. C. metallifer has been observed to be active by day." }
+  },
+  "latin": ["Cyclommatinus", "Cyclommatellus", "Cyclommatini", "Lucaninae", "Lucanus metallifer", "Lucanus tarandus", "Lucanus rangifer", "Mesotopus tarandus", "Rangifer tarandus", "C. metallifer", "C. metallifer metallifer", "C. elaphus truncatus", "C. elaphus kirchneri", "C. imperator monguilloni", "C. tarandus stenosomus", "Cyclommatus elaphus truncatus", "kirchneri", "aenomicans", "butonensis", "otanii", "stenosomus"],
+  "images": {
+    "hero": {
+      "file": "Cyclommatus cropped.jpg",
+      "author": "Sq10",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "white": true,
+      "alt": { "ko": "흰 바탕 위 가위사슴벌레속 표본 넷. 왼쪽부터 엘라푸스·임페라토르 수컷, 트룬카투스 수컷과 암컷이다.", "en": "Four Cyclommatus specimens on white: C. elaphus male, C. imperator male, and a C. truncatus male and female." }
+    }
+  },
+  "taxa": [
+    {
+      "id": "cyclommatus-elaphus-elaphus",
+      "rank": "subspecies",
+      "sci": "Cyclommatus elaphus elaphus",
+      "species": "Cyclommatus elaphus",
+      "authority": "Gestro, 1881",
+      "color": "#E8B04B",
+      "name": { "ko": "엘라푸스가위사슴벌레", "en": null },
+      "nameInformal": { "ko": false, "en": false },
+      "nameJa": "エラフスホソアカクワガタ（原名亜種）",
+      "nameNote": { "ko": "일본명: エラフスホソアカクワガタ（原名亜種）. 일본 취미계와 Mizunuma & Nagai(1994)는 truncatus·kirchneri를 아종으로 보아 원명아종 elaphus elaphus를 쓴다. Catalogue of Life는 두 분류군을 독립종으로 보므로 이 경우 C. elaphus에는 아종이 없다.", "en": "Japanese name: エラフスホソアカクワガタ（原名亜種）. Japanese hobby literature (following Mizunuma & Nagai 1994) treats truncatus and kirchneri as subspecies, hence 'elaphus elaphus'. Catalogue of Life now ranks both as species, so under that view C. elaphus is monotypic and the trinomial is redundant." },
+      "size": {
+        "male": [
+          null,
+          109
+        ],
+        "female": null,
+        "note": { "ko": "109.0mm는 야외 채집 기록이고, 사육 기록은 97.5mm다(BE-KUWA 2022년판, 아종 구분 없이 'エラフス'로 집계).", "en": "109.0 mm is the wild-caught record; the captive-bred record is 97.5 mm (BE-KUWA 2022 list, entry 'エラフス', not split by subspecies)." },
+        "sources": ["cy-bekuwa2022", "cy-wiki-en-elaphus", "cy-sixkd-elaphus"]
+      },
+      "pattern": { "ko": "수컷은 금속성 녹색에 큰턱이 푸른빛을 띠는 개체가 보통이며, 큰턱 밑동과 다리에 주황색 무늬가 있다. 적갈색이나 드물게 전신이 파란 개체도 있다.", "en": "Males usually metallic green with bluish mandibles and orange patches at the mandible bases and on the legs; reddish-brown and, rarely, all-blue individuals occur." },
+      "morphology": { "ko": "가위사슴벌레속에서 가장 큰 종이다. 몸은 매우 납작하고, 대형 수컷의 큰턱은 몸길이의 절반가량이다. 큰턱 밑동 가까이에 안쪽 이빨이 발달하고, 끝은 두 갈래로 갈라지며 그 사이에 작은 톱니가 있다. 큰턱은 원에 가깝게 휘는 형, 약간 휘며 뻗는 형, 거의 곧게 뻗는 형으로 나뉜다. 소형 수컷은 주황 무늬가 흐리고 큰턱이 몸길이의 4분의 1 정도로 짧다. 암컷은 검붉고 수수하다.", "en": "The largest Cyclommatus. Body very flat; in major males the mandibles reach about half the body length, with a strong inner tooth near the base and a forked tip bearing small serrations. Mandibles range from strongly curved (almost forming a circle) to nearly straight. Minor males lose most of the orange markings and have mandibles about a quarter of body length. Females are dull dark red." },
+      "distribution": ["sumatra"],
+      "distributionNote": { "ko": "인도네시아 수마트라섬 고지대에만 산다. 일본 자료는 원명아종을 수마트라 남부(뎀포산 등)의 개체군으로 본다. 다만 모식표본은 서수마트라 싱갈랑산에서 채집되었다.", "en": "Endemic to the highlands of Sumatra, Indonesia. Japanese sources assign the nominotypical subspecies to southern Sumatra (e.g. Mt Dempo), although the holotype came from Mt Singgalang, West Sumatra." },
+      "habitat": { "ko": "해발 약 800~1,500m의 산지 열대우림에 살며, 해발 1,300m 이상 고지에서 주로 기록된다.", "en": "Montane tropical rainforest; collection records range from about 800 to 1,500 m, and it is described as living mainly above 1,300 m." },
+      "ecology": { "ko": "숲의 나무 꼭대기나 활엽수 가지 끝에 모여 가지에 상처를 내고 수액을 빤다고 알려져 있으나 자세한 생태는 잘 밝혀지지 않았다. 북수마트라에서 등화 채집 기록이 있다.", "en": "Said to gather in the canopy and at branch tips of broadleaf trees, wounding twigs to feed on sap, but its ecology is poorly known. There is a light-trap record from North Sumatra." },
+      "captivityNote": { "ko": "고지대 종이라 더위에 약하다. 보통 20~22℃, 대형 개체를 노릴 때는 17~19℃에서 키운다. 유충기는 4~8개월이며 18℃에서는 약 10개월 걸린다. 성충 수명은 약 4~7개월이다. 산란은 고운 무첨가 발효 매트로 한다. 큰 개체를 얻기에는 균사병이나 산란목 사육이 쓰인다.", "en": "A highland species with poor heat tolerance; usually kept at 20-22 °C, or 17-19 °C to raise large males. Larval period about 4-8 months (about 10 months at 18 °C); adults live about 4-7 months. Egg-laying set-ups use fine additive-free fermented mat; fungus bottles or rotten-wood rearing are used for large males." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에서 평가되지 않았다. 구체적인 위협 요인은 확인하지 못했다.", "en": "Not evaluated for the IUCN Red List. No specific threats were found in the sources." }
+      },
+      "facts": [
+        { "ko": "야외에서 잡힌 109.0mm 수컷은 가위사슴벌레속 전체에서 가장 큰 기록이다.", "en": "A 109.0 mm wild male is the largest record for the whole genus." },
+        { "ko": "몸집이 큰 사슴벌레치고는 싸움을 즐기지 않는 온순한 성질이라고 한다.", "en": "Despite its size it is described as an unaggressive beetle." }
+      ],
+      "history": [
+        {
+          "year": 1878,
+          "ko": "O. Beccari가 서수마트라 싱갈랑산에서 모식표본 수컷을 채집했다.",
+          "en": "O. Beccari collected the holotype male on Mt Singgalang, West Sumatra."
+        },
+        {
+          "year": 1881,
+          "ko": "Gestro가 Cyclommatus elaphus를 기재했다.",
+          "en": "Gestro described Cyclommatus elaphus."
+        },
+        {
+          "year": 2000,
+          "ko": "Schenk가 수마트라의 truncatus와 kirchneri를 이 종의 아종으로 기재했다. 이후 둘 다 독립종으로 다뤄지고 있다.",
+          "en": "Schenk described truncatus and kirchneri from Sumatra as subspecies; both are now treated as separate species by Catalogue of Life."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "종소명 elaphus는 '사슴'이라는 뜻이며, 큰턱이 사슴뿔처럼 보여 붙은 이름이다.", "en": "The epithet elaphus means 'deer', referring to the antler-like mandibles." },
+          "sources": ["cy-wiki-ja-elaphus"]
+        },
+        {
+          "text": { "ko": "크고 화려해 인기가 높지만, 대형 사슴벌레 가운데서는 사육이 다소 까다로운 편이다.", "en": "Very popular for its size and colours, but somewhat harder to rear than other large stag beetles." },
+          "sources": ["cy-wiki-ja-elaphus"]
+        }
+      ],
+      "images": [
+        {
+          "file": "Elapus.JPG",
+          "author": "keusju",
+          "license": "Public domain",
+          "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "white": true,
+          "alt": { "ko": "흰 바탕 위 엘라푸스가위사슴벌레 수컷의 등면 표본. 금록색 몸과 길게 휜 큰턱이 보인다.", "en": "Dorsal view of a golden-green male Cyclommatus elaphus with long curved mandibles on white." }
+        },
+        {
+          "file": "Elaphus.JPG",
+          "author": "keusju",
+          "license": "Public domain",
+          "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "white": true,
+          "alt": { "ko": "흰 바탕 위 적갈색 엘라푸스가위사슴벌레 수컷의 등면 표본.", "en": "Dorsal view of a red-brown male Cyclommatus elaphus on white." }
+        },
+        {
+          "file": "Cyclommatus elaphus.JPG",
+          "author": "Anaxibia",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "white": true,
+          "alt": { "ko": "흰 스티로폼 위 엘라푸스가위사슴벌레 수컷의 등면. 큰턱 밑동에 주황 무늬가 있다.", "en": "Dorsal view of a male Cyclommatus elaphus with orange mandible bases on white styrofoam." }
+        }
+      ],
+      "model3d": null,
+      "sources": ["cy-bionica-elaphus", "cy-col-elaphus", "cy-col-truncatus", "cy-wiki-en-elaphus", "cy-wiki-ja-elaphus", "cy-naver-ko-names", "cy-yahoo-kids-elaphus", "cy-sixkd-elaphus", "cy-bekuwa2022", "cy-gbif-elaphus", "cy-gbif-iucn", "cy-wiki-en-genus", "cy-commons-elapus", "cy-commons-elaphus-red", "cy-commons-anaxibia"]
+    },
+    {
+      "id": "cyclommatus-metallifer-finae",
+      "rank": "subspecies",
+      "sci": "Cyclommatus metallifer finae",
+      "species": "Cyclommatus metallifer",
+      "authority": "Mizunuma & Nagai, 1991",
+      "color": "#5FCFC4",
+      "name": { "ko": "메탈리퍼가위사슴벌레 피나에아종", "en": null },
+      "nameInformal": { "ko": true, "en": false },
+      "nameJa": "メタリフェルホソアカクワガタ（ペレン亜種／フィナエ）",
+      "nameNote": { "ko": "일본명: メタリフェルホソアカクワガタ（ペレン亜種／フィナエ）.", "en": "Japanese name: メタリフェルホソアカクワガタ（ペレン亜種／フィナエ）." },
+      "size": {
+        "male": [26, 100],
+        "female": null,
+        "note": { "ko": "야외 기록 100.0mm, 사육 기록 95.8mm다(BE-KUWA 2022년판, 'メタリフェル（ペレン）').", "en": "Wild record 100.0 mm; captive-bred record 95.8 mm (BE-KUWA 2022 list, entry 'メタリフェル（ペレン）')." },
+        "sources": ["cy-watakuwa-finae", "cy-bekuwa2022", "cy-kim2017"]
+      },
+      "pattern": { "ko": "광택이 강한 금속색이며, 보통형 외에 갈색·금색·녹색·청색·보라·검정 개체가 있다. 청색형이 가장 잘 나타나는 산지다.", "en": "Strongly metallic; besides the normal form there are brown, gold, green, blue, purple and black individuals, and blue forms appear most often in this population." },
+      "morphology": { "ko": "메탈리퍼가위사슴벌레 가운데 가장 크게 자라는 아종이다. 수컷 큰턱은 매우 길어 몸길이의 절반을 넘기도 하며, 앞쪽 안쪽 이빨에서 끝까지 잔 톱니가 줄지어 있다. 딱지날개에 광택이 있다. 수컷은 몸이 매우 가늘고 앞가슴 뒤쪽이 좁아진다.", "en": "The largest subspecies of C. metallifer. Male mandibles are extremely long, sometimes exceeding half the body length, with a row of fine teeth from the distal inner tooth to the tip; elytra glossy. Body slender, pronotum narrowing posteriorly." },
+      "distribution": ["banggai"],
+      "distributionNote": { "ko": "술라웨시섬 동쪽 방가이 제도의 펠렝섬, 방가이섬, 방쿨루섬에 분포한다. 원기재 산지는 펠렝섬과 방쿨루섬이다.", "en": "Banggai Islands off eastern Sulawesi: Peleng, Banggai and Bangkulu. The original description cites Peleng and Bangkulu." },
+      "habitat": { "ko": "종 전체로 보면 술라웨시와 주변 섬의 저지대에 살며, 이 속 안에서는 비교적 더위에 강하다. 아종 수준의 서식 고도 자료는 확인하지 못했다.", "en": "At species level it inhabits lowlands of Sulawesi and nearby islands and is relatively heat-tolerant for the genus; no subspecies-specific habitat data were found." },
+      "ecology": { "ko": "종 수준의 야외 관찰(Suzuki 1996, 술라웨시)에 따르면 낮에 활동하며 암수 모두 관목의 새순에 상처를 내 즙을 빤다. 짝짓기는 주로 이 먹이터에서 일어나고, 수컷이 암컷을 지키는 행동이 관찰되었다.", "en": "Species-level field notes (Suzuki 1996, Sulawesi): diurnal; both sexes wound young shoots of shrubs to feed, mating mostly occurs at these feeding sites, and males show mate-guarding." },
+      "captivityNote": { "ko": "사육 온도는 18~26℃이며 대형 개체는 18~20℃에서 키운다. 유충기는 3~10개월, 성충 수명은 6개월~1년이다. 24℃에서는 암컷이 약 4개월, 수컷이 약 6개월 만에 우화해 시기가 어긋나기 쉽다. 고운 무첨가 발효 매트를 쓴다. 종 전체가 사육·번식이 쉬운 입문종으로 꼽힌다.", "en": "Kept at 18-26 °C (18-20 °C for large males). Larval period 3-10 months; adult life 6 months to 1 year. At 24 °C females emerge after about 4 months and males after about 6, so emergence often mismatches. Fine additive-free fermented mat is used. The species overall is regarded as an easy beginner Cyclommatus." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에서 평가되지 않았다. 구체적인 위협 요인은 확인하지 못했다.", "en": "Not evaluated for the IUCN Red List. No specific threats were found in the sources." }
+      },
+      "facts": [
+        { "ko": "교배 실험에서 금색과 청흑색 몸빛이 한 유전자로 정해지며, 금색이 우성인 것으로 밝혀졌다. 일본 자료는 펠렝산 청색 개체를 이 연구와 연결해 소개한다.", "en": "Crossing experiments showed gold versus blue-black colour is controlled by one autosomal gene with gold dominant; Japanese sources link this work to blue Peleng stock." },
+        { "ko": "사육 시 수컷 유충을 조금 더 따뜻하게 키워 암컷과 우화 시기를 맞추는 방법이 쓰인다.", "en": "Breeders often rear male larvae slightly warmer so they emerge in time to pair with females." }
+      ],
+      "history": [
+        {
+          "year": 1991,
+          "ko": "Mizunuma와 Nagai가 펠렝섬과 방쿨루섬 표본으로 finae를 기재했다.",
+          "en": "Mizunuma & Nagai described ssp. finae from Peleng and Bangkulu islands (Gekkan-Mushi 244)."
+        },
+        {
+          "year": 1994,
+          "ko": "Mizunuma와 Nagai의 『The Lucanid Beetles of the World』에 도판이 실렸다.",
+          "en": "Figured in Mizunuma & Nagai's 'The Lucanid Beetles of the World' (pl. 47)."
+        },
+        {
+          "year": 2017,
+          "ko": "Kim 등이 인도네시아산 아종을 재검토해 otanii를 aenomicans의 동물이명으로 처리하고, 부톤섬의 butonensis를 새로 기재했다.",
+          "en": "Kim, Park & Park revised the Indonesian subspecies, synonymising otanii with aenomicans and describing butonensis from Buton Island."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "몸빛 변이가 많고 크게 자라 살아있는 개체 유통량이 많은 인기 아종이다.", "en": "A popular, widely traded subspecies because of its size and colour variety." },
+          "sources": ["cy-wiki-ja-metallifer"]
+        },
+        {
+          "text": { "ko": "메탈리퍼가위사슴벌레는 큰턱 발달과 성 결정 연구의 실험 재료로 쓰인다.", "en": "C. metallifer is used as a laboratory model for mandible development and sex determination." },
+          "sources": ["cy-gotoh2011", "cy-gotoh2014", "cy-wiki-en-metallifer"]
+        }
+      ],
+      "images": [
+        {
+          "file": "Ssp finae.JPG",
+          "author": "keusju",
+          "license": "Public domain",
+          "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "white": true,
+          "alt": { "ko": "흰 바탕 위 메탈리퍼가위사슴벌레 수컷의 등면 표본. 매우 긴 큰턱에 잔 톱니가 있다.", "en": "Dorsal view of a male Cyclommatus metallifer with very long toothed mandibles on white." }
+        },
+        {
+          "file": "Cyclommatus metallifer metallifer (Boisduval,1835) male (3772658452).jpg",
+          "author": "Udo Schmidt",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "white": true,
+          "alt": { "ko": "흰 바탕 위 메탈리퍼가위사슴벌레 원명아종 수컷(술라웨시, 70mm)의 등면.", "en": "Dorsal view of a 70 mm male Cyclommatus metallifer metallifer from Sulawesi on white." }
+        }
+      ],
+      "model3d": null,
+      "sources": ["cy-bionica-metallifer", "cy-gbif-finae", "cy-col-metallifer-ssp", "cy-naver-ko-names", "cy-wiki-ja-metallifer", "cy-watakuwa-finae", "cy-bekuwa2022", "cy-kim2017", "cy-wiki-ja-genus", "cy-gotoh2011", "cy-gotoh2014", "cy-wiki-en-metallifer", "cy-gbif-iucn", "cy-gotoh-lavine2014", "cy-commons-ssp-finae", "cy-commons-udo-metallifer"]
+    },
+    {
+      "id": "cyclommatus-imperator-imperator",
+      "rank": "subspecies",
+      "sci": "Cyclommatus imperator imperator",
+      "species": "Cyclommatus imperator",
+      "authority": "Boileau, 1905",
+      "color": "#D07B4E",
+      "name": { "ko": "임페라토르가위사슴벌레", "en": null },
+      "nameInformal": { "ko": false, "en": false },
+      "nameJa": "インペラトールホソアカクワガタ（原名亜種）",
+      "nameNote": { "ko": "일본명: インペラトールホソアカクワガタ（原名亜種）. 일본 자료는 monguilloni, splendidus, arfakensis 등을 아종으로 두어 원명아종 imperator imperator를 쓴다. Catalogue of Life와 GBIF는 아종을 나누지 않고, monguilloni와 splendidus를 독립종으로 본다.", "en": "Japanese name: インペラトールホソアカクワガタ（原名亜種）. Japanese sources keep subspecies (monguilloni, splendidus, arfakensis), hence 'imperator imperator'. Catalogue of Life and GBIF list no subspecies and treat monguilloni and splendidus as species." },
+      "size": {
+        "male": [
+          null,
+          94
+        ],
+        "female": null,
+        "note": { "ko": "야외 기록 94.0mm, 사육 기록 83.2mm다(BE-KUWA 2022년판, 'インペラトール'). 일본 위키백과는 90mm에 이른다고 적는다.", "en": "Wild record 94.0 mm; captive-bred record 83.2 mm (BE-KUWA 2022, entry 'インペラトール'). ja.wikipedia says it reaches 90 mm." },
+        "sources": ["cy-bekuwa2022", "cy-wiki-ja-genus", "cy-yanagawa-imperator"]
+      },
+      "pattern": { "ko": "대부분 구릿빛 보통형이지만 빨강·보라·검정·파랑·초록 등 색 변이가 풍부하다.", "en": "Mostly the normal coppery form, but rich in colour variants: red, purple, black, blue and green." },
+      "morphology": { "ko": "뉴기니섬에서 가장 큰 사슴벌레다. 수컷 큰턱은 길게 뻗고 중간쯤에 두 번째 안쪽 이빨이 있다. monguilloni에는 이 이빨이 없어 구별된다. 메탈리퍼가위사슴벌레보다 몸과 큰턱이 굵은 편이다.", "en": "The largest stag beetle of New Guinea. Male mandibles long, bearing a second inner tooth that is absent in monguilloni (the main distinguishing feature). Body and mandibles stouter than in C. metallifer." },
+      "distribution": ["new-guinea-pg", "new-guinea-id"],
+      "distributionNote": { "ko": "뉴기니섬 중앙 산지에 분포한다. 파푸아뉴기니(오가라, 오카파, 고로카, 불롤로 등)와 인도네시아 파푸아의 와메나 일대에서 기록되었다.", "en": "Central highlands of New Guinea: Papua New Guinea (Owgarra, Okapa, Goroka, Bulolo, etc.) and the Wamena area of Indonesian Papua." },
+      "habitat": { "ko": "산지 숲에 살며, 해발 1,700m(파우사)에서 채집된 기록이 있다. 서늘한 기후를 좋아한다.", "en": "Montane forest; one record from 1,700 m (Pausa). A cool-climate species." },
+      "ecology": null,
+      "captivityNote": { "ko": "엘라푸스가위사슴벌레보다는 쉽고 메탈리퍼가위사슴벌레보다는 어렵다. 더위에 약해 18~21℃에서 키운다. 한 사육 사례에서 유충기는 약 11개월이었다. 대형 3종 가운데 구하기 가장 어려워 사육자가 적다.", "en": "Said to be slightly easier than C. elaphus but harder than C. metallifer; heat-sensitive, kept at 18-21 °C. One breeder reported about 11 months from larva to adult. The hardest of the three large species to obtain, so few people keep it." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에서 평가되지 않았다. 구체적인 위협 요인은 확인하지 못했다.", "en": "Not evaluated for the IUCN Red List. No specific threats were found in the sources." }
+      },
+      "facts": [
+        { "ko": "종소명 imperator는 라틴어로 '황제'라는 뜻이며, 일본에서도 '황제(코테이)', '미카도' 같은 별명으로 부른다.", "en": "The epithet imperator is Latin for 'emperor'; Japanese alternative names likewise mean 'emperor' (Kōtei, Mikado)." },
+        { "ko": "뉴기니섬에서 가장 큰 사슴벌레다.", "en": "It is the largest stag beetle on New Guinea." }
+      ],
+      "history": [
+        {
+          "year": 1905,
+          "ko": "Boileau가 파푸아뉴기니 오가라 표본으로 Cyclommatus imperator를 기재했다.",
+          "en": "Boileau described Cyclommatus imperator from Owgarra, Papua New Guinea."
+        },
+        {
+          "year": 1953,
+          "ko": "Didier와 Séguy가 'var. ochracea'라는 이름을 썼으나 정식으로 발표되지 않은 이름이다.",
+          "en": "Didier & Séguy used the unpublished name 'var. ochracea' Nagel (Sattelberg)."
+        },
+        {
+          "year": 1981,
+          "ko": "Lacroix가 서뉴기니 팍팍에서 monguilloni를 기재했다.",
+          "en": "Lacroix described monguilloni from Fak Fak, western New Guinea."
+        },
+        {
+          "year": 1991,
+          "ko": "Mizunuma와 Nagai가 monguilloni를 이 종의 아종으로 다루었다.",
+          "en": "Mizunuma & Nagai treated monguilloni as a subspecies of C. imperator."
+        },
+        {
+          "year": 2000,
+          "ko": "Schenk가 서뉴기니에서 splendidus를 기재했다.",
+          "en": "Schenk described splendidus from western New Guinea."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "가위사슴벌레속에서 엘라푸스·메탈리퍼 다음으로 큰 종으로 꼽힌다.", "en": "Considered the third-largest Cyclommatus after C. elaphus and C. metallifer." },
+          "sources": ["cy-wiki-ja-imperator"]
+        },
+        {
+          "text": { "ko": "아종 구분이 문헌마다 달라, 일본에서 아종으로 부르는 여러 분류군이 국제 목록에서는 독립종이거나 동물이명이다.", "en": "Subspecies treatment differs between sources; several taxa called subspecies in Japan are separate species or synonyms in international checklists." },
+          "sources": ["cy-wiki-ja-imperator", "cy-col-monguilloni", "cy-papua-insects"]
+        }
+      ],
+      "images": [
+        {
+          "file": "Ssp imperator.JPG",
+          "author": "keusju",
+          "license": "Public domain",
+          "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "white": true,
+          "alt": { "ko": "흰 바탕 위 임페라토르가위사슴벌레 수컷의 등면 표본(와메나산).", "en": "Dorsal view of a male Cyclommatus imperator from Wamena on white." }
+        },
+        {
+          "file": "Imperator2.JPG",
+          "author": "keusju",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+          "white": true,
+          "alt": { "ko": "흰 바탕 위 임페라토르가위사슴벌레 수컷(보통형, 74mm)의 등면.", "en": "Dorsal view of a 74 mm normal-form male Cyclommatus imperator on white." }
+        },
+        {
+          "file": "Imperator1.JPG",
+          "author": "keusju",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+          "white": true,
+          "alt": { "ko": "흰 바탕 위 검은 임페라토르가위사슴벌레 수컷(78mm)의 등면.", "en": "Dorsal view of a dark 78 mm male Cyclommatus imperator on white." }
+        }
+      ],
+      "model3d": null,
+      "sources": ["cy-bionica-imperator", "cy-gbif-imperator", "cy-col-genus", "cy-wiki-ja-imperator", "cy-papua-insects", "cy-naver-ko-names", "cy-bekuwa2022", "cy-wiki-ja-genus", "cy-yanagawa-imperator", "cy-col-monguilloni", "cy-gbif-iucn", "cy-commons-ssp-imperator", "cy-commons-imperator2", "cy-commons-imperator1"]
+    },
+    {
+      "id": "cyclommatus-monguilloni",
+      "rank": "species",
+      "sci": "Cyclommatus monguilloni",
+      "authority": "Lacroix, 1981",
+      "color": "#A98CE3",
+      "name": { "ko": "몽기요니가위사슴벌레", "en": null },
+      "nameInformal": { "ko": true, "en": false },
+      "nameJa": "モンギロンホソアカクワガタ",
+      "nameNote": { "ko": "일본명: モンギロンホソアカクワガタ. 분류 지위가 엇갈린다. Mizunuma & Nagai(1991, 1994)와 Krajcik(2001), 일본 취미계는 임페라토르가위사슴벌레의 아종(C. imperator monguilloni)으로 보고, Maes(1992), Taroni(1998), Schenk(2000)와 현재의 Catalogue of Life·GBIF는 독립종으로 본다.", "en": "Japanese name: モンギロンホソアカクワガタ. Status disputed: treated as C. imperator monguilloni by Mizunuma & Nagai (1991, 1994), Krajcik (2001) and Japanese hobby sources; as a species by Maes (1992), Taroni (1998), Schenk (2000) and currently Catalogue of Life and GBIF." },
+      "size": {
+        "male": [
+          null,
+          90.2
+        ],
+        "female": null,
+        "note": { "ko": "야외 기록 90.2mm, 사육 기록 87.8mm다(BE-KUWA 2022년판, 'モンギロン').", "en": "Wild record 90.2 mm; captive-bred record 87.8 mm (BE-KUWA 2022, entry 'モンギロン')." },
+        "sources": ["cy-bekuwa2022"]
+      },
+      "pattern": null,
+      "morphology": { "ko": "임페라토르가위사슴벌레와 비슷하지만 수컷 큰턱의 두 번째 안쪽 이빨이 없다. 드물게 큰턱 밑동에 잔 이빨이 나는 개체가 있다.", "en": "Similar to C. imperator, but the male mandible lacks the second inner tooth; rarely, small teeth appear near the mandible base." },
+      "distribution": ["new-guinea-id"],
+      "distributionNote": { "ko": "인도네시아 파푸아(뉴기니섬 서부)의 고유종이다. 팍팍, 아르팍산, 일라가산(마오케 산맥) 등에서 기록되었다.", "en": "Endemic to Indonesian Papua (western New Guinea); recorded from Fakfak, the Arfak Mountains and Mt Ilaga (Maoke Mts)." },
+      "habitat": null,
+      "ecology": null,
+      "captivityNote": { "ko": "살아있는 개체와 표본이 모두 유통되지만 드물어 임페라토르가위사슴벌레보다 몇 배 비싸게 거래된다. 사육 기록이 존재하므로 일본에서 번식된 바 있다.", "en": "Live and dried specimens are traded but rare, fetching several times the price of C. imperator. A captive-bred size record exists, so it has been bred in Japan." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에서 평가되지 않았다. 구체적인 위협 요인은 확인하지 못했다.", "en": "Not evaluated for the IUCN Red List. No specific threats were found in the sources." }
+      },
+      "facts": [
+        { "ko": "같은 곤충을 두고 종으로 볼지 아종으로 볼지 40년 넘게 의견이 갈리고 있다.", "en": "For over 40 years authors have disagreed on whether it is a species or a subspecies of C. imperator." },
+        { "ko": "GBIF에 등록된 관찰·표본 기록이 3건뿐일 만큼 자료가 적다.", "en": "GBIF holds only three occurrence records for it." }
+      ],
+      "history": [
+        {
+          "year": 1978,
+          "ko": "Monguillon이 팍팍에서 모식표본 수컷을 채집했다.",
+          "en": "Monguillon collected the holotype male at Fak Fak."
+        },
+        {
+          "year": 1981,
+          "ko": "Lacroix가 신종으로 기재했다.",
+          "en": "Lacroix described it as a new species."
+        },
+        {
+          "year": 1991,
+          "ko": "Mizunuma와 Nagai가 임페라토르가위사슴벌레의 아종으로 낮추었다.",
+          "en": "Mizunuma & Nagai treated it as a subspecies of C. imperator."
+        },
+        {
+          "year": 2000,
+          "ko": "Schenk가 독립종으로 다루었다.",
+          "en": "Schenk treated it as a full species."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "종소명은 모식표본 채집자 Monguillon의 이름을 딴 것으로 보인다.", "en": "The name appears to honour the holotype's collector, Monguillon." },
+          "sources": ["cy-bionica-imperator"]
+        }
+      ],
+      "images": [],
+      "model3d": null,
+      "sources": ["cy-bionica-imperator", "cy-col-monguilloni", "cy-gbif-monguilloni", "cy-wiki-ja-imperator", "cy-papua-insects", "cy-naver-ko-names", "cy-bekuwa2022", "cy-gbif-iucn"]
+    },
+    {
+      "id": "cyclommatus-pulchellus",
+      "rank": "species",
+      "sci": "Cyclommatus pulchellus",
+      "authority": "Möllenkamp, 1901",
+      "color": "#86C46C",
+      "name": { "ko": "풀켈루스가위사슴벌레", "en": null },
+      "nameInformal": { "ko": true, "en": false },
+      "nameJa": "プルケルスホソアカクワガタ",
+      "nameNote": { "ko": "일본명: プルケルスホソアカクワガタ.", "en": "Japanese name: プルケルスホソアカクワガタ." },
+      "size": {
+        "male": [
+          null,
+          55.9
+        ],
+        "female": null,
+        "note": { "ko": "야외 기록 55.9mm, 사육 기록 50.3mm다(BE-KUWA 2022년판, 'プルケルス'). 모식표본 수컷은 큰턱을 포함해 42mm다.", "en": "Wild record 55.9 mm; captive-bred record 50.3 mm (BE-KUWA 2022, entry 'プルケルス'). The holotype male measures 42 mm including mandibles." },
+        "sources": ["cy-bekuwa2022", "cy-mollenkamp1901"]
+      },
+      "pattern": { "ko": "다리는 검고 넓적다리 윗면은 노르스름하다. 딱지날개 가운데에 광택 있는 봉합선 띠가 있다.", "en": "Legs black with yellowish upper surfaces of the femora; elytra with shining sutural stripes." },
+      "morphology": { "ko": "kaupi·margaritae 무리에 속하는 중형종이다. 볼이 발달해 머리가 넓고 이마가 높게 튀어나온다. 큰턱 끝은 날카로운 두 이빨로 갈라지고 그 사이의 작은 이빨들이 좌우로 맞물리는데, 원기재자는 이것을 다른 종에서 볼 수 없는 특징으로 보았다. 앞가슴이 강하게 잘록해 딱지날개가 달걀 모양으로 보인다.", "en": "A medium-sized member of the kaupi/margaritae group. Head broad with strong genae and a high, projecting frons. Mandible tips end in two sharp teeth with small teeth between that interlock left against right, a feature the describer called unique among Cyclommatus. Pronotum strongly constricted, making the elytra look egg-shaped." },
+      "distribution": ["new-guinea-id", "new-guinea-pg"],
+      "distributionNote": { "ko": "뉴기니섬 고유종으로, 서뉴기니(인도네시아 파푸아)와 파푸아뉴기니 모로베주(와우, 불롤로, 미심산)·밀른베이에서 기록되었다.", "en": "Endemic to New Guinea: western New Guinea (Indonesian Papua) and Papua New Guinea (Wau, Bulolo, Mt Missim in Morobe; Milne Bay)." },
+      "habitat": { "ko": "산지 숲에 살며, 해발 900m(미심산)에서 채집된 기록이 있다.", "en": "Forest in hilly and montane areas; one record at 900 m on Mt Missim." },
+      "ecology": null,
+      "captivityNote": { "ko": "일본에 사육 기록(50.3mm)이 있어 번식된 바 있으나, 구체적인 사육 정보는 확인하지 못했다.", "en": "A Japanese captive-bred record (50.3 mm) shows it has been bred, but no detailed husbandry information was found." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에서 평가되지 않았다. 구체적인 위협 요인은 확인하지 못했다.", "en": "Not evaluated for the IUCN Red List. No specific threats were found in the sources." }
+      },
+      "facts": [
+        { "ko": "좌우 큰턱 끝의 작은 이빨이 톱니바퀴처럼 맞물려, 큰턱을 닫을 때 끝이 서로 엇갈려 지나가지 않는다.", "en": "Small teeth at the mandible tips interlock like gear teeth, so the tips cannot slide past each other when the jaws close." },
+        { "ko": "모식표본은 큰턱을 포함해 42mm인 수컷 한 마리였다.", "en": "The species was described from one 42 mm male." }
+      ],
+      "history": [
+        {
+          "year": 1901,
+          "ko": "Möllenkamp이 서뉴기니산 수컷 한 마리로 신종을 기재했다.",
+          "en": "Möllenkamp described the species from a single male from western New Guinea."
+        },
+        {
+          "year": 1902,
+          "ko": "Möllenkamp이 밀른베이산 C. mysticus를 기재했다. 현재는 이 종의 동물이명이다.",
+          "en": "Möllenkamp described C. mysticus from Milne Bay, now a synonym of C. pulchellus."
+        },
+        {
+          "year": 2023,
+          "ko": "분자계통 연구에서 섬 지역 무리(A군)에 속하는 것으로 나타났다.",
+          "en": "Placed in the island clade (A) in the molecular phylogeny of Zhu et al."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "종소명 pulchellus는 라틴어로 '작고 아름다운'이라는 뜻이다.", "en": "The epithet pulchellus is Latin for 'pretty little'." },
+          "sources": []
+        }
+      ],
+      "images": [
+        {
+          "file": "Cyclommatus pulchellus m1.jpg",
+          "author": "JohnSka",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "white": false,
+          "alt": { "ko": "핀에 꽂힌 풀켈루스가위사슴벌레 수컷 표본의 옆모습.", "en": "Side view of a pinned male Cyclommatus pulchellus specimen." }
+        }
+      ],
+      "model3d": null,
+      "sources": ["cy-mollenkamp1901", "cy-bionica-pulchellus", "cy-gbif-pulchellus", "cy-col-genus", "cy-zhu2023", "cy-naver-ko-names", "cy-wiki-ja-genus", "cy-bekuwa2022", "cy-papua-insects", "cy-gbif-iucn", "cy-commons-pulchellus"]
+    },
+    {
+      "id": "cyclommatus-chewi",
+      "rank": "species",
+      "sci": "Cyclommatus chewi",
+      "authority": "Mizunuma, 1994",
+      "color": "#E37D9C",
+      "name": { "ko": "츄위가위사슴벌레", "en": null },
+      "nameInformal": { "ko": false, "en": false },
+      "nameJa": "チュウホソアカクワガタ",
+      "nameNote": { "ko": "일본명: チュウホソアカクワガタ.", "en": "Japanese name: チュウホソアカクワガタ." },
+      "size": {
+        "male": [
+          null,
+          87
+        ],
+        "female": null,
+        "note": { "ko": "수컷 최대 약 87mm(야외)로 알려져 있다. 정식 체장 범위와 암컷 크기는 확인하지 못했다.", "en": "Males reportedly reach about 87 mm in the wild. A published size range and female sizes could not be confirmed." },
+        "sources": ["cy-ecolors-hosoaka", "cy-scarab-chewi"]
+      },
+      "pattern": { "ko": "빛의 각도에 따라 체색이 달라 보이며, 수컷은 특정 각도에서 선명한 녹색 광택을 띤다.", "en": "Body colour shifts with the angle of light; males show a vivid green sheen at certain angles." },
+      "morphology": { "ko": "보르네오 산지에 사는 montanellus 종군에 속하는 대형 가위사슴벌레이다. 수컷은 빛을 받는 각도에 따라 녹색 광택이 드러나고, 암컷은 앞가슴등판의 점각이 깊어 수수해 보인다. 같은 종군의 C. montanellus, C. giraffa 등과의 구별 형질은 원문(Mizunuma & Nagai 1994)과 Kim et al. 2020(철회됨)을 확인하지 못해 싣지 않았다.", "en": "A large Cyclommatus of the montanellus species group from the Bornean mountains. Males show a green sheen depending on the light angle; females look duller because of deeper punctation on the pronotum. Diagnostic characters versus C. montanellus, C. giraffa and relatives are omitted because the original description (Mizunuma & Nagai 1994) and Kim et al. 2020 (retracted) could not be accessed." },
+      "distribution": ["borneo-my"],
+      "distributionNote": { "ko": "보르네오섬 북부 사바주의 크로커산맥 일대에서만 알려진 고산성 종이다. 사바주 라나우(Ranau) 기록도 있다.", "en": "Known only from the highlands of northern Borneo, chiefly the Crocker Range in Sabah; a record from Ranau (Sabah) also exists." },
+      "habitat": { "ko": "크로커산맥(해발 약 1,800m 전후의 산들이 이어지는 산맥)의 해발 1,500m 이상 운무림에서 주로 등화 채집으로 얻어진다.", "en": "Montane cloud forest above about 1,500 m in the Crocker Range (ridges around 1,800 m); specimens are mostly obtained at light." },
+      "ecology": { "ko": "성충은 불빛에 날아온다. 그 밖의 생태 정보는 확인하지 못했다.", "en": "Adults come to light. No further behavioural data were found." },
+      "captivityNote": { "ko": "고산성이 강해 고온에 약하다. 한 사육 기록에서는 유충을 16~20℃에서 길러 약 9개월~1년 만에 우화했다. 산란 세트는 산란목 없이 매트만으로 22℃ 안팎에서 운영되었다. 유통량이 매우 적다.", "en": "A strongly montane species that is sensitive to heat. In breeder reports, larvae kept at 16-20 °C emerged after about 9-12 months; egg-laying set-ups used substrate only (no wood) at about 22 °C. Very rarely available in the trade." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에 평가되지 않았다(GBIF의 IUCN 데이터셋에 Cyclommatus 속이 없음). 구체적 위협 요인은 확인하지 못했다.", "en": "Not evaluated by the IUCN Red List (no Cyclommatus entries in the IUCN dataset on GBIF). No specific threats were found in sources." }
+      },
+      "facts": [
+        { "ko": "종소명 chewi와 일본명 'チュウ(츄)'는 완모식표본 채집자 Kea-Foo Chew의 성에서 왔다.", "en": "The epithet chewi and the Japanese name 'Chū' come from Kea-Foo Chew, collector of the holotype." },
+        { "ko": "보르네오 산지 종이라 사육할 때는 20℃ 안팎의 서늘한 온도가 필요하다.", "en": "Being a Bornean highland species, it needs cool temperatures of around 20 °C in captivity." }
+      ],
+      "history": [
+        {
+          "year": 1994,
+          "ko": "Mizunuma가 Mizunuma & Nagai의 『The Lucanid Beetles of the World』에서 신종으로 기재했다. 완모식표본은 1990년 4월 크로커산맥에서 Kea-Foo Chew가 채집했다.",
+          "en": "Described by Mizunuma in Mizunuma & Nagai, The Lucanid Beetles of the World; the holotype was collected in the Crocker Range in April 1990 by Kea-Foo Chew."
+        },
+        {
+          "year": 2020,
+          "ko": "Kim 등이 보르네오의 montanellus 종군 6종을 재검토한 논문에 포함했으나, 이 논문은 같은 해 철회되었다.",
+          "en": "Included in Kim et al.'s review of the six Bornean montanellus-group species; the paper was retracted the same year."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "2020년 montanellus 종군 재검토 논문(Journal of Asia-Pacific Biodiversity 13(3))은 저자들이 사바 생물다양성법(Sabah Biodiversity Enactment 2000)을 따르지 않았다는 이유로 편집장과 저자의 요청에 따라 철회되었다.", "en": "The 2020 review of the montanellus group (Journal of Asia-Pacific Biodiversity 13(3)) was retracted at the request of the editor and authors because the work had not complied with the Sabah Biodiversity Enactment 2000." },
+          "sources": ["cy-kim2020", "cy-crossref-kim2020"]
+        },
+        {
+          "text": { "ko": "분포가 좁고 유통량이 극히 적은 희소종으로 취급된다.", "en": "Treated in the hobby as a rare species with a very narrow range and minimal trade." },
+          "sources": ["cy-ecolors-hosoaka"]
+        }
+      ],
+      "images": [],
+      "model3d": null,
+      "sources": ["cy-gbif-chewi", "cy-bionica-chewi", "cy-chungwoo-list", "cy-jawiki-genus", "cy-ecolors-hosoaka", "cy-sbj-chewi", "cy-scarab-chewi", "cy-kim2020", "cy-crossref-kim2020", "cy-gbif-iucn-b"]
+    },
+    {
+      "id": "cyclommatus-lunifer",
+      "rank": "species",
+      "sci": "Cyclommatus lunifer",
+      "authority": "Boileau, 1905",
+      "color": "#5EA6E8",
+      "name": { "ko": "루니퍼가위사슴벌레", "en": null },
+      "nameInformal": { "ko": false, "en": false },
+      "nameJa": "ルニフェルホソアカクワガタ",
+      "nameNote": { "ko": "일본명: ルニフェルホソアカクワガタ.", "en": "Japanese name: ルニフェルホソアカクワガタ." },
+      "size": {
+        "male": [29.9, 50],
+        "female": [23, 24.6],
+        "note": { "ko": "수컷 사육 기록 53.3mm.", "en": "Male maximum size listed by dealer 53.3 mm." },
+        "sources": ["cy-mushibu-lunifer", "cy-jawiki-lunifer", "cy-ecolors-lunifer"]
+      },
+      "pattern": { "ko": "대개 갈색이며, 드물게 녹색 기운을 띠는 개체가 있다. 암컷 앞가슴등판에는 검은 띠 2줄이 있다.", "en": "Usually brown, rarely with a greenish tint; females have two black bands on the pronotum." },
+      "morphology": { "ko": "머리방패(두순)가 앞으로 길게 튀어나와 끝이 두 갈래로 갈라지는 것이 가장 큰 특징이며, 이 때문에 일본에서는 '텐구(天狗)호소아카'라는 별명이 있다. 데한가위사슴벌레(C. dehaani)와 닮았지만 수컷의 몸이 짧고 굵으며 납작하고, 큰턱도 짧고 넓적하다. 수컷은 매우 가는 털이 있고, 딱지날개가 얇아 속날개가 비쳐 보이기도 한다. 암컷은 앞가슴등판의 검은 세로띠 2줄로 쉽게 알아볼 수 있다.", "en": "The clypeus projects far forward and is forked at the tip, the key feature that earned it the Japanese nickname 'Tengu Hosoaka'. It resembles C. dehaani, but the male body is shorter, stouter and flatter, with short, broad mandibles. Males bear very fine setae, and the thin elytra can let the hind wings show through. Females are recognised by two black stripes on the pronotum." },
+      "distribution": ["MMR", "THA", "malay-peninsula", "sumatra", "borneo"],
+      "distributionNote": { "ko": "미얀마 남동부와 태국 서부에서 말레이반도, 수마트라, 보르네오까지 넓게 분포한다. 같은 속의 다른 종보다 비교적 낮은 곳에도 서식한다.", "en": "Widespread from southeastern Myanmar and western Thailand through the Malay Peninsula to Sumatra and Borneo; it also occurs at relatively low elevations compared with many congeners." },
+      "habitat": { "ko": "산지림에 주로 살며, 말레이반도 캐머런하일랜드·맥스웰힐(해발 약 1,100m), 수마트라 뎀포산(해발 800~1,400m) 등에서 채집되었다. 비교적 낮은 곳에서도 기록된다.", "en": "Mainly hill and montane forest; collected at Cameron Highlands and Maxwell Hill (c. 1,100 m) in Peninsular Malaysia and Mt Dempo, Sumatra (800-1,400 m), but also recorded at relatively low elevations." },
+      "ecology": { "ko": "성충은 불빛에 잘 날아온다(수마트라 Dolok Merangir 등의 등화 채집 기록). 성충 수명은 3~6개월 정도이다.", "en": "Adults are attracted to light (e.g. light-trap records from Dolok Merangir, Sumatra). Adults live about 3-6 months." },
+      "captivityNote": { "ko": "알에서 우화까지 4~6개월로 세대가 짧다. 유충은 500cc 병 정도에서 1~2회 먹이를 교체해 기른다. 20~23℃ 정도가 적당하며 30℃를 넘는 고온다습은 위험하다.", "en": "Short generation time: about 4-6 months from egg to adult. Larvae can be raised in roughly 500 cc bottles with one or two substrate changes. About 20-23 °C is suitable; hot, humid conditions above 30 °C are dangerous." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에 평가되지 않았다. 구체적 위협 요인은 확인하지 못했다.", "en": "Not evaluated by the IUCN Red List. No specific threats were found in sources." }
+      },
+      "facts": [
+        { "ko": "앞으로 튀어나와 두 갈래로 갈라진 머리방패가 일본 요괴 '텐구'의 코를 닮았다고 해서 '텐구호소아카'라는 별명이 붙었다.", "en": "Its forward-projecting, forked clypeus earned it the Japanese nickname 'Tengu Hosoaka', after the long-nosed tengu of folklore." },
+        { "ko": "알에서 성충까지 4~6개월이면 자라 가위사슴벌레속 가운데 세대가 짧은 편이다.", "en": "It goes from egg to adult in about 4-6 months, a short cycle for the genus." }
+      ],
+      "history": [
+        {
+          "year": 1905,
+          "ko": "Boileau가 수마트라 표본으로 신종 기재했고, 같은 해 다른 논문에서 암컷을 기재했다.",
+          "en": "Described by Boileau from Sumatra; he described the female in a separate paper the same year."
+        },
+        {
+          "year": 1927,
+          "ko": "Nagel이 사라왁 무루드산(6,500피트) 기록을 보고했다.",
+          "en": "Nagel reported specimens from Mt Murud, Sarawak (6,500 ft)."
+        },
+        {
+          "year": 1971,
+          "ko": "Weinreich가 북수마트라 사슴벌레 연구에서 본종을 다뤘다.",
+          "en": "Treated by Weinreich in his study of North Sumatran Lucanidae."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "사슴벌레속의 Lucanus lunifer와 종소명이 같아 혼동하기 쉽다. Huxley(1931)의 큰턱 상대성장 연구에 쓰인 'lunifer'는 Lucanus lunifer이다.", "en": "Easily confused with Lucanus lunifer, which shares the epithet; the 'lunifer' in Huxley's 1931 study of mandible allometry was Lucanus lunifer." },
+          "sources": ["cy-huxley1931-context"]
+        }
+      ],
+      "images": [],
+      "model3d": null,
+      "sources": ["cy-gbif-lunifer", "cy-bionica-lunifer", "cy-thbif-lunifer", "cy-chungwoo-list", "cy-jawiki-lunifer", "cy-mushibu-lunifer", "cy-6kd-lunifer", "cy-ecolors-lunifer", "cy-ecolors-hosoaka", "cy-huxley1931-context", "cy-gbif-iucn-b"]
+    },
+    {
+      "id": "cyclommatus-tarandus",
+      "rank": "species",
+      "sci": "Cyclommatus tarandus",
+      "authority": "(Thunberg, 1806)",
+      "color": "#D8A06C",
+      "name": { "ko": "타란두스가위사슴벌레", "en": null },
+      "nameInformal": { "ko": false, "en": false },
+      "nameJa": "タランドゥスホソアカクワガタ",
+      "nameNote": { "ko": "일본명: タランドゥスホソアカクワガタ.", "en": "Japanese name: タランドゥスホソアカクワガタ." },
+      "size": {
+        "male": [24, 70],
+        "female": [20, 27],
+        "note": { "ko": "수컷 야외 기록 71mm, 사육 기록 64.2mm.", "en": "Male wild record 71 mm, captive record 64.2 mm." },
+        "sources": ["cy-musiya-tarandus", "cy-sbj-tarandus", "cy-ecolors-hosoaka"]
+      },
+      "pattern": { "ko": "갈색 계열이 주류이며, 드물게 푸른빛·보랏빛 개체가 있다고 한다.", "en": "Mostly brown; blue or purple individuals are said to occur rarely." },
+      "morphology": { "ko": "몸에 비해 굵은 큰턱을 가진 가위사슴벌레이다. 큰 수컷의 큰턱은 길게 뻗어 안쪽으로 휘며, 작은 수컷은 큰턱이 짧다. 수컷 크기에 따라 큰턱 길이가 크게 달라지는 대표적인 종으로, 20세기 초 상대성장(allometry) 연구의 재료가 되었다.", "en": "A Cyclommatus with mandibles that are stout for its body. Large males have long, inward-curving mandibles while small males have short ones; this strong size-dependent variation made it a classic subject of early allometry studies." },
+      "distribution": ["borneo", "malay-peninsula"],
+      "distributionNote": { "ko": "주로 보르네오섬(사라왁, 서칼리만탄 폰티아낙 등)에 분포하며, 말레이반도에는 아종 stenosomus가 있다. 대만·자바·수마트라 기록은 오류이거나 의심스럽다.", "en": "Chiefly Borneo (Sarawak, Pontianak in West Kalimantan, etc.); ssp. stenosomus occurs on the Malay Peninsula. Records from Taiwan, Java and Sumatra are erroneous or doubtful." },
+      "habitat": { "ko": "한 사육자 자료에 따르면 대표 산지인 서칼리만탄 바왕산(Mt. Bawang) 개체군은 해발 300~350m, 아침저녁 기온 21~25℃의 습윤한 지역에 산다. 다른 Cyclommatus보다 낮은 곳에 사는 셈이다.", "en": "According to a breeder's account, the commonly traded Mt Bawang (West Kalimantan) population lives in humid areas at 300-350 m with morning and evening temperatures of 21-25 °C, lower than many congeners." },
+      "ecology": { "ko": "수컷끼리 암컷을 두고 큰턱으로 싸우며, 큰 수컷이 유리하다는 설명이 있다. 그 밖의 야외 생태 자료는 찾지 못했다.", "en": "Males reportedly fight with their mandibles over females, larger males having the advantage. No further field data were found." },
+      "captivityNote": { "ko": "매트에 산란한다. 한 기록에서는 수분을 약간 많게 한 매트만으로 산란 세트를 꾸며 25℃에서 2개월 만에 유충 29마리를 얻었고, 유충을 20℃에서 길러 약 반년 만에 우화했다. 난이도는 보통으로 평가된다.", "en": "Lays eggs in substrate. In one record a substrate-only set-up at 25 °C yielded 29 larvae in two months; larvae reared at 20 °C emerged after about six months. Rated as average difficulty." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에 평가되지 않았다. 구체적 위협 요인은 확인하지 못했다.", "en": "Not evaluated by the IUCN Red List. No specific threats were found in sources." }
+      },
+      "facts": [
+        { "ko": "생물학자 Julian Huxley가 1931년 큰턱의 상대성장을 분석할 때 본종을 사용했다. 큰턱 길이가 몸길이보다 훨씬 빠르게 커지는 관계(지수 k 약 1.97)를 보고했다.", "en": "Julian Huxley used this species in his 1931 analysis of mandible relative growth, reporting that mandible length increases much faster than body length (exponent k ≈ 1.97)." },
+        { "ko": "1923년 헝가리 학자 Dudich는 사라왁산 표본 350여 마리를 재며 변이를 연구했다.", "en": "In 1923 the Hungarian entomologist Dudich measured about 350 Sarawak specimens to study the species' variation." },
+        { "ko": "종소명 tarandus는 순록을 가리키는 라틴어 학명(Rangifer tarandus)과 같은 말로, 대체명으로 제안된 rangifer 역시 순록의 속명이다.", "en": "The epithet tarandus is the same word as in the reindeer's name (Rangifer tarandus), and the proposed replacement name rangifer is the reindeer's genus name." }
+      ],
+      "history": [
+        {
+          "year": 1806,
+          "ko": "Thunberg가 Lucanus tarandus로 기재했다. 산지는 '동인도(India Orientalis)'로만 적혔다.",
+          "en": "Described by Thunberg as Lucanus tarandus, with the locality given only as 'India Orientalis'."
+        },
+        {
+          "year": 1817,
+          "ko": "Schönherr가 tarandus라는 이름이 이미 Swederus의 종(현재 Mesotopus tarandus)에 쓰였다며 대체명 Lucanus rangifer를 제안했다.",
+          "en": "Schönherr proposed the replacement name Lucanus rangifer because tarandus was preoccupied by Swederus's species (now Mesotopus tarandus)."
+        },
+        {
+          "year": 1923,
+          "ko": "Dudich가 사라왁산 수컷 178마리, 암컷 176마리를 바탕으로 변이를 연구했다.",
+          "en": "Dudich studied variation in the species using 178 males and 176 females from Sarawak."
+        },
+        {
+          "year": 1931,
+          "ko": "Julian Huxley가 큰턱 상대성장 연구에 본종 측정값을 사용했다.",
+          "en": "Julian Huxley used measurements of this species in his study of relative growth of stag-beetle mandibles."
+        },
+        {
+          "year": 1932,
+          "ko": "Kriesche가 사라왁산으로 아종 robustior를 기재했으나 현재는 원명아종의 동물이명이다.",
+          "en": "Kriesche described ssp. robustior from Sarawak; it is now a synonym of the nominotypical subspecies."
+        },
+        {
+          "year": 1977,
+          "ko": "de Lisle가 말레이반도 페락산으로 아종 stenosomus를 기재했다.",
+          "en": "de Lisle described ssp. stenosomus from Perak, Malay Peninsula."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "일본 취미계의 'タランドゥスオオツヤクワガタ'는 아프리카의 Mesotopus tarandus로, 전혀 다른 종이다. 두 종은 종소명이 같아 자주 혼동된다.", "en": "The Japanese hobby's 'Tarandus Ōtsuya-kuwagata' is the African Mesotopus tarandus, an unrelated species; the shared epithet often causes confusion." },
+          "sources": ["cy-bionica-tarandus"]
+        },
+        {
+          "text": { "ko": "Schönherr(1817)가 동명 문제를 지적했음에도 현재 목록(GBIF 등)은 tarandus (Thunberg, 1806)를 유효명으로 쓴다. 명명법상 처리 근거는 확인하지 못했다.", "en": "Although Schönherr (1817) flagged the homonymy, current checklists (e.g. GBIF) use tarandus (Thunberg, 1806) as valid; the nomenclatural basis was not verified." },
+          "sources": ["cy-bionica-tarandus", "cy-gbif-tarandus"]
+        }
+      ],
+      "images": [
+        {
+          "file": "Cyclomatus tarandus (from projects.biodiversity.be) ID-1729.jpg",
+          "author": "Noël Mal (Royal Belgian Institute of Natural Sciences pictorial beetle collection)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": { "ko": "흰 배경 위 타란두스가위사슴벌레 대형 수컷 표본의 등면. 길게 휘어진 갈색 큰턱이 보인다.", "en": "Dorsal view of a large male Cyclommatus tarandus specimen on white, with long curved brown mandibles." }
+        },
+        {
+          "file": "Cyclomatus tarandus (from projects.biodiversity.be) ID-1730.jpg",
+          "author": "Noël Mal (Royal Belgian Institute of Natural Sciences pictorial beetle collection)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": { "ko": "흰 배경 위 타란두스가위사슴벌레 소형 수컷 표본의 등면. 큰턱이 짧다.", "en": "Dorsal view of a small male C. tarandus with short mandibles, on white." }
+        },
+        {
+          "file": "Cyclomatus tarandus (from projects.biodiversity.be) ID-1731.jpg",
+          "author": "Noël Mal (Royal Belgian Institute of Natural Sciences pictorial beetle collection)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": { "ko": "흰 배경 위 타란두스가위사슴벌레 암컷 표본의 등면.", "en": "Dorsal view of a female C. tarandus specimen on white." }
+        }
+      ],
+      "model3d": null,
+      "sources": ["cy-gbif-tarandus", "cy-bionica-tarandus", "cy-chungwoo-list", "cy-jawiki-genus", "cy-musiya-tarandus", "cy-ecolors-hosoaka", "cy-sbj-tarandus", "cy-huxley1931", "cy-gbif-iucn-b"],
+      "subspecies": [
+        {
+          "sci": "Cyclommatus tarandus tarandus",
+          "authority": "(Thunberg, 1806)",
+          "note": { "ko": "Borneo", "en": "Borneo" }
+        },
+        {
+          "sci": "Cyclommatus tarandus stenosomus",
+          "authority": "de Lisle, 1977",
+          "note": { "ko": "Malay Peninsula (holotype: Perak)", "en": "Malay Peninsula (holotype: Perak)" }
+        }
+      ]
+    },
+    {
+      "id": "cyclommatus-truncatus",
+      "rank": "species",
+      "sci": "Cyclommatus truncatus",
+      "authority": "Schenk, 2000",
+      "color": "#B9BC55",
+      "name": { "ko": "트룬카투스가위사슴벌레", "en": null },
+      "nameInformal": { "ko": false, "en": false },
+      "nameJa": "トルンカートゥスホソアカクワガタ",
+      "nameNote": { "ko": "일본명: トルンカートゥスホソアカクワガタ.", "en": "Japanese name: トルンカートゥスホソアカクワガタ." },
+      "size": {
+        "male": [
+          null,
+          82.2
+        ],
+        "female": null,
+        "note": { "ko": "엘라푸스가위사슴벌레(최대 100mm 이상)보다 작다. 정식 체장 범위는 확인하지 못했다.", "en": "Smaller than C. elaphus (which exceeds 100 mm). A formal size range could not be confirmed." },
+        "sources": ["cy-6kd-truncatus", "cy-ecolors-truncatus"]
+      },
+      "pattern": { "ko": "광택 있는 갈색~밤색이 기본이며, 푸른 개체나 녹색이 강한 개체도 나타난다.", "en": "Glossy brown to chestnut with a metallic sheen; bluish and strongly green individuals also occur." },
+      "morphology": { "ko": "엘라푸스가위사슴벌레와 매우 닮아 예전에는 그 갈색형으로 여겨졌다. 엘라푸스에 비해 작고, 수컷 큰턱 기부에 주황색 무늬가 없으며, 내치가 뾰족하지 않고 뭉툭하다. 암컷은 다리에 노란 무늬가 없다.", "en": "Very similar to C. elaphus and formerly treated as its brown form. It is smaller, the male lacks the orange patch at the mandible base, and the inner teeth are blunt rather than pointed; females lack yellow leg markings." },
+      "distribution": ["sumatra"],
+      "distributionNote": { "ko": "수마트라섬 고유종이다. 기재 당시 모식산지는 북부 아체주의 그레우동산이며, 일본 자료는 북수마트라 분포로 적는다. 다만 일부 사육 자료와 GBIF 기록은 남수마트라 뎀포산을 산지로 든다. 이 불일치는 해결하지 못했다.", "en": "Endemic to Sumatra. The type locality is Mt Geureudong in Aceh (north), and Japanese references give northern Sumatra; however, some hobby sources and GBIF records cite Mt Dempo in South Sumatra. This discrepancy is unresolved." },
+      "habitat": { "ko": "수마트라의 높은 산지에 산다. 정확한 고도 범위는 확인하지 못했다.", "en": "Inhabits high mountains of Sumatra; precise elevation range not confirmed." },
+      "ecology": { "ko": "성충 수명은 사육 기준 4~7개월 정도이다. 야외 생태 자료는 찾지 못했다.", "en": "Adults live about 4-7 months in captivity. No field data were found." },
+      "captivityNote": { "ko": "산란 수는 10~20개 정도로 적은 편이다. 부화에서 우화까지 4~8개월로 세대가 짧다.", "en": "Females lay relatively few eggs (about 10-20). Development from hatching to adult takes 4-8 months." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에 평가되지 않았다. 구체적 위협 요인은 확인하지 못했다.", "en": "Not evaluated by the IUCN Red List. No specific threats were found in sources." }
+      },
+      "facts": [
+        { "ko": "처음에는 속 최대종인 엘라푸스가위사슴벌레의 아종으로 기재되었다가 별개의 종이 되었다.", "en": "It was first described as a subspecies of C. elaphus, the largest species in the genus, before being recognised as a species in its own right." },
+        { "ko": "엘라푸스와는 수컷 큰턱 기부의 주황색 무늬 유무로 쉽게 구별된다.", "en": "It is easily told from C. elaphus by the absence of the orange patch at the male mandible base." }
+      ],
+      "history": [
+        {
+          "year": 2000,
+          "ko": "Schenk가 엘라푸스가위사슴벌레의 아종 Cyclommatus elaphus truncatus로 기재했다(모식산지 아체주 그레우동산).",
+          "en": "Described by Schenk as Cyclommatus elaphus truncatus, type locality Mt Geureudong, Aceh."
+        },
+        {
+          "year": null,
+          "ko": "이후 독립 종으로 격상되었고, 현재 GBIF·Catalogue of Life 등은 Cyclommatus truncatus를 유효 종으로 다룬다. 격상 연도와 문헌은 확인하지 못했다.",
+          "en": "Later raised to species rank; GBIF and the Catalogue of Life now treat Cyclommatus truncatus as a valid species. The year and publication of the change were not confirmed."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "사육 계통에서 엘라푸스와 섞였을 가능성이 지적된 적이 있다.", "en": "Japanese breeders have noted that captive elaphus lines may once have been mixed with truncatus." },
+          "sources": ["cy-6kd-elaphus"]
+        },
+        {
+          "text": { "ko": "분포(북수마트라 대 남수마트라 뎀포산)에 관한 자료가 서로 맞지 않는다.", "en": "Sources conflict over its range (northern Sumatra vs. Mt Dempo in the south)." },
+          "sources": ["cy-bionica-elaphus", "cy-6kd-truncatus"]
+        }
+      ],
+      "images": [
+        {
+          "file": "Cyclommatus.jpg",
+          "author": "Sq10",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": { "ko": "흰 바탕 상자 속 표본 세 종. 왼쪽부터 엘라푸스가위사슴벌레 수컷, 임페라토르가위사슴벌레 수컷, 오른쪽 갈색 한 쌍이 트룬카투스가위사슴벌레이다.", "en": "Specimens on a white board: from left, C. elaphus male, C. imperator male, and on the right a brown C. truncatus pair." }
+        }
+      ],
+      "model3d": null,
+      "sources": ["cy-gbif-truncatus", "cy-bionica-elaphus", "cy-enwiki-elaphus", "cy-schenk2000", "cy-chungwoo-list", "cy-6kd-truncatus", "cy-ecolors-truncatus", "cy-jawiki-genus", "cy-mushibu-elaphus", "cy-6kd-elaphus", "cy-gbif-iucn-b"]
+    },
+    {
+      "id": "cyclommatus-speciosus-speciosus",
+      "rank": "subspecies",
+      "sci": "Cyclommatus speciosus speciosus",
+      "species": "Cyclommatus speciosus",
+      "authority": "Boileau, 1898",
+      "color": "#93D3F2",
+      "name": { "ko": "스페시오수스가위사슴벌레 (원명아종)", "en": null },
+      "nameInformal": { "ko": true, "en": false },
+      "nameJa": "スペキオススホソアカクワガタ（原名亜種）",
+      "nameNote": { "ko": "일본명: スペキオススホソアカクワガタ（原名亜種）.", "en": "Japanese name: スペキオススホソアカクワガタ（原名亜種）." },
+      "size": {
+        "male": [25, 60],
+        "female": [20, 25],
+        "note": { "ko": "원명아종만의 체장 자료는 찾지 못했다. 종 전체 기준으로 수컷 25~60mm, 암컷 20~25mm이다.", "en": "No size data specific to the nominotypical subspecies were found; for the species as a whole, males are 25-60 mm and females 20-25 mm." },
+        "sources": ["cy-musiya-speciosus"]
+      },
+      "pattern": { "ko": "광택 있는 갈색~녹갈색이다(종 단위 자료). 원명아종만의 색 정보는 확인하지 못했다.", "en": "Glossy brown to greenish brown (species-level); subspecies-specific colour data not confirmed." },
+      "morphology": { "ko": "스페시오수스가위사슴벌레는 머리가 크고 폭이 넓은 이른바 '오오즈(대두)계' 가위사슴벌레로 분류된다. 섬마다 큰턱의 휜 정도, 내치 모양, 넓적다리의 노란 무늬 등이 다르다고 알려져 있다. 원명아종과 다른 아종을 가르는 형질은 원문을 확인하지 못해 싣지 않았다.", "en": "C. speciosus belongs to the so-called 'Ōzu' (big-headed) type of Cyclommatus, with a large, broad head. Island populations reportedly differ in mandible curvature, inner-tooth shape and yellow femoral markings. Characters separating the nominotypical subspecies from others are omitted because the original literature could not be checked." },
+      "distribution": ["bougainville", "rennell"],
+      "distributionNote": { "ko": "원명아종의 확실한 산지는 부건빌섬(부인, 키에타, 아로파 등)과 부카섬이다. 뉴기니 본토·비스마르크 제도 기록은 C. margaritae 등 다른 종일 수 있다는 지적이 있다. GBIF 종 단위 기록에는 과달카날·산타이사벨·뉴조지아 등도 있으나 아종은 확인되지 않았다.", "en": "Reliable localities for the nominotypical subspecies are Bougainville (Buin, Kieta, Aropa) and Buka. Records from mainland New Guinea and the Bismarck Archipelago may refer to other species such as C. margaritae. GBIF species-level records also include Guadalcanal, Santa Isabel and New Georgia, but their subspecies is unconfirmed." },
+      "habitat": { "ko": "부건빌섬의 숲에서 채집되었다. 서식 고도 등 구체적 정보는 확인하지 못했다.", "en": "Collected in forests on Bougainville; elevation and habitat details not confirmed." },
+      "ecology": { "ko": "종 단위 사육 기록에 따르면 성질이 거칠어 수컷이 암컷을 죽이는 일이 많다.", "en": "Species-level breeder reports describe it as aggressive, with males often killing females." },
+      "captivityNote": { "ko": "종 단위 기록으로, 발효 매트에 산란하며 사육은 쉬운 편이다. 22℃ 안팎에서 암컷은 약 5개월, 수컷은 6~7개월 만에 우화했다. 다만 유통 개체는 주로 솔로몬 제도 말라이타섬·벨라라벨라섬산이며 원명아종은 아니다.", "en": "Species-level data: lays eggs in fermented substrate and is considered easy; at about 22 °C females emerged in about 5 months and males in 6-7 months. Note that traded stock is mainly from Malaita or Vella Lavella (Solomon Is.), not the nominotypical subspecies." },
+      "conservation": {
+        "status": { "ko": "평가되지 않음 (IUCN)", "en": "Not Evaluated (IUCN)" },
+        "text": { "ko": "IUCN 적색목록에 평가되지 않았다. 구체적 위협 요인은 확인하지 못했다.", "en": "Not evaluated by the IUCN Red List. No specific threats were found in sources." }
+      },
+      "facts": [
+        { "ko": "가위사슴벌레속 가운데 동쪽 끝의 섬들(부건빌, 솔로몬 제도)에 사는 종으로, 섬마다 다른 아종이 있다.", "en": "One of the easternmost Cyclommatus, living on Bougainville and the Solomon Islands, with different subspecies on different islands." },
+        { "ko": "머리가 크고 넓적해 일본 사육계에서는 '오오즈(대두)계'로 부른다.", "en": "Its large, broad head places it in what Japanese keepers call the 'Ōzu' (big-head) type." }
+      ],
+      "history": [
+        {
+          "year": 1898,
+          "ko": "Boileau가 부건빌섬 표본으로 Cyclommatus speciosus를 기재했다.",
+          "en": "Boileau described Cyclommatus speciosus from Bougainville Island."
+        },
+        {
+          "year": 1932,
+          "ko": "Nagel이 솔로몬 제도산 변종 maculifemoratus를 기재했으나 현재는 원명아종의 동물이명이다.",
+          "en": "Nagel described var. maculifemoratus from the Solomon Islands; it is now a synonym of the nominotypical subspecies."
+        },
+        {
+          "year": 1967,
+          "ko": "de Lisle가 미시마섬산 misimaensis를 기재했다(현재 아종).",
+          "en": "de Lisle described misimaensis from Misima Island (now a subspecies)."
+        },
+        {
+          "year": 1980,
+          "ko": "de Lisle가 마키라(산크리스토발)섬산 anepsius를 별종으로 기재했으나 이후 아종으로 다뤄진다. 이로써 원명아종명 C. s. speciosus가 쓰이게 되었다.",
+          "en": "de Lisle described anepsius from Makira (San Cristobal) as a species; it was later treated as a subspecies, making the nominotypical name C. s. speciosus necessary."
+        }
+      ],
+      "issues": [
+        {
+          "text": { "ko": "maculifemoratus의 모식표본은 Nagel 소장품에 있었으나 전쟁 중 폭격으로 소실되었을 가능성이 있다.", "en": "The type of maculifemoratus was probably in Nagel's collection and may have been destroyed by bombing." },
+          "sources": ["cy-bionica-speciosus"]
+        },
+        {
+          "text": { "ko": "뉴기니 본토·비스마르크 제도 기록이 다른 종의 오동정일 수 있어 분포 경계가 불확실하다.", "en": "Range limits are uncertain because New Guinea and Bismarck records may be misidentifications of other species." },
+          "sources": ["cy-bionica-speciosus"]
+        }
+      ],
+      "images": [
+        {
+          "file": "Cyclomatus speciosus (from projects.biodiversity.be) ID-1727.jpg",
+          "author": "Noël Mal (Royal Belgian Institute of Natural Sciences pictorial beetle collection)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": { "ko": "흰 배경 위 스페시오수스가위사슴벌레 수컷 표본의 등면. 머리가 넓고 큰턱이 안쪽으로 휜다.", "en": "Dorsal view of a male Cyclommatus speciosus on white, with a broad head and inward-curving mandibles." }
+        },
+        {
+          "file": "Cyclomatus speciosus (from projects.biodiversity.be) ID-1725.jpg",
+          "author": "Noël Mal (Royal Belgian Institute of Natural Sciences pictorial beetle collection)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": { "ko": "흰 배경 위 스페시오수스가위사슴벌레 소형 수컷 표본의 등면.", "en": "Dorsal view of a small male C. speciosus on white." }
+        },
+        {
+          "file": "Cyclomatus speciosus (from projects.biodiversity.be) ID-1726.jpg",
+          "author": "Noël Mal (Royal Belgian Institute of Natural Sciences pictorial beetle collection)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": { "ko": "흰 배경 위 스페시오수스가위사슴벌레 암컷으로 보이는 표본의 등면.", "en": "Dorsal view of an apparently female C. speciosus specimen on white." }
+        }
+      ],
+      "model3d": null,
+      "sources": ["cy-gbif-speciosus-s", "cy-gbif-speciosus", "cy-bionica-speciosus", "cy-dryinsect-speciosus", "cy-jawiki-genus", "cy-musiya-speciosus", "cy-rbins-images", "cy-ecolors-hosoaka", "cy-yanagawa-speciosus", "cy-cerfvolant-speciosus", "cy-gbif-iucn-b"]
+    }
+  ],
+  "sources": {
+    "cy-bekuwa2022": {
+      "title": "BE-KUWA (Mushi-sha) 外国産クワガタムシの飼育レコード個体 2022年度版 - captive and wild size records",
+      "url": "https://mushi-sha.life.coocan.jp/2022-BE-KUWA-record.pdf"
+    },
+    "cy-wiki-en-elaphus": {
+      "title": "Cyclommatus elaphus - Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Cyclommatus_elaphus"
+    },
+    "cy-sixkd-elaphus": {
+      "title": "エラフスホソアカクワガタの飼育方法 (6kd.jp)",
+      "url": "https://6kd.jp/article.html?id=83c67f5f373033f7d30003ba"
+    },
+    "cy-wiki-ja-elaphus": {
+      "title": "エラフスホソアカクワガタ - Wikipedia (日本語)",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%A9%E3%83%95%E3%82%B9%E3%83%9B%E3%82%BD%E3%82%A2%E3%82%AB%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF"
+    },
+    "cy-bionica-elaphus": {
+      "title": "Maes, J.-M. (BIO-NICA) Lucanidae: Cyclommatus elaphus (incl. ssp. truncatus Schenk, 2000)",
+      "url": "http://www.bio-nica.info/lucanidae/Cyclommatus%20elaphus.htm"
+    },
+    "cy-col-elaphus": {
+      "title": "Catalogue of Life: Cyclommatus elaphus Gestro, 1881",
+      "url": "https://www.catalogueoflife.org/data/taxon/32V36"
+    },
+    "cy-col-truncatus": {
+      "title": "Catalogue of Life: Cyclommatus truncatus Schenk, 2000",
+      "url": "https://www.catalogueoflife.org/data/taxon/7VJXX"
+    },
+    "cy-naver-ko-names": {
+      "title": "Naver search results for Korean hobby names (메탈리퍼/엘라푸스/임페라토르가위사슴벌레, 피나에, 펠렝), checked 2026-10-06",
+      "url": "https://search.naver.com/search.naver?query=%EB%A9%94%ED%83%88%EB%A6%AC%ED%8D%BC+%EA%B0%80%EC%9C%84%EC%82%AC%EC%8A%B4%EB%B2%8C%EB%A0%88"
+    },
+    "cy-yahoo-kids-elaphus": {
+      "title": "エラフスホソアカクワガタ - Yahoo!きっず図鑑",
+      "url": "https://kids.yahoo.co.jp/zukan/pet/beetle/wstagbeetle/0010.html"
+    },
+    "cy-gbif-elaphus": {
+      "title": "GBIF Backbone: Cyclommatus elaphus Gestro, 1881",
+      "url": "https://www.gbif.org/species/7595405"
+    },
+    "cy-gbif-iucn": {
+      "title": "GBIF species API iucnRedListCategory endpoint (all five species return NOT_EVALUATED), checked 2026-10-06",
+      "url": "https://api.gbif.org/v1/species/7595405/iucnRedListCategory"
+    },
+    "cy-wiki-en-genus": {
+      "title": "Cyclommatus - Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Cyclommatus"
+    },
+    "cy-commons-elapus": {
+      "title": "Wikimedia Commons: File:Elapus.JPG",
+      "url": "https://commons.wikimedia.org/wiki/File:Elapus.JPG"
+    },
+    "cy-commons-elaphus-red": {
+      "title": "Wikimedia Commons: File:Elaphus.JPG",
+      "url": "https://commons.wikimedia.org/wiki/File:Elaphus.JPG"
+    },
+    "cy-commons-anaxibia": {
+      "title": "Wikimedia Commons: File:Cyclommatus elaphus.JPG",
+      "url": "https://commons.wikimedia.org/wiki/File:Cyclommatus_elaphus.JPG"
+    },
+    "cy-watakuwa-finae": {
+      "title": "メタリフェルホソアカクワガタ 亜種フィナエの情報 (watakuwa1911.com)",
+      "url": "https://watakuwa1911.com/399/"
+    },
+    "cy-kim2017": {
+      "title": "Kim E., Park J., Park J.K. (2017) Taxonomic study on the subspecies of Cyclommatus metallifer (Boisduval, 1835) from Indonesia. Journal of Asia-Pacific Biodiversity 10(4): 519-526 (abstract via DOAJ; full text not accessed)",
+      "url": "https://doi.org/10.1016/j.japb.2017.08.007"
+    },
+    "cy-wiki-ja-metallifer": {
+      "title": "メタリフェルホソアカクワガタ - Wikipedia (日本語)",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%BF%E3%83%AA%E3%83%95%E3%82%A7%E3%83%AB%E3%83%9B%E3%82%BD%E3%82%A2%E3%82%AB%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF"
+    },
+    "cy-gotoh2011": {
+      "title": "Gotoh H. et al. (2011) Juvenile hormone regulates extreme mandible growth in male stag beetles. PLoS ONE 6(6): e21139",
+      "url": "https://doi.org/10.1371/journal.pone.0021139"
+    },
+    "cy-gotoh2014": {
+      "title": "Gotoh H. et al. (2014) Developmental link between sex and nutrition; doublesex regulates sex-specific mandible growth via juvenile hormone signaling in stag beetles. PLoS Genetics 10(1): e1004098",
+      "url": "https://doi.org/10.1371/journal.pgen.1004098"
+    },
+    "cy-wiki-en-metallifer": {
+      "title": "Cyclommatus metallifer - Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Cyclommatus_metallifer"
+    },
+    "cy-bionica-metallifer": {
+      "title": "bio-nica.info: Cyclommatus metallifer (incl. ssp. finae) - catalogue, type data, material",
+      "url": "http://www.bio-nica.info/lucanidae/Cyclommatus%20metallifer.htm"
+    },
+    "cy-gbif-finae": {
+      "title": "GBIF Backbone: Cyclommatus metallifer finae Mizunuma & Nagai, 1991",
+      "url": "https://www.gbif.org/species/8861273"
+    },
+    "cy-col-metallifer-ssp": {
+      "title": "Catalogue of Life: Cyclommatus metallifer finae Mizunuma & Nagai, 1991",
+      "url": "https://www.catalogueoflife.org/data/taxon/7JNBW"
+    },
+    "cy-wiki-ja-genus": {
+      "title": "ホソアカクワガタ属 - Wikipedia (日本語)",
+      "url": "https://ja.wikipedia.org/wiki/%E3%83%9B%E3%82%BD%E3%82%A2%E3%82%AB%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF%E5%B1%9E"
+    },
+    "cy-gotoh-lavine2014": {
+      "title": "Gotoh H., Lavine L.C. (2014) Genetic control of color polymorphism in the stag beetle Cyclommatus metallifer. The Coleopterists Bulletin 68(2): 209-213",
+      "url": "https://doi.org/10.1649/0010-065X-68.2.209"
+    },
+    "cy-commons-ssp-finae": {
+      "title": "Wikimedia Commons: File:Ssp finae.JPG",
+      "url": "https://commons.wikimedia.org/wiki/File:Ssp_finae.JPG"
+    },
+    "cy-commons-udo-metallifer": {
+      "title": "Wikimedia Commons: File:Cyclommatus metallifer metallifer (Boisduval,1835) male (3772658452).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Cyclommatus_metallifer_metallifer_(Boisduval,1835)_male_(3772658452).jpg"
+    },
+    "cy-yanagawa-imperator": {
+      "title": "kuwa-yanagawa blog: 飼育種紹介 その30 インペラトールホソアカクワガタ",
+      "url": "https://ameblo.jp/kuwa-yanagawa/entry-12652252500.html"
+    },
+    "cy-wiki-ja-imperator": {
+      "title": "インペラトールホソアカクワガタ - Wikipedia (日本語)",
+      "url": "https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%A9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%9B%E3%82%BD%E3%82%A2%E3%82%AB%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF"
+    },
+    "cy-col-monguilloni": {
+      "title": "Catalogue of Life: Cyclommatus monguilloni Lacroix, 1981",
+      "url": "https://www.catalogueoflife.org/data/taxon/7VJXN"
+    },
+    "cy-papua-insects": {
+      "title": "Papua Insects Foundation - Lucanidae checklist of New Guinea",
+      "url": "https://www.papua-insects.nl/insect%20orders/Coleoptera/Lucanidae/Lucanidae.htm"
+    },
+    "cy-bionica-imperator": {
+      "title": "bio-nica.info: Cyclommatus imperator (incl. monguilloni) - catalogue, type data, material",
+      "url": "http://www.bio-nica.info/lucanidae/Cyclommatus%20imperator.htm"
+    },
+    "cy-gbif-imperator": {
+      "title": "GBIF Backbone: Cyclommatus imperator Boileau, 1905",
+      "url": "https://www.gbif.org/species/7640303"
+    },
+    "cy-col-genus": {
+      "title": "Catalogue of Life (Checklistbank 3LR): Cyclommatus Parry, 1863 - classification and 57 accepted species",
+      "url": "https://www.catalogueoflife.org/data/taxon/3XYJ"
+    },
+    "cy-commons-ssp-imperator": {
+      "title": "Wikimedia Commons: File:Ssp imperator.JPG",
+      "url": "https://commons.wikimedia.org/wiki/File:Ssp_imperator.JPG"
+    },
+    "cy-commons-imperator2": {
+      "title": "Wikimedia Commons: File:Imperator2.JPG",
+      "url": "https://commons.wikimedia.org/wiki/File:Imperator2.JPG"
+    },
+    "cy-commons-imperator1": {
+      "title": "Wikimedia Commons: File:Imperator1.JPG",
+      "url": "https://commons.wikimedia.org/wiki/File:Imperator1.JPG"
+    },
+    "cy-gbif-monguilloni": {
+      "title": "GBIF Backbone: Cyclommatus monguilloni Lacroix, 1981",
+      "url": "https://www.gbif.org/species/9124523"
+    },
+    "cy-mollenkamp1901": {
+      "title": "Möllenkamp W. Sechs neue Lucaniden-Arten und eine neue Varietät. Notes from the Leyden Museum 22: 44-48 (original description of C. pulchellus)",
+      "url": "https://repository.naturalis.nl/pub/509126/NLM1900022001005.pdf"
+    },
+    "cy-bionica-pulchellus": {
+      "title": "bio-nica.info: Cyclommatus pulchellus - catalogue, type data, material",
+      "url": "http://www.bio-nica.info/lucanidae/Cyclommatus%20pulchellus.htm"
+    },
+    "cy-gbif-pulchellus": {
+      "title": "GBIF Backbone: Cyclommatus pulchellus Möllenkamp, 1901",
+      "url": "https://www.gbif.org/species/8257609"
+    },
+    "cy-zhu2023": {
+      "title": "Zhu X.L., Yuan J.J., Zhou L.Y., Bartolozzi L., Wan X. (2023) Molecular phylogeny and historical biogeography of Cyclommatus stag beetles. Frontiers in Ecology and Evolution 11: 974315",
+      "url": "https://www.frontiersin.org/articles/10.3389/fevo.2023.974315/full"
+    },
+    "cy-commons-pulchellus": {
+      "title": "Wikimedia Commons: File:Cyclommatus pulchellus m1.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Cyclommatus_pulchellus_m1.jpg"
+    },
+    "cy-ecolors-hosoaka": {
+      "title": "e-colors (Japanese dealer): ホソアカクワガタ species list with max sizes",
+      "url": "https://e-colors.jp/pages/239"
+    },
+    "cy-scarab-chewi": {
+      "title": "コガネムシ上科の家: チュウホソアカクワガタ 飼育記 2022-2023 完",
+      "url": "https://scarabaeoidea-house.blog.jp/archives/21808489.html"
+    },
+    "cy-kim2020": {
+      "title": "Kim, E., An, S.L., Choi, J.B. & Park, J.K. (2020) RETRACTED: Taxonomic study on the montanellus species group of the genus Cyclommatus from Borneo. J. Asia-Pacific Biodiversity 13(3): 372-379",
+      "url": "https://doi.org/10.1016/j.japb.2020.06.004"
+    },
+    "cy-crossref-kim2020": {
+      "title": "Crossref metadata showing retraction (2020-09) of Kim et al. 2020",
+      "url": "https://api.crossref.org/works/10.1016/j.japb.2020.06.004"
+    },
+    "cy-gbif-chewi": {
+      "title": "GBIF Backbone: Cyclommatus chewi Mizunuma, 1994",
+      "url": "https://www.gbif.org/species/8428822"
+    },
+    "cy-bionica-chewi": {
+      "title": "Maes, J.-M. (BIO-NICA) Lucanidae: Cyclommatus chewi - catalogue and type data",
+      "url": "http://www.bio-nica.info/lucanidae/Cyclommatus%20chewi.htm"
+    },
+    "cy-chungwoo-list": {
+      "title": "충우곤충연구소: 가위사슴벌레(Cyclom.)속 리스트 (Korean names)",
+      "url": "https://www.stagbeetles.com/shop/list.php?ca_id=601060"
+    },
+    "cy-jawiki-genus": {
+      "title": "Wikipedia (ja): ホソアカクワガタ属",
+      "url": "https://ja.wikipedia.org/wiki/ホソアカクワガタ属"
+    },
+    "cy-sbj-chewi": {
+      "title": "STAG_BEETLE_JAPAN: チュウホソアカクワガタ CBF2 飼育記録まとめ (2020)",
+      "url": "https://stag-beetle-japan.com/entry/2020/11/06/224146"
+    },
+    "cy-gbif-iucn-b": {
+      "title": "GBIF: IUCN Red List checklist dataset searched for 'Cyclommatus' (0 results; Lucanidae present)",
+      "url": "https://api.gbif.org/v1/species/search?datasetKey=19491596-35ae-4a91-9a98-85cf505f1bd3&q=Cyclommatus"
+    },
+    "cy-mushibu-lunifer": {
+      "title": "むし部 クワガタ図鑑: ルニフェルホソアカクワガタ",
+      "url": "http://mushibu.na.coocan.jp/Specimen/w/Cy_lunifer.html"
+    },
+    "cy-jawiki-lunifer": {
+      "title": "Wikipedia (ja): ルニフェルホソアカクワガタ (flagged as lacking citations)",
+      "url": "https://ja.wikipedia.org/wiki/ルニフェルホソアカクワガタ"
+    },
+    "cy-ecolors-lunifer": {
+      "title": "e-colors: ルニフェルホソアカクワガタ",
+      "url": "https://e-colors.jp/collections/539"
+    },
+    "cy-huxley1931-context": {
+      "title": "(2021) When perception isn't reality: allometric variation in the exaggerated mandibles of male stag beetles. Biol. J. Linn. Soc. 134(3) (notes Huxley used C. tarandus, Lucanus cervus and Lucanus lunifer)",
+      "url": "https://doi.org/10.1093/biolinnean/blab100"
+    },
+    "cy-gbif-lunifer": {
+      "title": "GBIF Backbone: Cyclommatus lunifer Boileau, 1905 (occurrences)",
+      "url": "https://www.gbif.org/species/7550614"
+    },
+    "cy-bionica-lunifer": {
+      "title": "Maes, J.-M. (BIO-NICA) Lucanidae: Cyclommatus lunifer",
+      "url": "http://www.bio-nica.info/lucanidae/Cyclommatus%20lunifer.htm"
+    },
+    "cy-thbif-lunifer": {
+      "title": "Thailand Biodiversity Information Facility: Cyclommatus lunifer",
+      "url": "https://thbif.onep.go.th/taxons/detail/11838"
+    },
+    "cy-6kd-lunifer": {
+      "title": "6kd.jp: ルニフェルホソアカクワガタの飼育方法",
+      "url": "https://6kd.jp/article.html?id=66f633fd66323941ef0001c1"
+    },
+    "cy-musiya-tarandus": {
+      "title": "むしや 大図鑑: タランドゥスホソアカクワガタ",
+      "url": "https://musiya.com/hp/daizukan/text/tarandus_hosoaka.htm"
+    },
+    "cy-sbj-tarandus": {
+      "title": "STAG_BEETLE_JAPAN: タランドゥスホソアカクワガタ（カリマンタン島産）WF1 飼育記録まとめ (2020)",
+      "url": "https://stag-beetle-japan.com/entry/2020/02/19/%E3%82%BF%E3%83%A9%E3%83%B3%E3%83%89%E3%82%A5%E3%82%B9%E3%83%9B%E3%82%BD%E3%82%A2%E3%82%AB%E3%82%AF%E3%83%AF%E3%82%AC%E3%82%BF_%EF%BC%88%E8%A5%BF%E3%82%AB%E3%83%AA%E3%83%9E%E3%83%B3%E3%82%BF"
+    },
+    "cy-bionica-tarandus": {
+      "title": "Maes, J.-M. (BIO-NICA) Lucanidae: Cyclommatus tarandus",
+      "url": "http://www.bio-nica.info/lucanidae/Cyclommatus%20tarandus.htm"
+    },
+    "cy-gbif-tarandus": {
+      "title": "GBIF Backbone: Cyclommatus tarandus (Thunberg, 1806) and subspecies/synonyms",
+      "url": "https://www.gbif.org/species/8351007"
+    },
+    "cy-huxley1931": {
+      "title": "Huxley, J.S. (1931) Relative growth of mandibles in stag-beetles (Lucanidae). J. Linn. Soc. Zool. 37(255): 675-703",
+      "url": "https://academic.oup.com/zoolinnean/article-abstract/37/255/675/2671067"
+    },
+    "cy-6kd-truncatus": {
+      "title": "6kd.jp: トルンカートゥスホソアカクワガタの飼育方法",
+      "url": "https://6kd.jp/article.html?id=6fbc95406430635bc70001fb"
+    },
+    "cy-ecolors-truncatus": {
+      "title": "e-colors: トゥルンカートゥスホソアカクワガタ",
+      "url": "https://e-colors.jp/collections/552"
+    },
+    "cy-6kd-elaphus": {
+      "title": "6kd.jp: エラフスホソアカクワガタの飼育方法",
+      "url": "https://6kd.jp/article.html?id=83c67f5f373033f7d30003ba"
+    },
+    "cy-gbif-truncatus": {
+      "title": "GBIF Backbone: Cyclommatus truncatus Schenk, 2000 (syn. C. elaphus truncatus)",
+      "url": "https://www.gbif.org/species/11111324"
+    },
+    "cy-enwiki-elaphus": {
+      "title": "Wikipedia: Cyclommatus elaphus",
+      "url": "https://en.wikipedia.org/wiki/Cyclommatus_elaphus"
+    },
+    "cy-schenk2000": {
+      "title": "Schenk, K.-D. (2000) Beitrag zur Kenntnis von Cyclommatus elaphus Gestro, 1881, von der Insel Sumatra. Entomologische Zeitschrift 110(7): 214-216 (ZooBank)",
+      "url": "https://zoobank.org/References/0e2b8514-0be2-4a91-be3e-b49206bbd50d"
+    },
+    "cy-mushibu-elaphus": {
+      "title": "むし部 クワガタ図鑑: エラフスホソアカクワガタ (subspecies ranges)",
+      "url": "http://mushibu.na.coocan.jp/Specimen/w/Cy_elaphus.html"
+    },
+    "cy-musiya-speciosus": {
+      "title": "むしや 大図鑑: スペキオススホソアカクワガタ",
+      "url": "https://musiya.com/hp/daizukan/text/speciosus_hosoaka.htm"
+    },
+    "cy-bionica-speciosus": {
+      "title": "Maes, J.-M. (BIO-NICA) Lucanidae: Cyclommatus speciosus",
+      "url": "http://www.bio-nica.info/lucanidae/Cyclommatus%20speciosus.htm"
+    },
+    "cy-gbif-speciosus-s": {
+      "title": "GBIF Backbone: Cyclommatus speciosus speciosus",
+      "url": "https://www.gbif.org/species/8794521"
+    },
+    "cy-gbif-speciosus": {
+      "title": "GBIF Backbone: Cyclommatus speciosus Boileau, 1898",
+      "url": "https://www.gbif.org/species/8057949"
+    },
+    "cy-dryinsect-speciosus": {
+      "title": "dryinsect.co.kr: 스페시오수스가위사슴벌레-아넵티우스아종 (Korean name usage)",
+      "url": "http://www.dryinsect.co.kr/m/product.html?branduid=938720"
+    },
+    "cy-rbins-images": {
+      "title": "Wikimedia Commons: RBINS pictorial beetle collection images of Cyclommatus speciosus (Noël Mal)",
+      "url": "https://commons.wikimedia.org/wiki/File:Cyclomatus_speciosus_(from_projects.biodiversity.be)_ID-1727.jpg"
+    },
+    "cy-yanagawa-speciosus": {
+      "title": "kuwa-yanagawa (Ameblo): スペキオススホソアカクワガタ（ベララベラ産）",
+      "url": "https://ameblo.jp/kuwa-yanagawa/entry-12673352493.html"
+    },
+    "cy-cerfvolant-speciosus": {
+      "title": "kuwagata-cerfvolant: スペキオススホソアカクワガタ 飼育記録 VOL.1 (Vella Lavella)",
+      "url": "https://kuwagata-cerfvolant.com/?p=15791"
+    },
+    "cy-parry1863": {
+      "title": "Parry, F.J.S. (1863) A few remarks upon Mr. James Thomson's Catalogue of Lucanidae. Trans. R. Ent. Soc. London 11(5): 442-452",
+      "url": "https://doi.org/10.1111/j.1365-2311.1863.tb01291.x"
+    },
+    "cy-gbif-genus": {
+      "title": "GBIF Backbone: Cyclommatus Parry, 1863",
+      "url": "https://www.gbif.org/species/4736281"
+    },
+    "cy-wiki-ko-genus": {
+      "title": "가위사슴벌레속 - 위키백과 (한국어)",
+      "url": "https://ko.wikipedia.org/wiki/%EA%B0%80%EC%9C%84%EC%82%AC%EC%8A%B4%EB%B2%8C%EB%A0%88%EC%86%8D"
+    },
+    "cy-goyens2014": {
+      "title": "Goyens J. et al. (2014) Biomechanical determinants of bite force dimorphism in Cyclommatus metallifer stag beetles. J. Exp. Biol. 217: 1065-1071",
+      "url": "https://doi.org/10.1242/jeb.091744"
+    },
+    "cy-goyens2015": {
+      "title": "Goyens J. et al. (2015) Cost of flight and the evolution of stag beetle weaponry. J. R. Soc. Interface 12: 20150222",
+      "url": "https://doi.org/10.1098/rsif.2015.0222"
+    },
+    "cy-commons-cyclommatus-cropped": {
+      "title": "Wikimedia Commons: File:Cyclommatus cropped.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Cyclommatus_cropped.jpg"
+    }
+  },
+  "areas": {
+    "sumatra": {
+      "name": { "ko": "수마트라섬", "en": "Sumatra" },
+      "countries": ["IDN"],
+      "box": [95, -6.2, 106.2, 6]
+    },
+    "borneo": {
+      "name": { "ko": "보르네오섬", "en": "Borneo" },
+      "countries": ["IDN", "MYS", "BRN"],
+      "box": [108.5, -4.5, 119.5, 7.5]
+    },
+    "borneo-my": {
+      "name": { "ko": "보르네오섬 말레이시아령 (사바·사라왁)", "en": "Malaysian Borneo (Sabah, Sarawak)" },
+      "countries": ["MYS", "BRN"],
+      "box": [108.5, -4.5, 119.5, 7.5]
+    },
+    "malay-peninsula": {
+      "name": { "ko": "말레이반도 (말레이시아)", "en": "Malay Peninsula (Malaysia)" },
+      "countries": ["MYS", "SGP"],
+      "box": [99.5, 1, 104.8, 7]
+    },
+    "banggai": {
+      "name": { "ko": "방가이 제도 (펠렝섬 등)", "en": "Banggai Islands (Peleng etc.)" },
+      "countries": ["IDN"],
+      "box": [122.6, -2.2, 124, -1]
+    },
+    "new-guinea-id": {
+      "name": { "ko": "뉴기니섬 서부 (인도네시아 파푸아)", "en": "Western New Guinea (Papua, Indonesia)" },
+      "countries": ["IDN"],
+      "box": [131.6, -9.2, 141.1, -0.6],
+      "exclude": [
+        [133.8, -7.3, 135, -5.2]
+      ]
+    },
+    "new-guinea-pg": {
+      "name": { "ko": "뉴기니섬 동부 (파푸아뉴기니 본토)", "en": "Eastern New Guinea (mainland PNG)" },
+      "countries": ["PNG"],
+      "box": [140.8, -11, 150, -1.8]
+    },
+    "bougainville": {
+      "name": { "ko": "부건빌섬 · 부카섬", "en": "Bougainville & Buka" },
+      "countries": ["PNG"],
+      "box": [154.3, -7, 156.2, -5]
+    },
+    "rennell": {
+      "name": { "ko": "레넬섬 (솔로몬 제도)", "en": "Rennell Island (Solomon Is.)" },
+      "countries": ["SLB"],
+      "box": [159.7, -11.95, 160.8, -11.3]
+    }
+  }
+});
