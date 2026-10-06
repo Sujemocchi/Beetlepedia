@@ -11,6 +11,8 @@
 | 사슴벌레 (Lucanidae) | *Cyclommatus* 가위사슴벌레속 | 10종·아종 (*elaphus elaphus*, *metallifer finae*, *imperator imperator*, *monguilloni*, *pulchellus*, *chewi*, *lunifer*, *tarandus*, *truncatus*, *speciosus speciosus*) |
 | 장수풍뎅이 (Dynastinae) | *Dynastes* 헤라클레스장수풍뎅이속 | *D. hercules* 13아종 |
 
+새 속·종을 추가하는 요구사항과 요청 템플릿은 [`PROMPT.md`](PROMPT.md)에 있습니다.
+
 ## 실행 방법
 
 사이트 파일은 Spring Boot 정적 리소스 폴더 `src/main/resources/static/`에 있습니다.
@@ -120,21 +122,32 @@ node tools/mapgen/gen.js countries-50m.json src/main/resources/static/assets/map
 
 ## 정확성 메모
 
-- 조사는 영어·일본어·한국어 자료를 함께 썼습니다. 사슴벌레·장수풍뎅이는 일본 문헌과 사육 기록(BE-KUWA 등)이 가장 풍부합니다.
-- **기록값 구분**: 사슴벌레·장수풍뎅이 최대 몸길이는 야외 기록과 사육 기록을 구분해 `size.note`에 적었습니다.
-- **분류 논쟁을 숨기지 않습니다.**
-  - *Cyclommatus elaphus elaphus*, *C. imperator imperator* 같은 삼명법은 아종을 인정하는 일본 문헌(Mizunuma & Nagai 1994)의 체계입니다. Catalogue of Life는 두 종에 아종을 두지 않습니다. *C. monguilloni*는 독립종/아종 견해가 갈립니다.
-  - *Dynastes hercules*는 전통적인 13아종 체계를 따랐습니다. Huang(2017)은 그중 10개를 독립 종으로 승격했고, GBIF는 일부를 동의어로 봅니다. 각 아종 페이지의 "아종인가, 종인가" 이슈에 적었습니다.
-- *C. chewi*에 관한 2020년 종군 재검토 논문(Kim et al., *J. Asia-Pacific Biodiversity* 13(3))은 사바주 생물다양성법 미준수로 **철회**되었습니다. 해당 논문의 내용은 쓰지 않았습니다.
-- "헤라클레스는 몸무게 850배를 든다"는 말은 측정 근거가 없어 검증되지 않은 주장으로 적었습니다(Kram 1996 실측: 소형 장수풍뎅이류 최대 약 100배).
-- 보전 상태: *Goliathus*, *Cyclommatus*는 모두 IUCN 미평가(NE). *D. hercules*는 평가 기록을 찾지 못했으며, 과들루프(2020년 장관령)·마르티니크·도미니카의 보호·반출 금지를 적었습니다.
-- 한국어 이름: 널리 쓰이는 이름(골리앗꽃무지, 메탈리퍼가위사슴벌레, 헤라클레스장수풍뎅이 등)은 그대로, 공식 국명이 없는 이름은 "비공식 이름" 표시를 붙였습니다.
+공통 규칙은 `PROMPT.md` 7장(조사·정확성 규칙)에 있습니다. 요약:
+- 영어·일본어·한국어 자료를 함께 조사합니다. 사슴벌레·장수풍뎅이는 일본 문헌과 사육 기록(BE-KUWA 등)이 가장 풍부합니다.
+- 최대 몸길이는 야외 기록과 사육 기록을 구분해 `size.note`에 적습니다. 최솟값을 모르면 `[null, max]`로 둡니다.
+- 분류 논쟁은 사이트가 따르는 체계를 밝히고, 다른 견해를 각 분류군의 "특별한 이슈"에 적습니다.
+- 공식 국명이 없는 이름에는 "비공식 이름" 표시를 붙입니다(일본어 이름도 같음).
 
-### 골리앗꽃무지속 메모 (이전 버전에서 계승)
+### 속별 메모
+
+#### *Goliathus* 골리앗꽃무지속
 - 몸길이는 영문 Wikipedia 각 종 문서(원출처: Natural Worlds, Beetles Space 등) 기준입니다.
 - 무게는 속 전체 기준입니다. 흔히 말하는 "100g 이상"은 유충의 무게이고, 성충은 약 50g(추정)입니다.
 - *G. regius* × *G. cacicus* 자연 교잡종 *G.* "atlas"를 두 종의 "특별한 이슈"에 정리했습니다.
-- Catalogue of Life는 6종(*G. kolbei* 포함)을 싣고 있으며, 이 사이트는 5종을 다룹니다.
+- Catalogue of Life는 6종(*G. kolbei* 포함)을 싣고 있으며, 이 사이트는 5종을 다룹니다. 5종 모두 IUCN 미평가(NE)입니다.
+- 일본어 이름 중 *goliatus* 외 4종(レギウス 등)은 일본 자료로 확인하지 못해 "非公式名"으로 표시합니다.
+
+#### *Cyclommatus* 가위사슴벌레속
+- *C. elaphus elaphus*, *C. imperator imperator* 같은 삼명법은 아종을 인정하는 일본 문헌(Mizunuma & Nagai 1994)의 체계입니다. Catalogue of Life는 두 종에 아종을 두지 않습니다.
+- *C. monguilloni*는 독립종/아종(*C. imperator monguilloni*) 견해가 갈립니다. *C. truncatus*는 *C. elaphus truncatus*로 기재되었다가 종으로 다뤄집니다.
+- *C. chewi*에 관한 2020년 종군 재검토 논문(Kim et al., *J. Asia-Pacific Biodiversity* 13(3))은 사바주 생물다양성법 미준수로 **철회**되었습니다. 해당 논문의 내용은 쓰지 않았습니다.
+- 수록 10개 분류군 모두 IUCN 미평가(NE)입니다.
+
+#### *Dynastes* 헤라클레스장수풍뎅이속
+- *D. hercules*는 전통적인 13아종 체계를 따랐습니다. Huang(2017)은 그중 10개를 독립 종으로 승격했고, GBIF는 일부(*baudrii*, *tuxtlaensis*, *morishimai*, *takakuwai*)를 동의어로 봅니다. 각 아종 페이지의 "아종인가, 종인가"에 적었습니다.
+- "몸무게 850배를 든다"는 말은 측정 근거가 없어 검증되지 않은 주장으로 적었습니다(Kram 1996 실측: 소형 장수풍뎅이류 최대 약 100배).
+- IUCN 평가 기록은 찾지 못했습니다. 과들루프(2020년 장관령)·마르티니크·도미니카의 보호·반출 금지를 적었습니다.
+- 분포가 좁은 아종(*tuxtlaensis*, *paschoali*, *morishimai*, *takakuwai*)은 지도에 점(`point` 지역)으로 표시합니다.
 
 ## 3D 모델: 보류
 상세 페이지의 "3D 모델" 섹션은 "준비 중" 안내만 표시합니다. *G. albosignatus*의 `model3d`에 Sketchfab 모델 ID `84ab495a2f204510b9ed131ec25e3418`가 들어 있습니다.
