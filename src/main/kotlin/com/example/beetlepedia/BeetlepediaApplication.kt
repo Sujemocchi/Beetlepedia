@@ -1,11 +1,11 @@
-package com.example.Golithus
+package com.example.beetlepedia
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class GolithusApplication
+class BeetlepediaApplication
 
 fun main(args: Array<String>) {
-	runApplication<GolithusApplication>(*args)
+	runApplication<BeetlepediaApplication>(*args)
 }

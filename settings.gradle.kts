@@ -1,1 +1,1 @@
-rootProject.name = "Golithus"
+rootProject.name = "Beetlepedia"
