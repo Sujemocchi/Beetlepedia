@@ -1,0 +1,12 @@
+{
+  "name": "beetlepedia-e2e",
+  "private": true,
+  "description": "Browser checks for Beetlepedia against a running server",
+  "type": "module",
+  "scripts": {
+    "check": "node run.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}
