@@ -86,10 +86,21 @@ tools/
 - 번역이 빠진 텍스트 목록: `node tools/extract-strings.js --missing-ja` (전체 목록은 `--json`).
 - 일본어 화면은 Noto Sans/Serif JP 글꼴을 쓰고, 한국어용 `word-break: keep-all`을 끕니다.
 
+## 백엔드 (진행 중)
+
+데이터를 JS 파일에서 DB로 옮기는 작업을 단계별로 진행하고 있습니다. 화면은 아직 JS 데이터 파일을 씁니다.
+
+- **도메인 모델** (`src/main/kotlin/.../domain`): `TaxonGroup` → `Genus` → `Taxon`(종·아종), `Source`, `Image`, `Country`, `Area`, `MapRegion`, `BaseRank`
+  - 다국어 텍스트는 `LocalizedText`(ko/en/ja)이며, 컬럼 이름은 속성 경로를 따릅니다(`name.ko` → `name_ko`, `size.male.max` → `size_male_max`).
+  - 몸길이는 `SizeRange(min, max)`이며 `min`은 null일 수 있습니다(최댓값만 알려진 경우).
+- **스키마**: Flyway(`src/main/resources/db/migration`)가 관리하고, Hibernate는 엔티티와 스키마가 맞는지만 검사합니다(`ddl-auto=validate`).
+  개발·테스트는 H2 메모리 DB를 쓰며, SQL은 PostgreSQL에서도 쓸 수 있게 작성했습니다.
+- 리포지토리: `src/main/kotlin/.../repository/Repositories.kt`
+
 ## 테스트
 
 ```bash
-./gradlew test                 # Spring 컨텍스트 + 모든 페이지·스크립트·데이터 파일이 서빙되는지
+./gradlew test                 # Spring 컨텍스트, DB 스키마·리포지토리, 모든 페이지·스크립트·데이터 파일 서빙
 node tools/validate-data.js    # 데이터 무결성 검사
 ```
 
