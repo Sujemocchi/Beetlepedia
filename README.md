@@ -96,6 +96,9 @@ tools/
 - **스키마**: Flyway(`src/main/resources/db/migration`)가 관리하고, Hibernate는 엔티티와 스키마가 맞는지만 검사합니다(`ddl-auto=validate`).
   개발·테스트는 H2 메모리 DB를 쓰며, SQL은 PostgreSQL에서도 쓸 수 있게 작성했습니다.
 - 리포지토리: `src/main/kotlin/.../repository/Repositories.kt`
+- **시드 데이터** (`src/main/resources/seed`): `core.json`과 `genera/<속>.json`. 서버가 시작할 때 DB가 비어 있으면 이 시드를 검증한 뒤 넣습니다(`SeedLoader`). 규칙을 하나라도 어기면 서버가 시작되지 않고 문제 목록을 출력합니다.
+  - 지금은 JS 데이터 파일에서 `node tools/export-seed.js`로 만듭니다(일본어 오버레이를 `ja`로 합침). 화면이 API로 바뀌면 시드가 원본이 됩니다.
+- **검증** (`TaxonomyValidator`): `validate-data.js`의 규칙(id·학명 형식, 계급, 색, 몸길이, 분포 코드와 지도, 사진 크레딧, 일본어 누락)을 서버로 옮겼습니다. 지도 다각형은 사이트의 지도 파일을 그대로 읽습니다.
 
 ## 테스트
 
