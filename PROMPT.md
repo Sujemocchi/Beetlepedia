@@ -15,12 +15,12 @@
 | 사슴벌레 | Lucanidae | *Cyclommatus* |
 | 장수풍뎅이 | Scarabaeidae: Dynastinae | *Dynastes* |
 
-새 상위 분류군도 `data/core.js`의 `groups`에 추가할 수 있다.
+새 상위 분류군도 `seed/core.json`의 `groups`에 추가할 수 있다.
 
 ## 2. 기술 스택
 
-- 순수 HTML / CSS / JavaScript (프레임워크·빌드 도구·npm 없음). Spring Boot는 정적 파일 서빙만 담당한다.
-- `index.html`을 브라우저로 바로 열어도(`file://`) 동작해야 한다. 그래서 데이터는 JSON 대신 전역 변수 JS로 내보낸다.
+- 백엔드: Spring Boot(Kotlin) + JPA + Flyway. 데이터의 원본은 시드 JSON이고, 서버가 검증해 DB에 넣은 뒤 REST API로 내보낸다.
+- 화면: 순수 HTML / CSS / JavaScript (프레임워크·빌드 도구·npm 없음). `js/boot.js`가 `/api/bootstrap`을 받아 그린다.
 - 외부 라이브러리가 꼭 필요하면 CDN(cdnjs / jsdelivr)으로만 불러온다.
 - 반응형: 모바일(375px)부터 데스크톱까지, 가로 스크롤이 생기지 않게 한다.
 
@@ -32,13 +32,11 @@ group.html?id=<group>    상위 분류군 페이지
 genus.html?id=<genus>    속 페이지
 taxon.html?id=<taxon>    종·아종 페이지 (taxon = 종 또는 아종)
 
-data/core.js             분류 계층(공통 상위 단계 + 분류군별 단계), 국가 이름, 지역 지도 목록, 공통 출처
-data/genera/<genus>.js   속 하나의 모든 데이터 (BP.registerGenus 호출)
-data/ja/<file>.js        콘텐츠 일본어 번역 (영어 원문을 키로)
-data/i18n.js             UI 문구 (ko / en / ja)
-assets/maps/<region>.js  지역 지도 (tools/mapgen/gen.js로 생성)
-tools/validate-data.js   데이터 검증
-tools/extract-strings.js 번역 대상 텍스트 추출
+seed/core.json             분류 계층(공통 상위 단계 + 분류군별 단계), 국가 이름, 지역 지도 목록, 공통 출처
+seed/genera/<genus>.json   속 하나의 모든 데이터 (한/영/일)
+static/data/i18n.js        UI 문구 (ko / en / ja)
+static/assets/maps/*.js    지역 지도 (tools/mapgen/gen.js로 생성)
+TaxonomyValidator (Kotlin) 데이터 규칙 검증 — 서버 시작과 ./gradlew test에서 실행
 ```
 
 - **페이지는 템플릿 하나에 데이터를 채운다.** 종이 늘어나도 HTML 파일을 새로 만들지 않는다.
@@ -46,9 +44,9 @@ tools/extract-strings.js 번역 대상 텍스트 추출
 
 ## 4. 데이터 스키마 (요약)
 
-모든 사용자용 텍스트는 `{ "ko": "...", "en": "..." }`로 쓴다. 일본어는 `data/ja/`에 따로 둔다(7장).
+모든 사용자용 텍스트는 `{ "ko": "...", "en": "...", "ja": "..." }`로 쓴다(9장).
 
-### 속 (`BP.registerGenus({...})`)
+### 속 (`seed/genera/<genus>.json`)
 | 필드 | 내용 |
 |---|---|
 | `id`, `group`, `sci`, `authority` | 예: `cyclommatus`, `lucanidae`, `Cyclommatus`, `Parry, 1863` |
@@ -114,11 +112,9 @@ tools/extract-strings.js 번역 대상 텍스트 추출
 
 작업 순서:
 1. **조사**: 7장 규칙에 따라 속·분류군 자료를 모은다(분류군이 많으면 나눠서 병렬로).
-2. **데이터**: `data/genera/<genus>.js` 작성. 섬·지역 분포는 `areas`로 정의한다.
-3. **지도**: 새 지역이면 `tools/mapgen/gen.js`의 `REGIONS`에 추가해 지도를 만들고 `data/core.js`의 `maps`에 이름을 넣는다.
-4. **페이지 연결**: 네 HTML에 `data/genera/<genus>.js`와 `data/ja/<genus>.js` 스크립트를 추가한다.
-5. **번역**: `node tools/extract-strings.js --missing-ja --json`으로 목록을 뽑아 `data/ja/<genus>.js`를 만든다.
-6. **검증**: 9장의 점검을 모두 통과시킨다.
+2. **데이터**: `seed/genera/<genus>.json` 작성(한/영/일). 섬·지역 분포는 `areas`로 정의한다.
+3. **지도**: 새 지역이면 `tools/mapgen/gen.js`의 `REGIONS`에 추가해 지도를 만들고 `seed/core.json`의 `maps`에 이름을 넣고, `genus.html`·`taxon.html`에 지도 스크립트를 추가한다.
+4. **검증**: 11장의 점검을 모두 통과시킨다. HTML 파일은 따로 만들지 않는다.
 
 ## 7. 조사·정확성 규칙
 
@@ -141,7 +137,7 @@ tools/extract-strings.js 번역 대상 텍스트 추출
 ## 9. 언어
 
 - 한국어(기본) · English · 日本語. 헤더의 `KO | EN | JA` 토글, 선택은 `localStorage`에 저장(try/catch), `<html lang>`도 바꾼다.
-- UI 문구는 `data/i18n.js`에 세 언어 모두 넣는다. 콘텐츠의 일본어는 `data/ja/<file>.js`에 영어 원문을 키로 넣는다.
+- UI 문구는 `data/i18n.js`에, 콘텐츠는 시드의 각 텍스트에 세 언어 모두 넣는다(일본어 누락은 검증 오류).
 - 학명은 언어와 관계없이 이탤릭 라틴어로 표기한다.
 
 ## 10. 디자인 — "모던 다큐멘터리" (유지)
@@ -154,8 +150,7 @@ tools/extract-strings.js 번역 대상 텍스트 추출
 
 ## 11. 점검
 
-- `node tools/validate-data.js` — id 중복, 분포 코드↔지도 다각형, 출처 id, 이미지 메타데이터, 일본어 누락
-- `./gradlew test` — Spring 컨텍스트 + 모든 페이지·스크립트·데이터 파일 서빙
+- `./gradlew test` — 시드 검증(id 중복, 분포 코드↔지도 다각형, 출처 id, 이미지 메타데이터, 일본어 누락), DB·API, 모든 페이지 서빙
 - 브라우저로 모든 페이지를 375px·1280px, 세 언어로 열어 콘솔 에러와 가로 넘침이 없는지 확인
 
 ## 12. 작업 보고와 PR

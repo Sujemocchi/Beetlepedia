@@ -18,10 +18,8 @@ class StaticSiteTests(@Autowired val mockMvc: MockMvc) {
 		strings = [
 			"/index.html", "/group.html", "/genus.html", "/taxon.html",
 			"/css/style.css",
-			"/js/main.js", "/js/home.js", "/js/group.js", "/js/genus.js", "/js/taxon.js", "/js/map.js", "/js/size-compare.js",
-			"/data/i18n.js", "/data/core.js",
-			"/data/genera/goliathus.js", "/data/genera/cyclommatus.js", "/data/genera/dynastes.js",
-			"/data/ja/core.js", "/data/ja/goliathus.js", "/data/ja/cyclommatus.js", "/data/ja/dynastes.js",
+			"/js/boot.js", "/js/main.js", "/js/home.js", "/js/group.js", "/js/genus.js", "/js/taxon.js", "/js/map.js", "/js/size-compare.js",
+			"/data/i18n.js",
 			"/assets/maps/africa.js", "/assets/maps/southeast-asia.js", "/assets/maps/neotropics.js",
 		]
 	)
@@ -31,10 +29,11 @@ class StaticSiteTests(@Autowired val mockMvc: MockMvc) {
 
 	@ParameterizedTest
 	@ValueSource(strings = ["/genus.html", "/taxon.html", "/group.html", "/index.html"])
-	fun `pages load the shared runtime`(path: String) {
+	fun `pages load their data from the API through boot js`(path: String) {
 		mockMvc.get(path).andExpect {
 			status { isOk() }
-			content { string(org.hamcrest.Matchers.containsString("js/main.js")) }
+			content { string(org.hamcrest.Matchers.containsString("<script src=\"js/boot.js\" data-scripts=\"js/main.js")) }
+			content { string(org.hamcrest.Matchers.not(org.hamcrest.Matchers.containsString("data/genera/"))) }
 		}
 	}
 }
