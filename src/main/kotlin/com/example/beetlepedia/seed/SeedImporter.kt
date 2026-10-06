@@ -92,8 +92,11 @@ class SeedImporter {
 		val images = linkedMapOf<String, Image>()
 		fun image(owner: String, s: ImageSeed): Image {
 			images[s.file]?.let { existing ->
-				if (existing.author != s.author || existing.license != s.license) {
-					problems += Problem(owner, "image '${s.file}' appears with different author or licence")
+				// One row per file: every use must describe it the same way
+				if (existing.author != s.author || existing.license != s.license || existing.licenseUrl != s.licenseUrl ||
+					existing.white != s.white || existing.alt.ko != s.alt.ko || existing.alt.en != s.alt.en || existing.alt.ja != s.alt.ja
+				) {
+					problems += Problem(owner, "image '${s.file}' appears with different credits or alt text")
 				}
 				return existing
 			}
@@ -105,9 +108,9 @@ class SeedImporter {
 		val baseRanks = core.baseTaxonomy.mapIndexed { i, r -> BaseRank(i, r.rank.toText(), r.name, r.common?.toText()) }
 
 		val areas = linkedMapOf<String, Area>()
-		generaSeed.forEach { g ->
-			g.areas.forEach { (code, a) ->
-				if (code in areas) problems += Problem("genus ${g.id}", "area '$code' is defined by more than one genus")
+		(listOf("core" to core.areas) + generaSeed.map { "genus ${it.id}" to it.areas }).forEach { (owner, map) ->
+			map.forEach { (code, a) ->
+				if (code in areas) problems += Problem(owner, "area '$code' is defined more than once")
 				areas[code] = Area(code, a.name.toText(), a.box?.toBox(), a.point?.let { GeoPoint(it[0], it[1]) }).apply {
 					this.countries.addAll(a.countries)
 					excludes.addAll(a.exclude.map { it.toBox() })

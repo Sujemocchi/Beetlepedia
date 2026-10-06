@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments :: head('대시보드')}"></head>
+<body class="admin">
+<header th:replace="~{admin/fragments :: nav('dashboard')}"></header>
+<main class="container">
+  <div th:replace="~{admin/fragments :: flash}"></div>
+  <h1>대시보드</h1>
+
+  <ul class="stats">
+    <li><b th:text="${o.groups}">3</b><span>상위 분류군</span></li>
+    <li><b th:text="${o.genera}">3</b><span>속</span></li>
+    <li><b th:text="${o.taxa}">28</b><span>종 · 아종</span></li>
+    <li><b th:text="${o.sources}">142</b><span>출처</span></li>
+    <li><b th:text="${o.images}">38</b><span>사진</span></li>
+    <li><b th:text="${o.withoutImage}">12</b><span>사진 없는 분류군</span></li>
+  </ul>
+
+  <section class="card-box">
+    <h2>데이터 검사</h2>
+    <p class="flash ok" th:if="${o.problems.isEmpty()}">모든 규칙을 통과했습니다 (id·학명 형식, 계급, 색, 몸길이, 분포 코드와 지도, 사진 크레딧, 일본어).</p>
+    <div th:unless="${o.problems.isEmpty()}">
+      <p th:text="'문제 ' + ${o.problems.size()} + '개'">문제</p>
+      <ul class="problem-list"><li th:each="p : ${o.problems}" th:text="${p}"></li></ul>
+    </div>
+  </section>
+
+  <section class="card-box">
+    <h2>시드</h2>
+    <p>데이터의 원본은 저장소의 <code>src/main/resources/seed</code>입니다. 여기서 고친 내용을 저장소에 남기려면 내보낸 파일을 그 폴더에 풀어 커밋하세요.</p>
+    <div class="actions">
+      <a class="btn" th:href="@{/admin/export}">시드로 내보내기 (zip)</a>
+      <form th:action="@{/admin/reseed}" method="post" onsubmit="return confirm('지금 데이터베이스의 내용을 모두 지우고 시드에서 다시 불러옵니다. 내보내지 않은 수정은 사라집니다. 계속할까요?')">
+        <button type="submit" class="btn ghost">시드에서 다시 불러오기</button>
+      </form>
+    </div>
+  </section>
+</main>
+</body>
+</html>

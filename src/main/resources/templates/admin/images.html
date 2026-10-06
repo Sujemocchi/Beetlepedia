@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments :: head('사진')}"></head>
+<body class="admin">
+<header th:replace="~{admin/fragments :: nav('images')}"></header>
+<main class="container">
+  <div th:replace="~{admin/fragments :: flash}"></div>
+  <div class="row-head">
+    <h1>사진 <small th:text="${images.size()}"></small></h1>
+    <a class="chip small" th:href="@{/admin/images/new}">+ 새 사진</a>
+  </div>
+  <p class="note">Wikimedia Commons 파일만 씁니다. 흰 배경 표본 사진이면 "흰 배경"을 체크하세요.</p>
+  <ul class="image-grid">
+    <li th:each="i : ${images}" class="card-box">
+      <a th:href="@{/admin/images/{id}(id=${i.id})}">
+        <img loading="lazy" th:classappend="${i.white} ? 'on-white'"
+             th:src="'https://commons.wikimedia.org/wiki/Special:FilePath/' + ${#uris.escapePathSegment(#strings.replace(i.file, ' ', '_'))} + '?width=320'"
+             th:alt="${i.alt.ko}">
+        <span class="file" th:text="${i.file}"></span>
+      </a>
+      <small th:text="${i.author} + ' · ' + ${i.license} + (${i.white} ? ' · 흰 배경' : '')"></small>
+    </li>
+  </ul>
+</main>
+</body>
+</html>
