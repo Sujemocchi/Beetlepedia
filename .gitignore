@@ -41,3 +41,6 @@ out/
 
 ### Claude Code ###
 .claude/
+
+### Local reference images (licence unknown, not published) ###
+reference/
