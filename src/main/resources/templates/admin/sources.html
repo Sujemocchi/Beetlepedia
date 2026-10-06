@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments :: head('출처')}"></head>
+<body class="admin">
+<header th:replace="~{admin/fragments :: nav('sources')}"></header>
+<main class="container">
+  <div th:replace="~{admin/fragments :: flash}"></div>
+  <div class="row-head">
+    <h1>출처 <small th:text="${sources.size()}"></small></h1>
+    <a class="chip small" th:href="@{/admin/sources/new}">+ 새 출처</a>
+  </div>
+  <div class="table-wrap card-box">
+    <table class="admin-table">
+      <thead><tr><th>id</th><th>제목</th><th>URL</th></tr></thead>
+      <tbody>
+        <tr th:each="s : ${sources}">
+          <td><a th:href="@{/admin/sources/{id}(id=${s.id})}" th:text="${s.id}"></a></td>
+          <td th:text="${s.title}"></td>
+          <td class="url"><a th:if="${s.url}" th:href="${s.url}" th:text="${s.url}" target="_blank" rel="noopener"></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

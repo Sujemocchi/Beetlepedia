@@ -44,3 +44,6 @@ out/
 
 ### Local reference images (licence unknown, not published) ###
 reference/
+
+### Local H2 database (development) ###
+data/

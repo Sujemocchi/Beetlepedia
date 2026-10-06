@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments :: head(${creating} ? '새 분류군' : ${form.sci})}"></head>
+<body class="admin">
+<header th:replace="~{admin/fragments :: nav('taxa')}"></header>
+<main class="container">
+  <div th:replace="~{admin/fragments :: flash}"></div>
+  <p class="breadcrumb"><a th:href="@{/admin/taxa}">← 분류군 목록</a>
+    <th:block th:unless="${creating}"> · <a th:href="@{/taxon.html(id=${form.id})}" target="_blank" rel="noopener">사이트에서 보기 ↗</a></th:block></p>
+  <h1 th:if="${creating}">새 분류군</h1>
+  <h1 th:unless="${creating}"><em class="sci" th:text="${form.sci}"></em></h1>
+  <div th:replace="~{admin/fragments :: problems(${problems})}"></div>
+
+  <form th:object="${form}" method="post" class="admin-form"
+        th:action="${creating} ? @{/admin/taxa/new} : @{/admin/taxa/{id}(id=${form.id})}">
+    <fieldset class="grid">
+      <legend>분류</legend>
+      <label>id <input th:field="*{id}" th:readonly="${!creating}" required pattern="[a-z0-9-]+"></label>
+      <label>속
+        <select th:field="*{genusId}"><option th:each="g : ${genera}" th:value="${g.first}" th:text="${g.second}"></option></select>
+      </label>
+      <label>계급
+        <select th:field="*{rank}"><option value="SPECIES">종</option><option value="SUBSPECIES">아종</option></select>
+      </label>
+      <label>학명 <input th:field="*{sci}" required></label>
+      <label>상위 종 (아종일 때) <input th:field="*{speciesSci}" placeholder="Dynastes hercules"></label>
+      <label>명명자 <input th:field="*{authority}" placeholder="(Linnaeus, 1758)"></label>
+      <label>기재 연도 <input type="number" th:field="*{describedYear}"></label>
+      <label>색 <input th:field="*{color}" pattern="#[0-9A-Fa-f]{6}" placeholder="#RRGGBB"></label>
+      <label>표시 순서 <input type="number" th:field="*{sortOrder}"></label>
+    </fieldset>
+
+    <fieldset class="tri">
+      <legend>이름</legend>
+      <label><span>KO</span><input th:field="*{name.ko}" lang="ko"></label>
+      <label><span>EN</span><input th:field="*{name.en}" lang="en"></label>
+      <label><span>JA</span><input th:field="*{name.ja}" lang="ja"></label>
+      <div class="checks">비공식 이름:
+        <label><input type="checkbox" th:field="*{informalKo}"> KO</label>
+        <label><input type="checkbox" th:field="*{informalEn}"> EN</label>
+        <label><input type="checkbox" th:field="*{informalJa}"> JA</label>
+      </div>
+    </fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('이름 설명', 'nameNote', 2)}"></fieldset>
+
+    <fieldset class="grid">
+      <legend>몸길이 (mm) — 최댓값만 알면 최솟값은 비워 두세요</legend>
+      <label>수컷 최소 <input type="number" step="0.1" th:field="*{maleMin}"></label>
+      <label>수컷 최대 <input type="number" step="0.1" th:field="*{maleMax}"></label>
+      <label>암컷 최소 <input type="number" step="0.1" th:field="*{femaleMin}"></label>
+      <label>암컷 최대 <input type="number" step="0.1" th:field="*{femaleMax}"></label>
+      <label class="wide">몸길이 출처 id <input th:field="*{sizeSources}"></label>
+    </fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('몸길이 메모 (야외·사육 기록 등)', 'sizeNote', 2)}"></fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('색 · 무늬', 'pattern', 2)}"></fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('형태', 'morphology', 4)}"></fieldset>
+
+    <fieldset class="grid">
+      <legend>분포</legend>
+      <label class="wide">분포 코드 (국가 ISO-3 또는 지역 키, 공백으로 구분) <input th:field="*{distribution}" placeholder="sumatra MYS"></label>
+    </fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('분포 메모', 'distributionNote', 2)}"></fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('서식 환경', 'habitat', 2)}"></fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('생태', 'ecology', 3)}"></fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('사육', 'captivityNote', 3)}"></fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('보전 상태', 'conservationStatus', 1)}"></fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('위협 요인', 'conservationText', 2)}"></fieldset>
+
+    <fieldset class="grid">
+      <legend>사진과 출처</legend>
+      <label class="wide">사진 파일 (한 줄에 하나, 첫 줄이 대표 사진 — 먼저 <a th:href="@{/admin/images}">사진</a>에 등록)
+        <textarea th:field="*{images}" rows="3"></textarea></label>
+      <label class="wide">출처 id (공백 또는 줄바꿈으로 구분 — <a th:href="@{/admin/sources}">출처</a>)
+        <textarea th:field="*{sources}" rows="3"></textarea></label>
+    </fieldset>
+    <p class="note">연표, 특별한 이슈, 재미있는 사실, 아종 목록은 아직 이 화면에서 고칠 수 없습니다. 시드 JSON에서 고치세요.</p>
+
+    <div class="actions sticky">
+      <button type="submit" class="btn" th:text="${creating} ? '추가' : '저장'">저장</button>
+      <a class="btn ghost" th:href="@{/admin/taxa}">취소</a>
+    </div>
+  </form>
+
+  <form th:unless="${creating}" th:action="@{/admin/taxa/{id}/delete(id=${form.id})}" method="post" class="danger"
+        onsubmit="return confirm('이 분류군을 삭제할까요? 시드로 내보내기 전까지는 되돌릴 수 있습니다(시드에서 다시 불러오기).')">
+    <button type="submit" class="btn ghost">이 분류군 삭제</button>
+  </form>
+</main>
+</body>
+</html>

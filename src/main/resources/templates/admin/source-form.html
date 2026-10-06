@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments :: head('출처')}"></head>
+<body class="admin">
+<header th:replace="~{admin/fragments :: nav('sources')}"></header>
+<main class="container">
+  <p class="breadcrumb"><a th:href="@{/admin/sources}">← 출처 목록</a></p>
+  <h1 th:text="${creating} ? '새 출처' : ${form.id}">출처</h1>
+  <div th:replace="~{admin/fragments :: problems(${problems})}"></div>
+  <form th:object="${form}" method="post" class="admin-form"
+        th:action="${creating} ? @{/admin/sources/new} : @{/admin/sources/{id}(id=${form.id})}">
+    <fieldset class="grid">
+      <legend>출처</legend>
+      <label>id (속 접두사 권장: cy-, dy- …) <input th:field="*{id}" th:readonly="${!creating}" required pattern="[a-z0-9][a-z0-9-]+"></label>
+      <label class="wide">제목 (저자, 연도, 문헌) <textarea th:field="*{title}" rows="3" required></textarea></label>
+      <label class="wide">URL <input type="url" th:field="*{url}" placeholder="https://"></label>
+    </fieldset>
+    <div class="actions">
+      <button type="submit" class="btn" th:text="${creating} ? '추가' : '저장'">저장</button>
+      <a class="btn ghost" th:href="@{/admin/sources}">취소</a>
+    </div>
+  </form>
+</main>
+</body>
+</html>

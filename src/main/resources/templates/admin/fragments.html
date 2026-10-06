@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title th:text="${title} + ' · Beetlepedia 관리'">관리</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+
+<header th:fragment="nav(active)" class="admin-header">
+  <div class="container">
+    <a class="brand" th:href="@{/admin}">Beetlepedia <small>관리</small></a>
+    <nav aria-label="관리 메뉴">
+      <a th:href="@{/admin}" th:attr="aria-current=${active == 'dashboard'} ? 'page' : null">대시보드</a>
+      <a th:href="@{/admin/taxa}" th:attr="aria-current=${active == 'taxa'} ? 'page' : null">분류군</a>
+      <a th:href="@{/admin/sources}" th:attr="aria-current=${active == 'sources'} ? 'page' : null">출처</a>
+      <a th:href="@{/admin/images}" th:attr="aria-current=${active == 'images'} ? 'page' : null">사진</a>
+      <a th:href="@{/}" target="_blank" rel="noopener">사이트 보기 ↗</a>
+    </nav>
+    <form th:action="@{/admin/logout}" method="post" class="logout">
+      <span class="who" th:text="${user}">admin</span>
+      <button type="submit" class="chip small">로그아웃</button>
+    </form>
+  </div>
+</header>
+
+<div th:fragment="flash">
+  <p class="flash ok" role="status" th:if="${message}" th:text="${message}"></p>
+  <pre class="flash bad" role="alert" th:if="${error}" th:text="${error}"></pre>
+</div>
+
+<div th:fragment="problems(list)" th:if="${list != null and !list.isEmpty()}" class="problems" role="alert">
+  <h2 th:text="'저장하지 않았습니다 — 문제 ' + ${list.size()} + '개'">문제</h2>
+  <ul><li th:each="p : ${list}" th:text="${p}"></li></ul>
+</div>
+
+<!-- Korean / English / Japanese inputs for one text of the form object, e.g. tri('형태', 'morphology', 3) -->
+<fieldset th:fragment="tri(label, field, rows)" class="tri">
+  <legend th:text="${label}"></legend>
+  <label><span>KO</span><textarea th:field="*{__${field}__.ko}" th:rows="${rows}" lang="ko"></textarea></label>
+  <label><span>EN</span><textarea th:field="*{__${field}__.en}" th:rows="${rows}" lang="en"></textarea></label>
+  <label><span>JA</span><textarea th:field="*{__${field}__.ja}" th:rows="${rows}" lang="ja"></textarea></label>
+</fieldset>
+
+</body>
+</html>

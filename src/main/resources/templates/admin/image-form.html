@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments :: head('사진')}"></head>
+<body class="admin">
+<header th:replace="~{admin/fragments :: nav('images')}"></header>
+<main class="container">
+  <p class="breadcrumb"><a th:href="@{/admin/images}">← 사진 목록</a></p>
+  <h1 th:text="${creating} ? '새 사진' : ${form.file}">사진</h1>
+  <div th:replace="~{admin/fragments :: problems(${problems})}"></div>
+  <form th:object="${form}" method="post" class="admin-form"
+        th:action="${creating} ? @{/admin/images/new} : @{/admin/images/{id}(id=${form.id})}">
+    <fieldset class="grid">
+      <legend>Wikimedia Commons 파일</legend>
+      <label class="wide">파일 이름 ("File:" 없이) <input th:field="*{file}" required></label>
+      <label>작가 <input th:field="*{author}" required></label>
+      <label>라이선스 <input th:field="*{license}" placeholder="CC BY-SA 4.0" required></label>
+      <label class="wide">라이선스 URL <input type="url" th:field="*{licenseUrl}" placeholder="https://creativecommons.org/licenses/by-sa/4.0"></label>
+      <label class="check"><input type="checkbox" th:field="*{white}"> 흰 배경 표본 사진</label>
+    </fieldset>
+    <fieldset th:replace="~{admin/fragments :: tri('대체 텍스트', 'alt', 2)}"></fieldset>
+    <div class="actions">
+      <button type="submit" class="btn" th:text="${creating} ? '추가' : '저장'">저장</button>
+      <a class="btn ghost" th:href="@{/admin/images}">취소</a>
+    </div>
+  </form>
+</main>
+</body>
+</html>

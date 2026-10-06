@@ -33,6 +33,8 @@ data class CoreSeed(
 	val countries: Map<String, TextSeed> = emptyMap(),
 	val maps: Map<String, MapSeed> = emptyMap(),
 	val sources: Map<String, SourceSeed> = emptyMap(),
+	/** Areas no genus uses (genera normally define their own). */
+	val areas: Map<String, AreaSeed> = emptyMap(),
 )
 
 data class ImageSeed(

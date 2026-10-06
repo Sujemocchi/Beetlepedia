@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments :: head('로그인')}"></head>
+<body class="admin">
+<main class="container login">
+  <h1>Beetlepedia 관리</h1>
+  <p class="flash bad" role="alert" th:if="${param.error}">아이디 또는 비밀번호가 맞지 않습니다.</p>
+  <p class="flash ok" role="status" th:if="${param.logout}">로그아웃했습니다.</p>
+  <form th:action="@{/admin/login}" method="post" class="card-box">
+    <label>아이디 <input type="text" name="username" autocomplete="username" required autofocus></label>
+    <label>비밀번호 <input type="password" name="password" autocomplete="current-password" required></label>
+    <button type="submit" class="btn">로그인</button>
+  </form>
+  <p class="note">비밀번호는 <code>beetlepedia.admin.password</code>(환경 변수 <code>BEETLEPEDIA_ADMIN_PASSWORD</code>)로 정합니다. 정하지 않으면 서버 시작 로그에 한 번 출력됩니다.</p>
+</main>
+</body>
+</html>
