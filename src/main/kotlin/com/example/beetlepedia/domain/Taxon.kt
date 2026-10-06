@@ -18,6 +18,7 @@ import jakarta.persistence.JoinTable
 import jakarta.persistence.ManyToMany
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
+import jakarta.persistence.OrderBy
 import jakarta.persistence.OrderColumn
 import jakarta.persistence.Table
 
@@ -97,7 +98,8 @@ class Taxon(
 	var facts: MutableList<LocalizedText> = mutableListOf()
 
 	@OneToMany(mappedBy = "taxon", cascade = [CascadeType.ALL], orphanRemoval = true)
-	@OrderColumn(name = "position")
+	// Insertion order (identity ids); @OrderColumn is not supported on the mappedBy side
+	@OrderBy("id")
 	var issues: MutableList<TaxonIssue> = mutableListOf()
 
 	@ManyToMany

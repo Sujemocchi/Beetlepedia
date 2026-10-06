@@ -100,6 +100,19 @@ tools/
   - 지금은 JS 데이터 파일에서 `node tools/export-seed.js`로 만듭니다(일본어 오버레이를 `ja`로 합침). 화면이 API로 바뀌면 시드가 원본이 됩니다.
 - **검증** (`TaxonomyValidator`): `validate-data.js`의 규칙(id·학명 형식, 계급, 색, 몸길이, 분포 코드와 지도, 사진 크레딧, 일본어 누락)을 서버로 옮겼습니다. 지도 다각형은 사이트의 지도 파일을 그대로 읽습니다.
 
+### 조회 API
+
+| 엔드포인트 | 내용 |
+|---|---|
+| `GET /api/bootstrap` | 페이지가 쓰는 전체 데이터. 예전 `window.BP`와 같은 모양(분류군·속·종·국가·지역·출처·지도) |
+| `GET /api/groups`, `/api/groups/{id}` | 상위 분류군과 소속 속 요약 |
+| `GET /api/genera`, `/api/genera/{id}` | 속 요약 목록 / 속 전체와 그 분류군 |
+| `GET /api/taxa/{id}` | 종·아종 상세 |
+| `GET /api/taxa?q=&group=&genus=&rank=&minLength=&maxLength=&country=&hasImage=` | 검색. `q`는 학명(약칭 `D. h. lichyi` 포함)과 한·영·일 이름, `country`는 그 나라에 있는 섬·지역 분포도 포함 |
+
+- 다국어 텍스트는 `{ "ko", "en", "ja" }`, 몸길이는 `[min, max]`(min은 null 가능)입니다. 값이 없는 필드는 응답에서 빠집니다.
+- 없는 id는 404, 잘못된 파라미터는 400이며 본문은 RFC 9457 `ProblemDetail`입니다.
+
 ## 테스트
 
 ```bash
