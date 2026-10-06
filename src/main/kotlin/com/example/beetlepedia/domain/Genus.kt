@@ -104,11 +104,13 @@ class Genus(
 	var sizeDefaults: MutableList<String> = mutableListOf()
 
 	@OneToMany(mappedBy = "genus", cascade = [CascadeType.ALL], orphanRemoval = true)
-	@OrderColumn(name = "position")
+	// Insertion order (identity ids); @OrderColumn is not supported on the mappedBy side
+	@OrderBy("id")
 	var weights: MutableList<GenusWeight> = mutableListOf()
 
 	@OneToMany(mappedBy = "genus", cascade = [CascadeType.ALL], orphanRemoval = true)
-	@OrderColumn(name = "position")
+	// Insertion order (identity ids); @OrderColumn is not supported on the mappedBy side
+	@OrderBy("id")
 	var speciesInfo: MutableList<SpeciesInfo> = mutableListOf()
 
 	@ManyToMany
