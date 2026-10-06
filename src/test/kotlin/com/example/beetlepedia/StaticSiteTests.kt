@@ -20,7 +20,7 @@ class StaticSiteTests(@Autowired val mockMvc: MockMvc) {
 			"/css/style.css",
 			"/js/main.js", "/js/home.js", "/js/group.js", "/js/genus.js", "/js/taxon.js", "/js/map.js", "/js/size-compare.js",
 			"/data/i18n.js", "/data/core.js",
-			"/data/genera/goliathus.js",
+			"/data/genera/goliathus.js", "/data/genera/cyclommatus.js", "/data/genera/dynastes.js",
 			"/assets/maps/africa.js", "/assets/maps/southeast-asia.js", "/assets/maps/neotropics.js",
 		]
 	)
