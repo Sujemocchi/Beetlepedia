@@ -25,7 +25,7 @@ window.BP = {
       sci: "Cetoniinae",
       authority: "Leach, 1815",
       color: "#E0823F",
-      name: { ko: "꽃무지", en: "Flower chafers" },
+      name: { ko: "꽃무지", en: "Flower chafers", ja: "ハナムグリ" },
       // Ranks below Scarabaeoidea down to this group.
       taxonomy: [
         { rank: { ko: "과", en: "Family" }, name: "Scarabaeidae", common: { ko: "풍뎅이과", en: "Scarab beetles" } },
@@ -46,7 +46,7 @@ window.BP = {
       sci: "Lucanidae",
       authority: "Latreille, 1804",
       color: "#D9B44A",
-      name: { ko: "사슴벌레", en: "Stag beetles" },
+      name: { ko: "사슴벌레", en: "Stag beetles", ja: "クワガタムシ" },
       taxonomy: [
         { rank: { ko: "과", en: "Family" }, name: "Lucanidae", common: { ko: "사슴벌레과", en: "Stag beetles" } }
       ],
@@ -65,7 +65,7 @@ window.BP = {
       sci: "Dynastinae",
       authority: "MacLeay, 1819",
       color: "#9FBF4A",
-      name: { ko: "장수풍뎅이", en: "Rhinoceros beetles" },
+      name: { ko: "장수풍뎅이", en: "Rhinoceros beetles", ja: "カブトムシ" },
       taxonomy: [
         { rank: { ko: "과", en: "Family" }, name: "Scarabaeidae", common: { ko: "풍뎅이과", en: "Scarab beetles" } },
         { rank: { ko: "아과", en: "Subfamily" }, name: "Dynastinae", common: { ko: "장수풍뎅이아과", en: "Rhinoceros beetles" } }

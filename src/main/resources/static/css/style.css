@@ -535,3 +535,11 @@ table.compare .en { color: var(--text-faint); display: block; font-size: 0.85rem
 @media (min-width: 900px) {
   .hero-media.plate img { object-position: right center; padding: 9% 3% 14% 42%; }
 }
+
+/* Japanese: JP fonts, and normal line breaking (keep-all would stop kana/kanji from wrapping) */
+html:lang(ja) {
+  --font-serif: "Noto Serif JP", "Noto Serif KR", Georgia, serif;
+  --font-sans: "Noto Sans JP", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+html:lang(ja) body { word-break: normal; line-break: strict; }
+html:lang(ja) em.sci, html:lang(ja) .sci { font-family: Georgia, "Noto Serif JP", serif; }

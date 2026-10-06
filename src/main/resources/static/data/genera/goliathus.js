@@ -240,7 +240,7 @@ BP.registerGenus({
       "year": 1835,
       "color": "#F2CF5B",
       "name": { "ko": "레기우스 골리앗꽃무지", "en": "Royal Goliath beetle" },
-      "nameInformal": { "ko": true, "en": false },
+      "nameInformal": { "ko": true, "en": false, "ja": true },
       "nameNote": { "ko": "공식 국명이 없어 종소명(regius, '왕의')을 음차했다.", "en": "\"regius\" means \"royal\" in Latin." },
       "size": {
         "male": [50, 115],
@@ -311,7 +311,7 @@ BP.registerGenus({
       "year": 1909,
       "color": "#63B0E6",
       "name": { "ko": "오리엔탈리스 골리앗꽃무지", "en": "Eastern Goliath beetle" },
-      "nameInformal": { "ko": true, "en": true },
+      "nameInformal": { "ko": true, "en": true, "ja": true },
       "nameNote": { "ko": "공식 국명이 없어 종소명(orientalis, '동쪽의')을 음차했다.", "en": "No established English name; \"orientalis\" means \"eastern\"." },
       "subspecies": [
         {
@@ -404,7 +404,7 @@ BP.registerGenus({
       "year": 1789,
       "color": "#B58CE6",
       "name": { "ko": "카키쿠스 골리앗꽃무지", "en": "Chief goliath" },
-      "nameInformal": { "ko": true, "en": false },
+      "nameInformal": { "ko": true, "en": false, "ja": true },
       "nameNote": { "ko": "공식 국명이 없어 종소명(cacicus, '추장')을 음차했다.", "en": "\"cacicus\" refers to a chief (cacique)." },
       "size": {
         "male": [50, 100],
@@ -479,7 +479,7 @@ BP.registerGenus({
       "year": 1857,
       "color": "#6FD69A",
       "name": { "ko": "알보시그나투스 골리앗꽃무지", "en": "White-marked Goliath beetle" },
-      "nameInformal": { "ko": true, "en": true },
+      "nameInformal": { "ko": true, "en": true, "ja": true },
       "nameNote": { "ko": "공식 국명이 없어 종소명(albosignatus, '흰 표시가 있는')을 음차했다.", "en": "No established English name; \"albosignatus\" means \"white-marked\"." },
       "subspecies": [
         {

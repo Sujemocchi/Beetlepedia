@@ -8,6 +8,7 @@
  * - every distribution code is a country or an area, and matches at least one polygon of the genus map
  * - every source id used by a taxon, issue or weight exists
  * - every image has a file, author, licence and alt text in both languages
+ * - every UI string and every {ko, en} text has Japanese (inline `ja` or data/ja/*.js)
  */
 "use strict";
 const fs = require("fs");
@@ -25,6 +26,8 @@ load("data/core.js");
 ctx.BP = ctx.window.BP;
 fs.readdirSync(path.join(STATIC, "data", "genera")).filter((f) => f.endsWith(".js")).sort()
   .forEach((f) => load("data/genera/" + f));
+const JA_DIR = path.join(STATIC, "data", "ja");
+if (fs.existsSync(JA_DIR)) fs.readdirSync(JA_DIR).filter((f) => f.endsWith(".js")).sort().forEach((f) => load("data/ja/" + f));
 const MAP_DIR = path.join(STATIC, "assets", "maps");
 if (fs.existsSync(MAP_DIR)) fs.readdirSync(MAP_DIR).filter((f) => f.endsWith(".js")).forEach((f) => load("assets/maps/" + f));
 
@@ -96,8 +99,22 @@ BP.genera.forEach((g) => {
   });
 });
 
+// Japanese coverage
+const JA = ctx.window.BP_JA || {};
+let jaTexts = 0;
+Object.entries(ctx.window.I18N).forEach(([k, v]) => { if (!v.ja) err("i18n " + k, "missing ja"); });
+(function walk(o, where) {
+  if (!o || typeof o !== "object") return;
+  if (Array.isArray(o)) return o.forEach((x) => walk(x, where));
+  if (typeof o.ko === "string" && typeof o.en === "string" && o.en) {
+    jaTexts++;
+    if (!o.ja && !JA[o.en]) err(where, "missing Japanese for \"" + o.en.slice(0, 60) + "\"");
+  }
+  Object.values(o).forEach((x) => walk(x, where));
+})({ groups: BP.groups, genera: BP.genera, maps: BP.maps, countries: BP.countries, areas: BP.areas }, "ja");
+
 console.log(BP.groups.length + " groups, " + BP.genera.length + " genera, " + BP.taxa.length + " taxa, " +
-  Object.keys(BP.sources).length + " sources, " + Object.keys(BP.areas).length + " areas");
+  Object.keys(BP.sources).length + " sources, " + Object.keys(BP.areas).length + " areas, " + jaTexts + " texts checked for Japanese");
 if (errors.length) {
   errors.forEach((e) => console.error("✗ " + e));
   console.error(errors.length + " problem(s)");
