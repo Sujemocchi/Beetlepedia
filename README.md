@@ -1,4 +1,7 @@
-# Goliathus — 골리앗꽃무지 소개 웹사이트
+# Beetlepedia — 꽃무지 · 사슴벌레 · 장수풍뎅이 도감
 
-아프리카의 골리앗꽃무지속(*Goliathus*) 5종을 소개하는 교육용 정적 웹사이트의 Spring Boot 프로젝트 뼈대입니다.
-요구사항은 `PROMPT.md`에 있습니다.
+골리앗꽃무지 사이트(Golithus)를 꽃무지·사슴벌레·장수풍뎅이 전반을 다루는 **Beetlepedia**로 확장하는 프로젝트입니다.
+
+## 실행 방법
+- `./gradlew bootRun` 실행 후 http://localhost:8080 에 접속합니다.
+- `./gradlew test`로 테스트를 실행합니다.

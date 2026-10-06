@@ -1,10 +1,10 @@
-package com.example.Golithus
+package com.example.beetlepedia
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class GolithusApplicationTests {
+class BeetlepediaApplicationTests {
 
 	@Test
 	fun contextLoads() {
