@@ -1,7 +1,7 @@
 /*
  * Genus page (genus.html?id=<genus>): overview, taxon cards, comparison table,
  * distribution map, size comparison, life cycle, conservation and sources.
- * All content comes from data/genera/<id>.js.
+ * All content comes from window.BP (loaded from /api/bootstrap by js/boot.js).
  */
 (function () {
   "use strict";

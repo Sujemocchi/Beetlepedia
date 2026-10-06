@@ -1,7 +1,5 @@
 /*
- * UI strings (KO / EN / JA). Group- and genus-specific text lives in data/core.js
- * and data/genera/*.js (Japanese for those: data/ja/*.js).
- * Exported as a global (window.I18N) so pages work from file://.
+ * UI strings (KO / EN / JA). Taxonomy content comes from the server (/api/bootstrap).
  */
 window.I18N = {
   "site.title": { ko: "Beetlepedia — 꽃무지 · 사슴벌레 · 장수풍뎅이 도감", en: "Beetlepedia — flower chafers, stag & rhinoceros beetles", ja: "Beetlepedia — ハナムグリ・クワガタムシ・カブトムシ図鑑" },
@@ -162,6 +160,7 @@ window.I18N = {
   "detail.next": { ko: "다음", en: "Next", ja: "次へ" },
   "detail.notFound": { ko: "해당 분류군을 찾을 수 없습니다.", en: "Taxon not found.", ja: "該当する分類群が見つかりません。" },
 
+  "load.error": { ko: "데이터를 불러오지 못했습니다. 서버가 실행 중인지 확인하세요 (./gradlew bootRun).", en: "Could not load the data. Make sure the server is running (./gradlew bootRun).", ja: "データを読み込めませんでした。サーバーが起動しているか確認してください（./gradlew bootRun）。" },
   "img.missing": { ko: "이미지를 불러오지 못했습니다", en: "Image could not be loaded", ja: "画像を読み込めませんでした" },
 
   "footer.text": { ko: "교육용 비영리 사이트입니다. 사진 저작권은 각 작가에게 있으며 표시된 라이선스를 따릅니다.", en: "A non-commercial educational site. Photos remain the work of their authors under the licences shown.", ja: "教育目的の非営利サイトです。写真の著作権は各作者にあり、表示したライセンスに従います。" }

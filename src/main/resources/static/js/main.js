@@ -2,7 +2,7 @@
  * Shared behaviour for every page: language switching, header/footer,
  * navigation, scroll-reveal, image helpers and lookups in the classification
  * tree (group → genus → species → subspecies).
- * Depends on data/i18n.js, data/core.js and data/genera/*.js (loaded before this file).
+ * Depends on data/i18n.js and window.BP, which js/boot.js loads from /api/bootstrap before running this file.
  * Page scripts (home.js, group.js, genus.js, taxon.js) use the helpers exposed as window.App.
  */
 (function () {
@@ -33,8 +33,8 @@
     if (obj == null) return "";
     if (typeof obj === "string") return obj;
     if (obj[lang] != null) return obj[lang];
-    // Japanese: inline `ja`, then the overlay tables in data/ja/*.js (keyed by the English text), then English.
-    if (lang === "ja") return (obj.en && window.BP_JA && window.BP_JA[obj.en]) || obj.en || obj.ko;
+    // A text without Japanese falls back to English, otherwise to Korean.
+    if (lang === "ja") return obj.en || obj.ko;
     return obj.ko;
   }
   function esc(s) {
@@ -319,12 +319,12 @@
     return (r[0] == null ? "≤ " + r[1] : r[0] + "–" + r[1]) + " mm";
   }
   function maxMale(x) { return x.size && x.size.male ? x.size.male[1] : null; }
-  // Common name of a taxon in one language ("" if none). Japanese names come from `nameJa` or the overlay.
+  // Common name of a taxon in one language ("" if none).
   function taxonName(x, which) {
     which = which || lang;
     var nm = x.name || {};
     if (which !== "ja") return nm[which] || "";
-    return nm.ja || x.nameJa || (nm.en && window.BP_JA && window.BP_JA[nm.en]) || "";
+    return nm.ja || "";
   }
   function nameHTML(x, which) {
     var n = taxonName(x, which);
