@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beetlepedia</title>
+  <meta name="description" content="Beetlepedia 속 소개: 개요, 종 비교표, 분포 지도, 크기 비교, 생활사, 보전">
+  <meta name="theme-color" content="#0b100c">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="genus" data-base="" id="top">
+
+<main id="main">
+  <!-- 1. Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-media" id="hero-img"></div>
+    <div class="container">
+      <div id="hero-crumbs"></div>
+      <span class="eyebrow" id="hero-eyebrow"></span>
+      <h1 id="hero-title"></h1>
+      <p class="hero-sci" id="hero-sci"></p>
+      <p class="lead" id="hero-lead"></p>
+      <ul class="hero-stats" id="hero-stats"></ul>
+      <a class="btn" href="#species"><span data-i18n="genus.cta"></span> <span aria-hidden="true">→</span></a>
+    </div>
+    <div id="hero-credit"></div>
+  </section>
+
+  <!-- 2. Overview -->
+  <section class="section" id="overview" aria-labelledby="overview-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker" id="overview-kicker"></span>
+        <h2 id="overview-title" data-i18n="genus.overview"></h2>
+      </div>
+      <div class="grid-2">
+        <div class="prose reveal">
+          <p class="big" id="overview-body"></p>
+          <div class="stack" id="overview-cards"></div>
+        </div>
+        <div class="reveal">
+          <h3 data-i18n="genus.taxTitle"></h3>
+          <ol class="taxonomy" id="taxonomy"></ol>
+          <p class="note" style="margin-top:16px" id="overview-note"></p>
+          <div id="overview-figure" style="margin-top:24px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Species cards -->
+  <section class="section alt" id="species" aria-labelledby="species-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="species-title" data-i18n="genus.species"></h2>
+        <p class="lead" data-i18n="genus.speciesLead"></p>
+      </div>
+      <div id="species-groups"></div>
+    </div>
+  </section>
+
+  <!-- 4. Comparison table -->
+  <section class="section" id="compare" aria-labelledby="compare-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="compare-title" data-i18n="compare.title"></h2>
+        <p class="lead" data-i18n="compare.lead"></p>
+      </div>
+      <div class="table-wrap reveal" tabindex="0" role="region" aria-labelledby="compare-title">
+        <table class="compare" id="compare-table"></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Distribution map -->
+  <section class="section alt" id="map" aria-labelledby="map-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="map-title" data-i18n="map.title"></h2>
+        <p class="lead" data-i18n="map.lead"></p>
+      </div>
+      <div class="map-layout reveal">
+        <div class="map-controls">
+          <div class="chip-row species" id="map-chips"></div>
+          <div class="chip-row">
+            <button type="button" class="chip small" id="map-all" data-i18n="map.all"></button>
+            <button type="button" class="chip small" id="map-none" data-i18n="map.none"></button>
+          </div>
+          <div>
+            <h3 class="picker-title" data-i18n="map.legend"></h3>
+            <ul class="legend" id="map-legend"></ul>
+          </div>
+        </div>
+        <div>
+          <div class="map-stage" id="map-stage"></div>
+          <p class="map-info" id="map-info" aria-live="polite"></p>
+          <p class="note" data-i18n="map.note"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Size comparison -->
+  <section class="section" id="size" aria-labelledby="size-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="size-title" data-i18n="size.title"></h2>
+        <p class="lead" data-i18n="size.lead"></p>
+      </div>
+      <div class="size-layout reveal">
+        <div class="size-pickers">
+          <div>
+            <h3 class="picker-title" data-i18n="size.pickSpecies"></h3>
+            <div class="chip-row" id="size-species"></div>
+          </div>
+          <div>
+            <h3 class="picker-title" data-i18n="size.pickObjects"></h3>
+            <div class="chip-row" id="size-objects"></div>
+          </div>
+        </div>
+        <div class="size-stage" id="size-stage"></div>
+        <div class="size-legend" id="size-legend"></div>
+        <div id="weights-block" hidden>
+          <h3 data-i18n="size.weightTitle"></h3>
+          <p class="note" id="weights-note"></p>
+          <div class="weights" id="weights"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Life cycle -->
+  <section class="section alt" id="lifecycle" aria-labelledby="life-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="life-title" data-i18n="life.title"></h2>
+        <p class="lead" id="life-lead"></p>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <!-- 8. Conservation, captivity, facts -->
+  <section class="section" id="conservation" aria-labelledby="cons-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="cons-title" data-i18n="cons.title"></h2>
+      </div>
+      <div class="grid-2">
+        <div class="card-box reveal">
+          <h3 data-i18n="cons.statusTitle"></h3>
+          <p id="cons-status"></p>
+        </div>
+        <div class="card-box reveal">
+          <h3 data-i18n="cons.careTitle"></h3>
+          <ul class="check-list" id="care-list"></ul>
+        </div>
+      </div>
+      <h3 id="facts" style="margin-top:64px" class="reveal" data-i18n="facts.title"></h3>
+      <ul class="facts" id="facts-list"></ul>
+    </div>
+  </section>
+
+  <!-- 9. References -->
+  <section class="section alt" id="references" aria-labelledby="refs-title">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <h2 id="refs-title" data-i18n="refs.title"></h2>
+          <ol class="refs" id="refs-list"></ol>
+        </div>
+        <div>
+          <h3 data-i18n="refs.images"></h3>
+          <p class="note" data-i18n="refs.imagesNote"></p>
+          <ul class="credits" id="credits-list"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="data/i18n.js"></script>
+<script src="data/core.js"></script>
+<script src="data/genera/goliathus.js"></script>
+<script src="assets/maps/africa.js"></script>
+<script src="assets/maps/southeast-asia.js"></script>
+<script src="assets/maps/neotropics.js"></script>
+<script src="js/main.js"></script>
+<script src="js/map.js"></script>
+<script src="js/size-compare.js"></script>
+<script src="js/genus.js"></script>
+</body>
+</html>

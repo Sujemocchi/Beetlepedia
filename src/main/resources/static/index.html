@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beetlepedia — 꽃무지 · 사슴벌레 · 장수풍뎅이 도감</title>
+  <meta name="description" content="꽃무지, 사슴벌레, 장수풍뎅이 — 세계의 대형 딱정벌레를 분류 체계에 따라 소개하는 교육용 도감">
+  <meta name="theme-color" content="#0b100c">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home" data-base="" data-title-key="site.title" id="top">
+
+<main id="main">
+  <!-- 1. Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-media mosaic" id="hero-img"></div>
+    <div class="container">
+      <span class="eyebrow" data-i18n="home.eyebrow"></span>
+      <h1 id="hero-title" data-i18n="home.title"></h1>
+      <p class="lead" data-i18n="home.lead"></p>
+      <ul class="hero-stats" id="hero-stats"></ul>
+      <a class="btn" href="#groups"><span data-i18n="home.cta"></span> <span aria-hidden="true">→</span></a>
+    </div>
+    <div id="hero-credit"></div>
+  </section>
+
+  <!-- 2. Groups -->
+  <section class="section" id="groups" aria-labelledby="groups-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="groups-title" data-i18n="home.groupsTitle"></h2>
+        <p class="lead" data-i18n="home.groupsLead"></p>
+      </div>
+      <div class="group-grid" id="group-grid"></div>
+    </div>
+  </section>
+
+  <!-- 3. Classification tree -->
+  <section class="section alt" id="tree" aria-labelledby="tree-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="tree-title" data-i18n="home.treeTitle"></h2>
+        <p class="lead" data-i18n="home.treeLead"></p>
+      </div>
+      <div class="tree-wrap reveal" id="tree-root"></div>
+      <p class="note" style="margin-top:20px" data-i18n="home.comingSoon"></p>
+    </div>
+  </section>
+
+  <!-- 4. Size comparison across genera -->
+  <section class="section" id="size" aria-labelledby="size-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="size-title" data-i18n="home.sizeTitle"></h2>
+        <p class="lead" data-i18n="home.sizeLead"></p>
+      </div>
+      <div class="size-layout reveal">
+        <div class="size-pickers">
+          <div>
+            <h3 class="picker-title" data-i18n="size.pickSpecies"></h3>
+            <div class="chip-row" id="size-species"></div>
+          </div>
+          <div>
+            <h3 class="picker-title" data-i18n="size.pickObjects"></h3>
+            <div class="chip-row" id="size-objects"></div>
+          </div>
+        </div>
+        <div class="size-stage" id="size-stage"></div>
+        <div class="size-legend" id="size-legend"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Index -->
+  <section class="section alt" id="index" aria-labelledby="index-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="index-title" data-i18n="home.indexTitle"></h2>
+        <p class="lead" data-i18n="home.indexLead"></p>
+      </div>
+      <div class="index-controls">
+        <label class="search">
+          <span class="visually-hidden" data-i18n="home.search"></span>
+          <input type="search" id="index-q" autocomplete="off" data-i18n-ph="home.searchPh">
+        </label>
+        <div class="chip-row" id="index-filter"></div>
+      </div>
+      <ul class="index-list" id="index-list"></ul>
+      <p class="note" id="index-empty" hidden data-i18n="home.noResults"></p>
+    </div>
+  </section>
+</main>
+
+<script src="data/i18n.js"></script>
+<script src="data/core.js"></script>
+<script src="data/genera/goliathus.js"></script>
+<script src="js/main.js"></script>
+<script src="js/size-compare.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
