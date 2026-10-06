@@ -11,6 +11,7 @@
   var BP = window.BP;
   var STRINGS = window.I18N;
   var LANG_KEY = "beetlepedia-lang";
+  var LANGS = ["ko", "en", "ja"];
   var lang = "ko";
 
   var base = document.body.getAttribute("data-base") || "";
@@ -19,19 +20,22 @@
   // ---------- language ----------
   try {
     var saved = window.localStorage.getItem(LANG_KEY) || window.localStorage.getItem("goliathus-lang");
-    if (saved === "ko" || saved === "en") lang = saved;
+    if (LANGS.indexOf(saved) !== -1) lang = saved;
   } catch (e) { /* storage unavailable: keep default */ }
 
   function t(key, vars) {
     var entry = STRINGS[key];
-    var s = !entry ? key : entry[lang] != null ? entry[lang] : entry.ko;
+    var s = !entry ? key : entry[lang] != null ? entry[lang] : entry.en != null ? entry.en : entry.ko;
     if (vars) Object.keys(vars).forEach(function (k) { s = s.split("{" + k + "}").join(vars[k]); });
     return s;
   }
   function L(obj) {
     if (obj == null) return "";
     if (typeof obj === "string") return obj;
-    return obj[lang] != null ? obj[lang] : obj.ko;
+    if (obj[lang] != null) return obj[lang];
+    // Japanese: inline `ja`, then the overlay tables in data/ja/*.js (keyed by the English text), then English.
+    if (lang === "ja") return (obj.en && window.BP_JA && window.BP_JA[obj.en]) || obj.en || obj.ko;
+    return obj.ko;
   }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -219,7 +223,8 @@
       '<nav class="site-nav" id="site-nav" data-i18n-aria="nav.menu"><ul></ul></nav>' +
       '<div class="lang-toggle" role="group" data-i18n-aria="lang.label">' +
       '<button type="button" data-lang="ko" lang="ko">KO</button><span class="sep" aria-hidden="true"></span>' +
-      '<button type="button" data-lang="en" lang="en">EN</button></div>' +
+      '<button type="button" data-lang="en" lang="en">EN</button><span class="sep" aria-hidden="true"></span>' +
+      '<button type="button" data-lang="ja" lang="ja">JA</button></div>' +
       '<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" data-i18n-aria="nav.menu">' +
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>' +
       "</div>";
@@ -314,8 +319,15 @@
     return (r[0] == null ? "≤ " + r[1] : r[0] + "–" + r[1]) + " mm";
   }
   function maxMale(x) { return x.size && x.size.male ? x.size.male[1] : null; }
+  // Common name of a taxon in one language ("" if none). Japanese names come from `nameJa` or the overlay.
+  function taxonName(x, which) {
+    which = which || lang;
+    var nm = x.name || {};
+    if (which !== "ja") return nm[which] || "";
+    return nm.ja || x.nameJa || (nm.en && window.BP_JA && window.BP_JA[nm.en]) || "";
+  }
   function nameHTML(x, which) {
-    var n = x.name && x.name[which];
+    var n = taxonName(x, which);
     if (!n) return '<span class="dim">—</span>';
     var informal = x.nameInformal && x.nameInformal[which];
     return esc(n) + (informal ? ' <span class="tag">' + esc(t("species.informal")) + "</span>" : "");
@@ -375,7 +387,7 @@
     commonsSrc: commonsSrc, commonsPage: commonsPage, creditHTML: creditHTML, imgHTML: imgHTML, figureHTML: figureHTML,
     silhouette: silhouette, silhouetteSVG: silhouetteSVG,
     setNav: setNav, breadcrumbHTML: breadcrumbHTML, observeReveals: observeReveals,
-    range: range, maxMale: maxMale, nameHTML: nameHTML, sourceItemHTML: sourceItemHTML,
+    range: range, maxMale: maxMale, taxonName: taxonName, nameHTML: nameHTML, sourceItemHTML: sourceItemHTML,
     taxonomyHTML: taxonomyHTML, taxonCardHTML: taxonCardHTML, genusCardHTML: genusCardHTML
   };
 

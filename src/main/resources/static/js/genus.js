@@ -137,7 +137,7 @@
   var sortState = { key: null, dir: 1 };
   var COLUMNS = [
     { key: "sci", label: "compare.sci", value: function (x) { return x.sci; } },
-    { key: "name", label: "compare.name", value: function (x) { return (x.name && x.name[App.lang()]) || ""; } },
+    { key: "name", label: "compare.name", value: function (x) { return App.taxonName(x); } },
     { key: "male", label: "compare.male", num: true, value: function (x) { return x.size && x.size.male ? x.size.male[1] : null; } },
     { key: "female", label: "compare.female", num: true, value: function (x) { return x.size && x.size.female ? x.size.female[1] : null; } },
     { key: "pattern", label: "compare.pattern", value: function (x) { return L(x.pattern); } },
@@ -168,7 +168,7 @@
     var body = rows.map(function (x) {
       return '<tr style="--sp:' + x.color + '">' +
         '<th scope="row"><span class="dot" aria-hidden="true"></span><a href="' + App.taxonUrl(x) + '"><em class="sci">' + esc(x.sci) + "</em></a></th>" +
-        "<td>" + App.nameHTML(x, "ko") + '<span class="en" lang="en">' + App.nameHTML(x, "en") + "</span></td>" +
+        "<td>" + App.nameHTML(x, lang === "ja" ? "ja" : "ko") + '<span class="en" lang="en">' + App.nameHTML(x, "en") + "</span></td>" +
         '<td class="num">' + App.range(x.size && x.size.male) + "</td>" +
         '<td class="num">' + App.range(x.size && x.size.female) + "</td>" +
         "<td>" + esc(L(x.pattern)) + "</td>" +

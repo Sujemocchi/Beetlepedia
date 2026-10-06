@@ -57,7 +57,7 @@
         var gn = node(parent, g.id, '<span class="rank">' + esc(t("rank.genus")) + '</span> <a href="' + App.genusUrl(g.id) + '">' + sci(g.sci) + "</a> <small>" + esc(L(g.name)) + "</small>");
         App.taxaOf(g.id).forEach(function (x) {
           var link = '<a href="' + App.taxonUrl(x) + '" style="--sp:' + x.color + '"><span class="dot" aria-hidden="true"></span>' + sci(x.sci) + "</a>" +
-            (x.name && x.name[App.lang()] ? " <small>" + esc(x.name[App.lang()]) + "</small>" : "");
+            (App.taxonName(x) ? " <small>" + esc(App.taxonName(x)) + "</small>" : "");
           if (x.rank === "subspecies") {
             var spn = App.speciesName(x);
             var info = g.speciesInfo && g.speciesInfo[spn];
@@ -93,14 +93,14 @@
     var rows = BP.taxa.filter(function (x) {
       if (filter !== "all" && x.group !== filter) return false;
       if (!q) return true;
-      var hay = norm([x.sci, App.abbr(x.sci), x.name && x.name.ko, x.name && x.name.en, x.nameJa, App.genus(x.genus).name.ko].join(" "));
+      var hay = norm([x.sci, App.abbr(x.sci), App.taxonName(x, "ko"), App.taxonName(x, "en"), App.taxonName(x, "ja"), App.genus(x.genus).name.ko, App.L(App.genus(x.genus).name)].join(" "));
       return hay.indexOf(q) !== -1;
     });
     document.getElementById("index-list").innerHTML = rows.map(function (x) {
       var g = App.genus(x.genus);
       return '<li style="--sp:' + x.color + '"><a href="' + App.taxonUrl(x) + '"><span class="dot" aria-hidden="true"></span>' +
         '<span class="nm">' + sci(x.sci) + " <small>" + esc(x.authority || "") + "</small></span>" +
-        '<span class="kn">' + esc((x.name && x.name[App.lang()]) || "") + "</span>" +
+        '<span class="kn">' + esc(App.taxonName(x)) + "</span>" +
         '<span class="gn">' + esc(L(App.group(x.group).name)) + " · " + sci(g.sci) + "</span>" +
         '<span class="sz">' + (App.maxMale(x) ? "♂ ≤ " + App.maxMale(x) + " mm" : "") + "</span></a></li>";
     }).join("");

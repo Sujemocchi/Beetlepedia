@@ -223,7 +223,7 @@
       chips.innerHTML = taxa.map(function (x) {
         return '<button type="button" class="chip" style="--sp:' + x.color + '" data-sp="' + x.id + '" aria-pressed="' +
           (sel.indexOf(x.id) !== -1) + '"><span class="dot" aria-hidden="true"></span><span><em class="sci">' +
-          App.esc(App.abbr(x.sci)) + "</em>" + (x.name && x.name[App.lang()] ? "<br><small>" + App.esc(x.name[App.lang()]) + "</small>" : "") +
+          App.esc(App.abbr(x.sci)) + "</em>" + (App.taxonName(x) ? "<br><small>" + App.esc(App.taxonName(x)) + "</small>" : "") +
           "</span></button>";
       }).join("");
       legend.innerHTML = taxa.map(function (x) {

@@ -37,7 +37,7 @@
 
   function render() {
     var lang = App.lang();
-    var other = lang === "ko" ? "en" : "ko";
+    var other = lang === "en" ? "ko" : "en";
     document.title = x.sci + " — " + (L(x.name) || L(g.name)) + " · Beetlepedia";
     var prev = siblings[(idx - 1 + siblings.length) % siblings.length];
     var next = siblings[(idx + 1) % siblings.length];
@@ -65,7 +65,7 @@
       "<h1>" + sci(x.sci) + "</h1>" +
       '<p class="auth">' + esc(x.authority || "") + "</p>" +
       '<p class="kname">' + App.nameHTML(x, lang) + "</p>" +
-      (x.name && x.name[other] ? '<p class="auth" lang="' + other + '">' + App.nameHTML(x, other) + "</p>" : "") +
+      (App.taxonName(x, other) ? '<p class="auth" lang="' + other + '">' + App.nameHTML(x, other) + "</p>" : "") +
       (x.nameNote ? '<p class="name-note">' + App.sciText(L(x.nameNote)) + "</p>" : "") +
       "</div>" +
       '<div class="reveal">' + heroFigure + "</div>" +

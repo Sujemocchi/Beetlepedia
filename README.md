@@ -1,6 +1,6 @@
 # Beetlepedia — 꽃무지 · 사슴벌레 · 장수풍뎅이 도감
 
-세계의 대형 딱정벌레를 **분류 체계에 따라** 소개하는 교육용 정적 웹사이트입니다.
+세계의 대형 딱정벌레를 **분류 체계에 따라** 소개하는 교육용 정적 웹사이트입니다. 한국어·영어·일본어로 볼 수 있습니다.
 순수 HTML/CSS/JavaScript로 만들었고 빌드 도구와 npm은 쓰지 않습니다. Spring Boot는 정적 파일을 서빙하는 용도로만 씁니다.
 
 현재 다루는 범위:
@@ -42,12 +42,14 @@ src/main/resources/static/
   js/home.js | group.js | genus.js | taxon.js   페이지별 렌더링
   js/map.js                     분포 지도 (국가·섬 단위 강조, 작은 섬은 점, 종 페이지에서는 분포에 맞춰 확대)
   js/size-compare.js            실제 비율 크기 비교 (분류군별 실루엣) + 무게 막대
-  data/i18n.js                  UI 문구
+  data/i18n.js                  UI 문구 (한/영/일)
+  data/ja/<file>.js             콘텐츠 일본어 번역 (영어 원문을 키로 하는 표)
   data/core.js                  분류 계층(상과까지 공통 + 분류군별), 국가 이름, 공통 출처
   data/genera/<genus>.js        속 하나의 모든 데이터: 속 개요·생활사·사육, 종·아종, 섬/지역 정의, 출처
   assets/maps/<region>.js       지역 지도: africa, southeast-asia, neotropics
 tools/
-  validate-data.js              데이터 검증 (id 중복, 분포 코드↔지도, 출처 id, 이미지 메타데이터 등)
+  validate-data.js              데이터 검증 (id 중복, 분포 코드↔지도, 출처 id, 이미지 메타데이터, 일본어 번역 누락 등)
+  extract-strings.js            번역 대상 텍스트 추출 (--missing-ja: 일본어가 없는 텍스트만)
   mapgen/gen.js                 Natural Earth → 지역 지도 생성기
 ```
 
@@ -66,13 +68,21 @@ tools/
 
 1. `data/genera/<id>.js`를 만들고 `BP.registerGenus({...})`로 속·분류군·출처를 넣습니다(`goliathus.js`가 예시).
 2. 지도가 없는 지역이면 `tools/mapgen/gen.js`의 `REGIONS`에 범위를 추가해 지도를 만듭니다.
-3. 네 HTML 파일에 `<script src="data/genera/<id>.js">`를 추가합니다.
+3. 네 HTML 파일에 `<script src="data/genera/<id>.js">`와 `<script src="data/ja/<id>.js">`를 추가합니다.
+   일본어 번역은 `node tools/extract-strings.js --missing-ja --json`으로 목록을 뽑아 `data/ja/<id>.js`에 넣습니다.
 4. `node tools/validate-data.js`로 검증합니다.
 
-### 언어
+### 언어 (한국어 · English · 日本語)
 
-헤더의 언어 버튼으로 전환합니다. 선택은 `localStorage`의 `beetlepedia-lang`에 저장합니다(try/catch).
+헤더의 `KO | EN | JA` 버튼으로 전환합니다. 선택은 `localStorage`의 `beetlepedia-lang`에 저장하고(try/catch), `<html lang>`도 바꿉니다.
 학명은 언어와 관계없이 이탤릭 라틴어로 표기합니다.
+
+- **UI 문구**: `data/i18n.js`의 각 키에 `ko`, `en`, `ja`가 있습니다.
+- **콘텐츠**: 데이터의 텍스트는 `{ ko, en }`입니다. 일본어는 `data/ja/<파일>.js`(`window.BP_JA`)에 **영어 원문을 키로** 따로 둡니다.
+  표시 순서는 ① 데이터에 직접 넣은 `ja` → ② `BP_JA[en]` → ③ 영어입니다. 영어 원문을 고치면 번역이 끊기므로 검증 스크립트가 바로 알려 줍니다.
+- **일본어 이름**: 분류군의 `nameJa`(일본 취미계·문헌의 和名)를 씁니다. 확인되지 않은 이름에는 `nameInformal.ja`로 "非公式名" 표시를 붙입니다.
+- 번역이 빠진 텍스트 목록: `node tools/extract-strings.js --missing-ja` (전체 목록은 `--json`).
+- 일본어 화면은 Noto Sans/Serif JP 글꼴을 쓰고, 한국어용 `word-break: keep-all`을 끕니다.
 
 ## 테스트
 
