@@ -136,6 +136,16 @@ BEETLEPEDIA_ADMIN_PASSWORD=비밀번호 ./gradlew bootRun     # 아이디 admin
 ./gradlew test    # DB 스키마·리포지토리, 시드 검증·적재·내보내기 왕복, API, 관리자 화면·보안, 모든 페이지 서빙
 ```
 
+브라우저 점검(모든 페이지 × 1280/375px × 한·영·일, 검색 UI, 관리자 화면)은 서버를 띄운 뒤 실행합니다.
+
+```bash
+BEETLEPEDIA_ADMIN_PASSWORD=pw ./gradlew bootRun
+cd e2e && npm ci && npx playwright install chromium
+E2E_ADMIN_PASSWORD=pw node run.mjs          # 설치된 Chrome을 쓰려면 E2E_CHANNEL=chrome
+```
+
+GitHub Actions(`.github/workflows/ci.yml`)가 PR과 `main` 푸시마다 두 가지를 모두 실행합니다.
+
 ## 지도
 
 국경은 [Natural Earth](https://www.naturalearthdata.com/) 1:50m(퍼블릭 도메인)를
