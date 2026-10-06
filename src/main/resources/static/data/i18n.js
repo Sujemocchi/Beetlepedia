@@ -44,6 +44,16 @@ window.I18N = {
   "home.allGroups": { ko: "전체", en: "All", ja: "すべて" },
   "home.comingSoon": { ko: "다른 속은 차례로 추가할 예정입니다.", en: "More genera will be added over time.", ja: "ほかの属は順次追加する予定です。" },
 
+  "filter.rank": { ko: "계급", en: "Rank", ja: "階級" },
+  "filter.any": { ko: "전체", en: "Any", ja: "すべて" },
+  "filter.minLength": { ko: "수컷 최대 몸길이 ≥", en: "Max. male length ≥", ja: "オス最大体長 ≥" },
+  "filter.maxLength": { ko: "수컷 최대 몸길이 ≤", en: "Max. male length ≤", ja: "オス最大体長 ≤" },
+  "filter.country": { ko: "분포 국가", en: "Country", ja: "分布国" },
+  "filter.hasPhoto": { ko: "사진 있는 것만", en: "With photo only", ja: "写真ありのみ" },
+  "filter.reset": { ko: "조건 초기화", en: "Reset filters", ja: "条件をリセット" },
+  "filter.count": { ko: "{n}개 분류군", en: "{n} taxa", ja: "{n} 分類群" },
+  "filter.error": { ko: "검색하지 못했습니다.", en: "Search failed.", ja: "検索できませんでした。" },
+
   "group.genera": { ko: "속", en: "Genera", ja: "属" },
   "group.generaLead": { ko: "속을 고르면 개요, 비교표, 분포 지도, 크기 비교를 볼 수 있습니다.", en: "Choose a genus for its overview, comparison table, range map and size comparison.", ja: "属を選ぶと、概要・比較表・分布図・大きさ比較を見られます。" },
   "group.taxa": { ko: "실린 종 · 아종", en: "Species & subspecies here", ja: "掲載している種・亜種" },

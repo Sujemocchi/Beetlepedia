@@ -16,6 +16,15 @@ import java.text.Normalizer
 
 class NotFoundException(what: String, id: String) : RuntimeException("$what '$id' not found")
 
+/** How much of the taxonomy /api/bootstrap returns in full. */
+sealed interface BootstrapScope {
+	data object All : BootstrapScope
+	data object Summary : BootstrapScope
+	data class Genus(val id: String) : BootstrapScope
+	/** The genus of this taxon. */
+	data class Taxon(val id: String) : BootstrapScope
+}
+
 /** Filters for [TaxonomyQueryService.search]; every field is optional. */
 data class TaxonSearch(
 	/** Matches scientific name (also abbreviated, e.g. "D. h. lichyi"), common names in any language and genus names. */
@@ -46,16 +55,51 @@ class TaxonomyQueryService(
 	private val mapper: ApiMapper,
 ) {
 
-	fun bootstrap() = BootstrapDto(
-		baseTaxonomy = baseRanks.findAllByOrderByPosition().map(mapper::rank),
-		groups = groups.findAllByOrderBySortOrder().map(mapper::group),
-		genera = genera.findAllByOrderBySortOrder().map(mapper::genus),
-		taxa = orderedTaxa().map(mapper::taxon),
-		countries = countries.findAll().sortedBy { it.code }.associate { it.code to mapper.text(it.name)!! },
-		areas = areas.findAll().sortedBy { it.code }.associate { it.code to mapper.area(it) },
-		sources = sources.findAll().sortedBy { it.id }.associate { it.id to mapper.source(it) },
-		maps = maps.findAll().sortedBy { it.id }.associate { it.id to MapDto(mapper.text(it.name)!!) },
-	)
+	/**
+	 * Page data in the shape of window.BP.
+	 * - [BootstrapScope.All]: everything in full.
+	 * - [BootstrapScope.Summary]: home and group pages — every genus and taxon without long texts.
+	 * - [BootstrapScope.Genus]: genus and taxon pages — one genus and its taxa in full, the rest summarised,
+	 *   and only the sources that genus cites.
+	 */
+	fun bootstrap(scope: BootstrapScope = BootstrapScope.All): BootstrapDto {
+		val focus: String? = when (scope) {
+			is BootstrapScope.Genus -> scope.id.also { if (!genera.existsById(it)) throw NotFoundException("genus", it) }
+			is BootstrapScope.Taxon -> taxa.findById(scope.id).orElseThrow { NotFoundException("taxon", scope.id) }.genus!!.id
+			else -> null
+		}
+		fun full(genusId: String) = scope == BootstrapScope.All || genusId == focus
+		val groupList = groups.findAllByOrderBySortOrder()
+		val genusList = genera.findAllByOrderBySortOrder()
+		val taxonList = orderedTaxa()
+
+		val sourceMap = when {
+			scope == BootstrapScope.All -> sources.findAll()
+			else -> {
+				val ids = linkedSetOf<String>()
+				groupList.forEach { g -> g.sources.forEach { ids += it.id } }
+				genusList.filter { full(it.id) }.forEach { g ->
+					g.sources.forEach { ids += it.id }
+					g.weights.forEach { w -> w.sources.forEach { ids += it.id } }
+					g.speciesInfo.forEach { s -> s.sources.forEach { ids += it.id } }
+				}
+				taxonList.filter { full(it.genus!!.id) }.forEach { x ->
+					(x.sources + x.sizeSources + x.issues.flatMap { it.sources }).forEach { ids += it.id }
+				}
+				sources.findAllById(ids)
+			}
+		}
+		return BootstrapDto(
+			baseTaxonomy = baseRanks.findAllByOrderByPosition().map(mapper::rank),
+			groups = groupList.map(mapper::group),
+			genera = genusList.map { if (full(it.id)) mapper.genus(it) else mapper.genusLite(it) },
+			taxa = taxonList.map { if (full(it.genus!!.id)) mapper.taxon(it) else mapper.taxonLite(it) },
+			countries = countries.findAll().sortedBy { it.code }.associate { it.code to mapper.text(it.name)!! },
+			areas = areas.findAll().sortedBy { it.code }.associate { it.code to mapper.area(it) },
+			sources = sourceMap.sortedBy { it.id }.associate { it.id to mapper.source(it) },
+			maps = maps.findAll().sortedBy { it.id }.associate { it.id to MapDto(mapper.text(it.name)!!) },
+		)
+	}
 
 	fun groups() = groups.findAllByOrderBySortOrder().map { g ->
 		GroupDetailDto(mapper.group(g), genera.findAllByGroupIdOrderBySortOrder(g.id).map(mapper::genusSummary))

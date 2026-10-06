@@ -126,6 +126,50 @@ class ApiMapper {
 		)
 	}
 
+	/**
+	 * A taxon as listed on the home and group pages and in other genera's references:
+	 * names, sizes, range and the first photo — none of the long texts.
+	 */
+	fun taxonLite(x: Taxon): TaxonDto {
+		val g = x.genus!!
+		return TaxonDto(
+			id = x.id, rank = rankName(x.rank), sci = x.sci, species = x.speciesSci, authority = x.authority,
+			year = x.describedYear, color = x.color, genus = g.id, group = g.group!!.id,
+			name = textOrEmpty(x.name),
+			nameInformal = FlagsDto(x.nameInformal.ko, x.nameInformal.en, x.nameInformal.ja),
+			nameNote = null,
+			subspecies = x.subspecies.map { SubspeciesDto(it.sci, it.authority, null) }.orNullIfEmpty(),
+			size = SizeDto(range(x.size.male), range(x.size.female), null, emptyList()),
+			pattern = null, morphology = null,
+			distribution = x.distribution.toList(),
+			distributionNote = null, habitat = null, ecology = null, captivityNote = null,
+			dimorphism = null, food = null, season = null,
+			conservation = ConservationDto(text(x.conservationStatus), null),
+			facts = emptyList(), history = emptyList(), issues = emptyList(),
+			images = x.images.take(1).map(::image),
+			model3d = null,
+			sources = emptyList(),
+		)
+	}
+
+	/** A genus as needed by cards, the tree and Latin-name highlighting on other pages. */
+	fun genusLite(g: Genus) = GenusDto(
+		id = g.id, group = g.group!!.id, sci = g.sci, authority = g.authority, map = g.mapRegion!!.id, color = g.color,
+		name = textOrEmpty(g.name), shortName = text(g.shortName),
+		taxonomy = g.ranks.map(::rank),
+		eyebrow = null, lead = text(g.lead), heroStats = null,
+		speciesInfo = g.speciesInfo.associate { it.speciesSci to SpeciesInfoDto(it.authority, text(it.name), null, emptyList()) }.ifEmpty { null },
+		overview = OverviewDto(null, null, emptyList(), null),
+		lifecycle = LifecycleDto(null, emptyList()),
+		conservation = null, care = emptyList(), facts = emptyList(),
+		defaults = DefaultsDto(null, null, null),
+		weights = null,
+		latin = g.latinTerms.toList(),
+		images = GenusImagesDto(g.heroImage?.let(::image), null),
+		sizeDefaults = null,
+		sources = emptyMap(),
+	)
+
 	fun summary(x: Taxon) = TaxonSummaryDto(
 		id = x.id,
 		rank = rankName(x.rank),

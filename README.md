@@ -26,7 +26,7 @@
 ## 페이지 구조 (계층)
 
 ```
-index.html                      Beetlepedia 홈: 세 분류군, 계통 트리, 속을 넘나드는 크기 비교, 전체 목록(검색)
+index.html                      Beetlepedia 홈: 세 분류군, 계통 트리, 속을 넘나드는 크기 비교, 조건 검색(이름·계급·몸길이·국가·사진)
 └ group.html?id=<group>         상위 분류군 (cetoniinae / lucanidae / dynastinae): 개요, 분류, 속 목록
   └ genus.html?id=<genus>       속: 개요, 종 카드, 비교표, 분포 지도, 크기·무게 비교, 생활사, 보전·사육, 출처
     └ taxon.html?id=<taxon>     종·아종: 형태·크기, 역사·이슈, 3D(준비 중), 생태, 분포 지도(확대), 사육, 보전, 출처
@@ -44,7 +44,7 @@ src/main/resources/
   static/
     index.html, group.html, genus.html, taxon.html
     css/style.css               디자인 ("모던 다큐멘터리" 다크 테마, CSS 변수, 반응형)
-    js/boot.js                  /api/bootstrap을 불러와 window.BP를 채운 뒤 페이지 스크립트를 순서대로 실행
+    js/boot.js                  페이지에 맞는 /api/bootstrap 범위를 불러와 window.BP를 채운 뒤 페이지 스크립트를 순서대로 실행
     js/main.js                  공통: 언어 전환, 헤더·푸터, 분류 트리 조회, 학명 이탤릭 처리, 실루엣, 카드
     js/home.js | group.js | genus.js | taxon.js   페이지별 렌더링
     js/map.js                   분포 지도 (국가·섬 단위 강조, 작은 섬은 점, 종 페이지에서는 분포에 맞춰 확대)
@@ -101,7 +101,9 @@ tools/
 
 | 엔드포인트 | 내용 |
 |---|---|
-| `GET /api/bootstrap` | 페이지가 쓰는 전체 데이터(분류군·속·종·국가·지역·출처·지도). `js/boot.js`가 불러와 `window.BP`로 씀 |
+| `GET /api/bootstrap` | 페이지 데이터(분류군·속·종·국가·지역·출처·지도). `js/boot.js`가 페이지에 맞는 범위로 불러와 `window.BP`로 씀 |
+| `GET /api/bootstrap?scope=summary` | 홈·분류군 페이지용: 긴 글 없이 이름·크기·분포·대표 사진만 (전체의 약 15%) |
+| `GET /api/bootstrap?genus={id}` / `?taxon={id}` | 속·종 페이지용: 그 속만 전체, 나머지는 요약, 출처는 그 속이 인용한 것만 |
 | `GET /api/groups`, `/api/groups/{id}` | 상위 분류군과 소속 속 요약 |
 | `GET /api/genera`, `/api/genera/{id}` | 속 요약 목록 / 속 전체와 그 분류군 |
 | `GET /api/taxa/{id}` | 종·아종 상세 |

@@ -543,3 +543,18 @@ html:lang(ja) {
 }
 html:lang(ja) body { word-break: normal; line-break: strict; }
 html:lang(ja) em.sci, html:lang(ja) .sci { font-family: Georgia, "Noto Serif JP", serif; }
+
+/* Index filters (home) */
+.index-filters { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end; margin: 0 0 12px; }
+.index-filters label { display: grid; gap: 4px; font-size: 0.8rem; color: var(--text-faint); }
+.index-filters select, .index-filters input[type="number"] {
+  appearance: none; background: var(--surface); border: 1px solid var(--line); color: var(--text);
+  border-radius: 10px; padding: 8px 12px; font: 500 0.95rem var(--font-sans); min-height: 42px; min-width: 8.5em;
+}
+.index-filters input[type="number"] { width: 7.5em; min-width: 0; }
+.index-filters label.check { display: flex; align-items: center; gap: 8px; min-height: 42px; color: var(--text-dim); font-size: 0.92rem; }
+.index-filters input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--rust); }
+@media (max-width: 560px) {
+  .index-filters label { flex: 1 1 calc(50% - 8px); }
+  .index-filters select, .index-filters input[type="number"] { width: 100%; min-width: 0; }
+}
