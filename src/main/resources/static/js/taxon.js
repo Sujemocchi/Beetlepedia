@@ -113,7 +113,7 @@
       '<div class="grid-2">' +
       '<div class="reveal"><h3>' + esc(t("detail.timeline")) + '</h3><ol class="history">' +
       (x.history || []).map(function (h) {
-        return '<li><span class="year">' + esc(h.year) + "</span><p>" + App.sciText(L(h)) + "</p></li>";
+        return '<li><span class="year">' + (h.year != null ? esc(h.year) : "—") + "</span><p>" + App.sciText(L(h)) + "</p></li>";
       }).join("") + "</ol></div>" +
       '<div class="reveal"><h3>' + esc(t("detail.issues")) + '</h3><div class="stack">' +
       (issues.length ? issues.map(function (is) {

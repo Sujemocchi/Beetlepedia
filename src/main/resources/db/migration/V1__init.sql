@@ -400,7 +400,7 @@ create table taxon_subspecies (
 create table taxon_history (
     position integer not null,
     taxon_id varchar(64) not null,
-    event_year integer not null,
+    event_year integer,
     history_text_en varchar(4000),
     history_text_ja varchar(4000),
     history_text_ko varchar(4000),

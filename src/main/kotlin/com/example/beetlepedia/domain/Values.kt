@@ -100,7 +100,8 @@ class LifecycleStage(
 /** A dated entry in a taxon's naming and research history. */
 @Embeddable
 class HistoryEntry(
-	@Column(name = "event_year", nullable = false) var year: Int = 0,
+	/** Null when the year is not known. */
+	@Column(name = "event_year") var year: Int? = null,
 	@Embedded var text: LocalizedText = LocalizedText(),
 )
 
