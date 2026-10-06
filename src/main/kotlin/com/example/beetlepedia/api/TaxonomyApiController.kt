@@ -15,9 +15,25 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RequestMapping("/api")
 class TaxonomyApiController(private val service: TaxonomyQueryService) {
 
-	/** Everything the pages need, in the shape of the old window.BP object. */
+	/**
+	 * Page data in the shape of window.BP.
+	 * `?scope=summary` for the home and group pages, `?genus=<id>` or `?taxon=<id>` for one genus in full;
+	 * no parameter returns everything.
+	 */
 	@GetMapping("/bootstrap")
-	fun bootstrap() = service.bootstrap()
+	fun bootstrap(
+		@RequestParam(required = false) scope: String?,
+		@RequestParam(required = false) genus: String?,
+		@RequestParam(required = false) taxon: String?,
+	) = service.bootstrap(
+		when {
+			genus != null -> BootstrapScope.Genus(genus)
+			taxon != null -> BootstrapScope.Taxon(taxon)
+			scope == null || scope == "all" -> BootstrapScope.All
+			scope == "summary" -> BootstrapScope.Summary
+			else -> throw IllegalArgumentException("scope must be 'all' or 'summary'")
+		},
+	)
 
 	@GetMapping("/groups")
 	fun groups() = service.groups()

@@ -46,11 +46,25 @@
     });
   }
 
-  fetch(base + "api/bootstrap", { headers: { Accept: "application/json" } })
-    .then(function (res) {
+  // Only what the page needs: one genus in full for genus and taxon pages, summaries elsewhere.
+  var page = document.body.getAttribute("data-page");
+  var m = /[?&]id=([^&#]*)/.exec(window.location.search);
+  var id = m ? m[1] : "";
+  var SUMMARY = "api/bootstrap?scope=summary";
+  var url = page === "genus" && id ? "api/bootstrap?genus=" + id
+    : page === "taxon" && id ? "api/bootstrap?taxon=" + id
+    : SUMMARY;
+
+  function load(path) {
+    return fetch(base + path, { headers: { Accept: "application/json" } }).then(function (res) {
+      // Unknown id: load the summary so the page can say "not found" itself.
+      if (res.status === 404 && path !== SUMMARY) return load(SUMMARY);
       if (!res.ok) throw new Error("HTTP " + res.status);
       return res.json();
-    })
+    });
+  }
+
+  load(url)
     .then(function (data) {
       window.BP = data;
       run();

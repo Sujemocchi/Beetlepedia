@@ -1,6 +1,6 @@
 /*
  * Home page: hero, the three groups, the full classification tree,
- * a size comparison across genera and a searchable index of every taxon.
+ * a size comparison across genera and a server-side search over every taxon.
  */
 (function () {
   "use strict";
@@ -79,40 +79,78 @@
     document.getElementById("tree-root").innerHTML = '<ul class="tree">' + html(root, 0) + "</ul>";
   }
 
-  // ---------- index ----------
-  function norm(s) { return String(s || "").toLowerCase().replace(/\s+/g, " "); }
+  // ---------- index: searched on the server (/api/taxa) ----------
   function renderFilter() {
-    document.getElementById("index-filter").innerHTML = [{ id: "all", name: { ko: t("home.allGroups"), en: t("home.allGroups") }, color: "#b3bcae" }]
+    document.getElementById("index-filter").innerHTML = [{ id: "all", name: { ko: t("home.allGroups"), en: t("home.allGroups"), ja: t("home.allGroups") }, color: "#b3bcae" }]
       .concat(BP.groups).map(function (grp) {
         return '<button type="button" class="chip small" style="--sp:' + grp.color + '" data-group="' + grp.id + '" aria-pressed="' +
           (filter === grp.id) + '"><span class="dot" aria-hidden="true"></span>' + esc(L(grp.name)) + "</button>";
       }).join("");
   }
-  function renderIndex() {
-    var q = norm(document.getElementById("index-q").value).trim();
-    var rows = BP.taxa.filter(function (x) {
-      if (filter !== "all" && x.group !== filter) return false;
-      if (!q) return true;
-      var hay = norm([x.sci, App.abbr(x.sci), App.taxonName(x, "ko"), App.taxonName(x, "en"), App.taxonName(x, "ja"), App.genus(x.genus).name.ko, App.L(App.genus(x.genus).name)].join(" "));
-      return hay.indexOf(q) !== -1;
+
+  // Countries that appear in any range, directly or through an island / region in them.
+  function renderCountries() {
+    var sel = document.getElementById("f-country");
+    var current = sel.value, codes = {};
+    BP.taxa.forEach(function (x) {
+      (x.distribution || []).forEach(function (c) {
+        if (BP.areas[c]) BP.areas[c].countries.forEach(function (k) { codes[k] = 1; });
+        else codes[c] = 1;
+      });
     });
-    document.getElementById("index-list").innerHTML = rows.map(function (x) {
+    var list = Object.keys(codes).filter(function (c) { return BP.countries[c]; })
+      .sort(function (p, q) { return L(BP.countries[p]).localeCompare(L(BP.countries[q]), App.lang()); });
+    sel.innerHTML = '<option value="">' + esc(t("filter.any")) + "</option>" + list.map(function (c) {
+      return '<option value="' + c + '"' + (c === current ? " selected" : "") + ">" + esc(L(BP.countries[c])) + "</option>";
+    }).join("");
+  }
+
+  function query() {
+    var p = [];
+    function add(k, v) { if (v !== "" && v != null) p.push(k + "=" + encodeURIComponent(v)); }
+    add("q", document.getElementById("index-q").value.trim());
+    if (filter !== "all") add("group", filter);
+    add("rank", document.getElementById("f-rank").value);
+    add("minLength", document.getElementById("f-min").value);
+    add("maxLength", document.getElementById("f-max").value);
+    add("country", document.getElementById("f-country").value);
+    if (document.getElementById("f-photo").checked) add("hasImage", "true");
+    return p.join("&");
+  }
+
+  var lastItems = [], seq = 0, timer = null;
+  function drawResults() {
+    document.getElementById("index-list").innerHTML = lastItems.map(function (x) {
       var g = App.genus(x.genus);
+      var max = x.male && x.male[1];
       return '<li style="--sp:' + x.color + '"><a href="' + App.taxonUrl(x) + '"><span class="dot" aria-hidden="true"></span>' +
         '<span class="nm">' + sci(x.sci) + " <small>" + esc(x.authority || "") + "</small></span>" +
         '<span class="kn">' + esc(App.taxonName(x)) + "</span>" +
-        '<span class="gn">' + esc(L(App.group(x.group).name)) + " · " + sci(g.sci) + "</span>" +
-        '<span class="sz">' + (App.maxMale(x) ? "♂ ≤ " + App.maxMale(x) + " mm" : "") + "</span></a></li>";
+        '<span class="gn">' + esc(L(App.group(x.group).name)) + " · " + sci(g ? g.sci : x.genus) + "</span>" +
+        '<span class="sz">' + (max ? "♂ ≤ " + max + " mm" : "") + "</span></a></li>";
     }).join("");
-    document.getElementById("index-empty").hidden = rows.length > 0;
+    document.getElementById("index-count").textContent = t("filter.count", { n: lastItems.length });
+    document.getElementById("index-empty").hidden = lastItems.length > 0;
   }
-  document.getElementById("index-q").addEventListener("input", renderIndex);
+  function search() {
+    var mine = ++seq;
+    fetch(App.base + "api/taxa?" + query(), { headers: { Accept: "application/json" } })
+      .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
+      .then(function (data) { if (mine !== seq) return; lastItems = data.items; drawResults(); })
+      .catch(function () { if (mine === seq) document.getElementById("index-count").textContent = t("filter.error"); });
+  }
+  function searchSoon() { clearTimeout(timer); timer = setTimeout(search, 200); }
+
+  document.getElementById("index-q").addEventListener("input", searchSoon);
+  document.getElementById("index-filters").addEventListener("input", searchSoon);
+  document.getElementById("index-filters").addEventListener("change", searchSoon);
+  document.getElementById("f-reset").addEventListener("click", function () { setTimeout(search, 0); });
   document.getElementById("index-filter").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-group]");
     if (!b) return;
     filter = b.getAttribute("data-group");
     renderFilter();
-    renderIndex();
+    search();
     var again = document.querySelector('#index-filter button[data-group="' + filter + '"]');
     if (again) again.focus();
   });
@@ -122,13 +160,15 @@
     renderGroups();
     renderTree();
     renderFilter();
-    renderIndex();
+    renderCountries();
+    drawResults();
     App.observeReveals();
   }
 
   App.setNav([["#groups", "nav.groups"], ["#tree", "nav.tree"], ["#size", "nav.size"], ["#index", "nav.index"]]);
   document.addEventListener("langchange", render);
   render();
+  search();
 
   // Largest taxon of each genus by default.
   var chosen = BP.genera.map(function (g) {

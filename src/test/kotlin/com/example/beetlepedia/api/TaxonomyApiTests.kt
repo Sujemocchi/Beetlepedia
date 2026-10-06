@@ -12,10 +12,58 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
+import kotlin.test.assertTrue
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class TaxonomyApiTests(@Autowired val mvc: MockMvc) {
+
+	private fun size(url: String) = mvc.get(url).andReturn().response.contentAsByteArray.size
+
+	@Test
+	fun `summary bootstrap leaves out long texts`() {
+		mvc.get("/api/bootstrap?scope=summary").andExpect {
+			status { isOk() }
+			jsonPath("$.taxa", hasSize<Any>(28))
+			jsonPath("$.taxa[0].name.ko") { value("골리앗꽃무지") }
+			jsonPath("$.taxa[0].size.male[1]") { value(110.0) }
+			jsonPath("$.taxa[0].morphology") { doesNotExist() }
+			jsonPath("$.taxa[0].history", hasSize<Any>(0))
+			jsonPath("$.taxa[0].images", hasSize<Any>(1))
+			jsonPath("$.genera[0].lifecycle.stages", hasSize<Any>(0))
+			jsonPath("$.genera[0].latin[0]") { exists() }
+			// Only the group pages' own sources
+			jsonPath("$.sources.length()") { value(3) }
+		}
+		assertTrue(size("/api/bootstrap?scope=summary") * 4 < size("/api/bootstrap"), "summary should be far smaller")
+	}
+
+	@Test
+	fun `genus bootstrap has one genus in full and its sources`() {
+		mvc.get("/api/bootstrap?genus=dynastes").andExpect {
+			status { isOk() }
+			jsonPath("$.taxa", hasSize<Any>(28))
+			jsonPath("$.taxa[?(@.genus == 'dynastes')].morphology", hasSize<Any>(13))
+			jsonPath("$.taxa[?(@.genus == 'goliathus')].morphology", hasSize<Any>(0))
+			jsonPath("$.genera[2].lifecycle.stages", hasSize<Any>(4))
+			jsonPath("$.genera[0].lifecycle.stages", hasSize<Any>(0))
+			jsonPath("$.sources['dy-gbif-dh']") { exists() }
+			jsonPath("$.sources['cy-bekuwa2022']") { doesNotExist() }
+		}
+		// A taxon page gets the genus of that taxon
+		mvc.get("/api/bootstrap?taxon=cyclommatus-chewi").andExpect {
+			jsonPath("$.taxa[?(@.genus == 'cyclommatus')].morphology", hasSize<Any>(10))
+			jsonPath("$.genera[1].overview.cards", hasSize<Any>(3))
+		}
+		assertTrue(size("/api/bootstrap?genus=goliathus") * 2 < size("/api/bootstrap"))
+	}
+
+	@Test
+	fun `bootstrap rejects unknown ids and scopes`() {
+		mvc.get("/api/bootstrap?genus=nope").andExpect { status { isNotFound() } }
+		mvc.get("/api/bootstrap?taxon=nope").andExpect { status { isNotFound() } }
+		mvc.get("/api/bootstrap?scope=everything").andExpect { status { isBadRequest() } }
+	}
 
 	@Test
 	fun `bootstrap has everything the pages need, in their shape`() {

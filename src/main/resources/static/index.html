@@ -88,6 +88,21 @@
         </label>
         <div class="chip-row" id="index-filter"></div>
       </div>
+      <form class="index-filters" id="index-filters" onsubmit="return false">
+        <label><span data-i18n="filter.rank"></span>
+          <select id="f-rank">
+            <option value="" data-i18n="filter.any"></option>
+            <option value="species" data-i18n="rank.species"></option>
+            <option value="subspecies" data-i18n="rank.subspecies"></option>
+          </select>
+        </label>
+        <label><span data-i18n="filter.minLength"></span><input type="number" id="f-min" min="0" max="300" step="1" inputmode="numeric" placeholder="mm"></label>
+        <label><span data-i18n="filter.maxLength"></span><input type="number" id="f-max" min="0" max="300" step="1" inputmode="numeric" placeholder="mm"></label>
+        <label><span data-i18n="filter.country"></span><select id="f-country"></select></label>
+        <label class="check"><input type="checkbox" id="f-photo"><span data-i18n="filter.hasPhoto"></span></label>
+        <button type="reset" class="chip small" id="f-reset" data-i18n="filter.reset"></button>
+      </form>
+      <p class="note" id="index-count" aria-live="polite"></p>
       <ul class="index-list" id="index-list"></ul>
       <p class="note" id="index-empty" hidden data-i18n="home.noResults"></p>
     </div>
