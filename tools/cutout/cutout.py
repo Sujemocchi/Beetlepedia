@@ -5,7 +5,12 @@
 
 Each manifest entry: {"file": <Wikimedia Commons file>, "out": <name>.webp, optional "rotate" (degrees,
 counter-clockwise), "method" ("combo" | "rembg" | "colour"), "de" ([low, high] colour-distance ramp), "floor"
-(colour distance below which a pixel is always background: removes shadows on the mount)}.
+(colour distance below which a pixel is always background: removes shadows on the mount), "shadow" (removes a
+darker grey cast shadow, see drop_grey_shadow), "gloss" (true: fill background-coloured highlights enclosed by the
+body even with "floor"; only for beetles without open space between mandibles or horns), "crop" ([x0, y0, x1, y1]
+as fractions: cut one specimen out of a group photo; record that in the image's alt text) and "width" (px of the
+original to fetch, default WORK; use more with "crop" so the cut-out specimen keeps enough pixels), "erase" (list of
+[x0, y0, x1, y1] boxes, as fractions of the (cropped) photo, cleared at the end: pins and wires)}.
 
 The photos are specimens on a plain light background, so two masks are combined:
   * rembg (a neural salient-object model) finds the body reliably but tends to drop thin legs and antenna tips;
@@ -42,11 +47,12 @@ FINAL = 1200     # long side of the published cut-out
 UA = "BeetlepediaCutout/1.0 (https://github.com/Sujemocchi; kimdongchan9973@gmail.com)"
 
 
-def fetch(file: str) -> Image.Image:
+def fetch(file: str, width: int = WORK) -> Image.Image:
     ORIG_DIR.mkdir(parents=True, exist_ok=True)
-    cache = ORIG_DIR / (urllib.parse.quote(file.replace(" ", "_"), safe="") + ".bin")
+    suffix = "" if width == WORK else f".w{width}"
+    cache = ORIG_DIR / (urllib.parse.quote(file.replace(" ", "_"), safe="") + suffix + ".bin")
     if not cache.exists():
-        url = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(file.replace(" ", "_")) + f"?width={WORK}"
+        url = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(file.replace(" ", "_")) + f"?width={width}"
         req = urllib.request.Request(url, headers={"User-Agent": UA})
         with urllib.request.urlopen(req, timeout=120) as r:
             cache.write_bytes(r.read())
@@ -97,7 +103,10 @@ def rembg_alpha(im: Image.Image) -> np.ndarray:
 
 
 def cut(entry: dict) -> tuple[Image.Image, Image.Image]:
-    im = fetch(entry["file"])
+    im = fetch(entry["file"], entry.get("width", WORK))
+    if entry.get("crop"):
+        x0, y0, x1, y1 = entry["crop"]
+        im = im.crop((round(x0 * im.width), round(y0 * im.height), round(x1 * im.width), round(y1 * im.height)))
     if entry.get("rotate"):
         im = im.rotate(entry["rotate"], expand=True, fillcolor=(255, 255, 255))
     scale = WORK / max(im.size)
@@ -129,6 +138,8 @@ def cut(entry: dict) -> tuple[Image.Image, Image.Image]:
         if entry.get("floor"):
             # Shadow on the mount: neutral and only a little darker than the background, unlike any body part.
             alpha = np.where(de < entry["floor"], 0, alpha)
+        if entry.get("shadow"):
+            alpha = drop_grey_shadow(rgb, de, alpha, entry["shadow"], a_nn)
         solid = alpha > 0.5
         # Keep the beetle and anything touching it; drop specks.
         lab, n = ndimage.label(solid)
@@ -148,11 +159,16 @@ def cut(entry: dict) -> tuple[Image.Image, Image.Image]:
         holes = filled & ~solid
         if a_nn is not None:
             holes &= a_nn > 0.5  # pale body parts enclosed by a darker outline, not the gaps between legs and body
-        if entry.get("floor"):
+        if entry.get("floor") and not entry.get("gloss"):
             holes &= de >= entry["floor"]  # nor background-coloured space enclosed by the mandibles
         alpha = np.where(holes, 1.0, alpha)
         filled = solid | holes
         alpha = np.where(ndimage.binary_dilation(filled, iterations=2), alpha, 0)
+
+    # Hand-placed boxes for things no mask can tell from the beetle (a mounting pin).
+    for x0, y0, x1, y1 in entry.get("erase", []):
+        h, w = alpha.shape
+        alpha[round(y0 * h):round(y1 * h), round(x0 * w):round(x1 * w)] = 0
 
     # Un-mix the background from semi-transparent edge pixels (removes the white halo on dark pages).
     a3 = alpha[..., None]
@@ -170,6 +186,37 @@ def cut(entry: dict) -> tuple[Image.Image, Image.Image]:
     if s < 1:
         out = shrink(out, (round(out.width * s), round(out.height * s)))
     return im, out
+
+
+def drop_grey_shadow(rgb: np.ndarray, de: np.ndarray, alpha: np.ndarray, opt: dict, a_nn: np.ndarray | None = None) -> np.ndarray:
+    """Remove a cast shadow that is too dark for "floor": thick, neutral mid-grey blobs that touch the background.
+
+    opt: {"L": [low, high] lightness, "C": max chroma, "open": opening radius in px, optional "grow": [min L, px]}.
+    The opening drops the thin anti-aliased rim of dark body parts, and requiring contact with the background keeps
+    gloss inside the body. "grow" then follows the shadow into its thin, darker fringe: up to px steps, only through
+    neutral pixels at least min L light (the black body stays below it).
+    """
+    lab = srgb_to_lab(rgb)
+    lo, hi = opt.get("L", [40, 97])
+    grey = (lab[..., 0] >= lo) & (lab[..., 0] <= hi) & (np.hypot(lab[..., 1], lab[..., 2]) < opt.get("C", 8))
+    r = opt.get("open", 4)
+    blobs = ndimage.binary_opening(grey, iterations=r)
+    ids, n = ndimage.label(blobs)
+    if not n:
+        return alpha
+    background = ndimage.binary_dilation(de < 6, iterations=2)
+    hit = np.unique(ids[background & blobs])
+    shadow = np.isin(ids, hit[hit > 0])
+    # Grow back over the rim the opening removed, but never into dark body pixels.
+    shadow = ndimage.binary_dilation(shadow, iterations=r) & (lab[..., 0] >= lo * 0.75)
+    if opt.get("grow"):
+        floor_l, steps = opt["grow"]
+        fringe = (lab[..., 0] >= floor_l) & (np.hypot(lab[..., 1], lab[..., 2]) < opt.get("C", 8))
+        shadow = ndimage.binary_dilation(shadow, iterations=steps, mask=fringe | shadow)
+    if a_nn is not None:
+        # Dark grey body parts (a glossy horn in half shade) fall in the same range; rembg tells them apart.
+        shadow &= a_nn < 0.5
+    return np.where(shadow, 0, alpha)
 
 
 def shrink(im: Image.Image, size: tuple[int, int]) -> Image.Image:

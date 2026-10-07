@@ -53,7 +53,7 @@ class SeedLoaderTests(
 		assertEquals(5, taxa.findAllByGenusIdOrderBySortOrder("goliathus").size)
 		assertEquals(10, taxa.findAllByGenusIdOrderBySortOrder("cyclommatus").size)
 		assertEquals(13, taxa.findAllBySpeciesSciOrderBySortOrder("Dynastes hercules").size)
-		assertEquals(141, sources.count())
+		assertEquals(142, sources.count())
 		assertEquals(3, maps.count())
 		assertEquals(13, areas.count())
 		assertEquals(61, countries.count())
