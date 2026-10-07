@@ -175,7 +175,7 @@
     if (location.hash !== hash) history.pushState({ explore: path }, "", hash);
     renderExplorer(dir, true);
     var ex = document.getElementById("explorer");
-    if (ex.getBoundingClientRect().top < 0) ex.scrollIntoView({ block: "start" });
+    if (ex.getBoundingClientRect().top < 0) App.scrollToEl(ex);
   }
 
   document.getElementById("ex-panel").addEventListener("click", function (e) {
@@ -306,7 +306,7 @@
   path = pathFromHash() || [];
   document.addEventListener("langchange", render);
   render();
-  if (path.length) document.getElementById("explore").scrollIntoView({ block: "start" });
+  if (path.length) App.scrollToEl(document.getElementById("explore"));
 
   // Largest taxon of each genus by default.
   var chosen = BP.genera.map(function (g) {
