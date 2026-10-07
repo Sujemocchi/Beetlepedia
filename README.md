@@ -58,7 +58,7 @@ src/main/kotlin/com/example/beetlepedia/
   api/           조회 REST API
 tools/
   mapgen/gen.js                 Natural Earth → 지역 지도 생성기
-  cutout/                       사진 배경 제거(누끼) 파이프라인: manifest.json, cutout.py
+  cutout/                       사진 배경 제거(누끼) 파이프라인(manifest.json, cutout.py), 실루엣 생성기(silhouette.py)
 ```
 
 ### 데이터 형식 (시드 JSON)
@@ -183,6 +183,15 @@ tools/cutout/.venv/Scripts/python tools/cutout/cutout.py elapus   # 이름에 el
 - 신경망(rembg `isnet-general-use`) 마스크와, 배경색 모델과의 색 차이 마스크를 합칩니다. 신경망이 놓치는 가는 다리·더듬이 끝을 색 차이 마스크가 살립니다.
 - `manifest.json` 항목별로 `rotate`(회전), `floor`(배경으로 볼 색 차이 하한: 어두운 표본·받침 그림자용), `de`(색 차이 범위)를 조절합니다.
 - `tools/cutout/.review/`의 검토 이미지(원본 | 어두운 배경 | 자홍색 배경)로 다리·발톱·더듬이·큰턱 톱니가 남았는지, 흰 테두리나 그림자가 없는지 반드시 눈으로 확인합니다.
+### 실루엣
+홈의 분류군 카드, 크기 비교, 헤더 아이콘의 실루엣은 실제 표본 누끼에서 윤곽을 딴 것입니다: 꽃무지 *Goliathus regius*(Hannes Grobe, CC BY-SA 4.0), 사슴벌레 *Cyclommatus elaphus*(keusju, 퍼블릭 도메인), 장수풍뎅이 *Dynastes hercules lichyi*(Udo Schmidt, CC BY-SA 2.0). 출처는 모든 페이지 푸터에 표시합니다.
+```bash
+tools/cutout/.venv/Scripts/python -m pip install potracer
+tools/cutout/.venv/Scripts/python tools/cutout/silhouette.py   # data/silhouettes.js, assets/images/silhouettes/*.webp
+```
+- 몸길이 측정 기준(큰턱·뿔·머리뿔 끝 → 딱지날개 끝)에 맞춰 그 사이만 잘라 윤곽을 따므로, 실루엣의 위·아래 끝(높이 160 상자에서 y = 5 … 158)이 곧 측정점입니다. 그 밖으로 나온 앞다리·뒷다리 끝은 잘립니다.
+- 셰이딩은 같은 범위의 누끼를 흑백·저대비로 만든 이미지를 윤곽 안에 `soft-light`로 겹친 것이라, 분류군 색(`currentColor`)이 그대로 유지됩니다.
+
 - 회전한 사진(Udo Schmidt의 *D. h. lichyi* 수컷·암컷)은 누끼만 회전되어 있으므로, 누끼를 불러오지 못할 때 보이는 원본은 옆으로 누워 있습니다.
 라이선스를 확인한 사진이 없는 분류군은 실루엣과 "사진을 아직 찾지 못했습니다" 안내를 표시합니다.
 
