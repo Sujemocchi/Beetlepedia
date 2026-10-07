@@ -53,3 +53,6 @@ tools/cutout/.venv/
 tools/cutout/.cache/
 tools/cutout/.originals/
 tools/cutout/.review/
+
+### Map generator downloads (Natural Earth source data) ###
+tools/mapgen/.cache/

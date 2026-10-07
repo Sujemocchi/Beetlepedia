@@ -96,7 +96,7 @@ window.I18N = {
   "map.all": { ko: "모두 보기", en: "Show all", ja: "すべて表示" },
   "map.none": { ko: "모두 끄기", en: "Clear", ja: "すべて消す" },
   "map.legend": { ko: "범례", en: "Legend", ja: "凡例" },
-  "map.note": { ko: "국가 또는 섬 단위 표시입니다. 실제 분포는 그 일부 지역일 수 있습니다. 작은 섬은 점으로 표시합니다. 출처: 각 분류군의 참고문헌. 국경: Natural Earth (퍼블릭 도메인).", en: "Shown by country or island; actual ranges may cover only part of it. Small islands are drawn as dots. Sources: each taxon's references. Borders: Natural Earth (public domain).", ja: "国または島単位の表示です。実際の分布はその一部の地域にとどまる場合があります。小さな島は点で示します。出典: 各分類群の参考文献。国境: Natural Earth（パブリックドメイン）。" },
+  "map.note": { ko: "국가 또는 섬 단위 표시입니다. 실제 분포는 그 일부 지역일 수 있습니다. 작은 섬은 점으로 표시합니다. 가는 선은 주·도 등 1급 행정구역 경계입니다. 출처: 각 분류군의 참고문헌. 국경·행정구역: Natural Earth (퍼블릭 도메인).", en: "Shown by country or island; actual ranges may cover only part of it. Small islands are drawn as dots. Thin lines mark states and provinces. Sources: each taxon's references. Borders and provinces: Natural Earth (public domain).", ja: "国または島単位の表示です。実際の分布はその一部の地域にとどまる場合があります。小さな島は点で示します。細い線は州・県などの第一級行政区画の境界です。出典: 各分類群の参考文献。国境・行政区画: Natural Earth（パブリックドメイン）。" },
   "map.hoverHint": { ko: "지역을 가리키거나 선택하면 해당 분류군이 표시됩니다.", en: "Hover or focus an area to see which taxa occur there.", ja: "地域にカーソルを合わせるか選択すると、そこに分布する分類群が表示されます。" },
   "map.noSpecies": { ko: "선택한 분류군이 없음", en: "No selected taxa", ja: "選択中の分類群なし" },
   "map.aria": { ko: "{region} 지도: 분류군별 분포 지역", en: "Map of {region} showing where each taxon occurs", ja: "{region}の地図: 分類群ごとの分布地域" },
