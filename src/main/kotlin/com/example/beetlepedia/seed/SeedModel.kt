@@ -66,18 +66,6 @@ data class OverviewSeed(
 data class StageSeed(val stage: String, val title: TextSeed, val time: TextSeed, val text: TextSeed)
 data class LifecycleSeed(val lead: TextSeed? = null, val stages: List<StageSeed> = emptyList())
 data class DefaultsSeed(val dimorphism: TextSeed? = null, val food: TextSeed? = null, val season: TextSeed? = null)
-data class WeightItemSeed(
-	val label: TextSeed,
-	val value: Double,
-	val approx: Boolean = false,
-	val estimate: Boolean = false,
-	val reported: Boolean = false,
-	val plus: Boolean = false,
-	val note: TextSeed? = null,
-	val color: String? = null,
-	val sources: List<String> = emptyList(),
-)
-data class WeightsSeed(val note: TextSeed? = null, val items: List<WeightItemSeed> = emptyList())
 data class SpeciesInfoSeed(
 	val authority: String? = null,
 	val name: TextSeed? = null,
@@ -108,7 +96,6 @@ data class GenusSeed(
 	val care: List<TextSeed> = emptyList(),
 	val facts: List<TextSeed> = emptyList(),
 	val defaults: DefaultsSeed? = null,
-	val weights: WeightsSeed? = null,
 	val latin: List<String> = emptyList(),
 	val images: GenusImagesSeed? = null,
 	val sizeDefaults: List<String> = emptyList(),

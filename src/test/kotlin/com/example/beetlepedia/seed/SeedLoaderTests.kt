@@ -92,11 +92,11 @@ class SeedLoaderTests(
 	fun `genus content survives the move`() {
 		val goliathus = genera.findById("goliathus").orElseThrow()
 		assertEquals(4, goliathus.lifecycleStages.size)
-		assertEquals(2, goliathus.weights.size)
+		assertTrue(goliathus.heroStats.none { it.unit?.trim()?.startsWith("g") == true }, "no weight hero stats")
 		assertEquals(listOf("goliathus-goliatus", "goliathus-regius", "goliathus-albosignatus"), goliathus.sizeDefaults)
 		assertEquals("africa", goliathus.mapRegion?.id)
 		val dynastes = genera.findById("dynastes").orElseThrow()
 		assertEquals("Dynastes hercules", dynastes.speciesInfo.single().speciesSci)
-		assertTrue(dynastes.weights.all { it.sources.isNotEmpty() })
+		assertTrue(dynastes.heroStats.none { it.unit?.trim()?.startsWith("g") == true }, "no weight hero stats")
 	}
 }

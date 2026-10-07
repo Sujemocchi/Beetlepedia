@@ -123,7 +123,10 @@ class TaxonomyApiTests(@Autowired val mvc: MockMvc) {
 			status { isOk() }
 			jsonPath("$.genus.map") { value("neotropics") }
 			jsonPath("$.genus.speciesInfo['Dynastes hercules'].authority") { value("(Linnaeus, 1758)") }
-			jsonPath("$.genus.weights.items[1].value") { value(185.0) }
+			// Weight comparison was removed: no weights field and no weight hero stat
+			jsonPath("$.genus.weights") { doesNotExist() }
+			jsonPath("$.genus.heroStats", hasSize<Any>(1))
+			jsonPath("$.genus.heroStats[0].unit") { value(" mm") }
 			jsonPath("$.taxa", hasSize<Any>(13))
 			jsonPath("$.taxa[0].id") { value("dynastes-hercules-hercules") }
 		}

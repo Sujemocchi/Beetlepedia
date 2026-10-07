@@ -67,15 +67,6 @@
         "en": "Max. male length (reported)",
         "ja": "雄の最大体長（報告値）"
       }
-    },
-    {
-      "value": "100",
-      "unit": " g+",
-      "label": {
-        "ko": "유충 최대 무게 (보고)",
-        "en": "Max. larval weight (reported)",
-        "ja": "幼虫の最大体重（報告値）"
-      }
     }
   ],
   "overview": {
@@ -159,9 +150,9 @@
           "ja": "野生下で約4か月（報告値）・飼育下ではより長い"
         },
         "text": {
-          "ko": "다른 꽃무지 유충과 달리 단백질을 많이 필요로 한다. 우기 동안 빠르게 자라 몸길이 13cm 안팎, 무게 약 100g까지 커진다(일부 보고는 최대 25cm).",
-          "en": "Unlike most flower-chafer grubs, they need a lot of protein. They grow fast through the rainy season, reaching around 13 cm and about 100 g (some reports give up to 25 cm).",
-          "ja": "多くのハナムグリ類の幼虫と異なり、多量のタンパク質を必要とする。雨季の間に急速に成長し、体長約13cm、体重約100gに達する（最大25cmとする報告もある）。"
+          "ko": "다른 꽃무지 유충과 달리 단백질을 많이 필요로 한다. 우기 동안 빠르게 자라 몸길이 13cm 안팎까지 커진다(일부 보고는 최대 25cm).",
+          "en": "Unlike most flower-chafer grubs, they need a lot of protein. They grow fast through the rainy season, reaching around 13 cm (some reports give up to 25 cm).",
+          "ja": "多くのハナムグリ類の幼虫と異なり、多量のタンパク質を必要とする。雨季の間に急速に成長し、体長約13cmに達する（最大25cmとする報告もある）。"
         }
       },
       {
@@ -241,11 +232,6 @@
       "ja": "上翅を閉じたまま飛ぶ。これはハナムグリ類すべてに共通する特徴である。"
     },
     {
-      "ko": "'100g이 넘는다'는 말은 유충 얘기다. 성충은 그 절반 정도로 알려져 있다.",
-      "en": "\"Over 100 g\" is the larva; adults weigh roughly half that.",
-      "ja": "「100g超」は幼虫の話で、成虫の体重はその半分ほどである。"
-    },
-    {
       "ko": "다리 끝마다 날카로운 발톱 한 쌍이 있어 나무줄기와 가지를 단단히 붙잡는다.",
       "en": "Each leg ends in a pair of sharp claws for gripping trunks and branches.",
       "ja": "各脚の先端には鋭い爪が1対あり、幹や枝をしっかりつかむ。"
@@ -277,52 +263,6 @@
       "en": "Adults emerge and mate in the rainy season; pupation and adult dormancy fall in the dry season.",
       "ja": "成虫は雨季に出現して交尾し、蛹期と成虫の休眠は乾季にあたる。"
     }
-  },
-  "weights": {
-    "note": {
-      "ko": "종별 무게 자료는 거의 발표되지 않아 속 전체 기준으로 표시했습니다. 흔히 말하는 '100g 이상'은 성충이 아니라 유충의 무게입니다.",
-      "en": "Per-species weights are rarely published, so genus-level figures are shown. The often-quoted \"over 100 g\" refers to larvae, not adults.",
-      "ja": "種ごとの体重はほとんど公表されていないため、属全体の数値を示す。よく引用される「100g超」は成虫ではなく幼虫の体重である。"
-    },
-    "items": [
-      {
-        "label": {
-          "ko": "골리앗꽃무지 성충 (최대)",
-          "en": "Goliath beetle adult (max.)",
-          "ja": "ゴライアスオオツノハナムグリ成虫（最大）"
-        },
-        "value": 50,
-        "approx": true,
-        "estimate": true,
-        "note": {
-          "ko": "유충 최대 무게의 약 절반",
-          "en": "about half the larval maximum",
-          "ja": "幼虫の最大体重の約半分"
-        },
-        "sources": [
-          "wiki-genus"
-        ]
-      },
-      {
-        "label": {
-          "ko": "골리앗꽃무지 유충 (최대)",
-          "en": "Goliath beetle larva (max.)",
-          "ja": "ゴライアスオオツノハナムグリ幼虫（最大）"
-        },
-        "value": 100,
-        "plus": true,
-        "reported": true,
-        "note": {
-          "ko": "사육 개체 보고, 100g을 넘기도 함",
-          "en": "reported in captivity; can exceed 100 g",
-          "ja": "飼育下での報告値。100gを超えることもある"
-        },
-        "sources": [
-          "meyer",
-          "wiki-genus"
-        ]
-      }
-    ]
   },
   "latin": [
     "Scarabaeus goliatus",

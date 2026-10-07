@@ -7,7 +7,6 @@ import com.example.beetlepedia.domain.Country
 import com.example.beetlepedia.domain.GeoBox
 import com.example.beetlepedia.domain.GeoPoint
 import com.example.beetlepedia.domain.Genus
-import com.example.beetlepedia.domain.GenusWeight
 import com.example.beetlepedia.domain.HeroStat
 import com.example.beetlepedia.domain.HistoryEntry
 import com.example.beetlepedia.domain.Image
@@ -87,7 +86,6 @@ class DomainRepositoryTests(
 		})
 		dynastes = em.persist(Genus("dynastes", dynastinae, "Dynastes", "MacLeay, 1819", neo, "#9FBF4A", 2, t("헤라클레스장수풍뎅이속", "Hercules beetles")).apply {
 			heroImage = sharedPhoto
-			addWeight(GenusWeight(t("유충 (사육 최대)", "Larva (captive max.)"), 185.0, reported = true)).sources.add(gbif)
 			addSpeciesInfo(SpeciesInfo("Dynastes hercules", "(Linnaeus, 1758)", t("헤라클레스장수풍뎅이", "Hercules beetle"))).sources.add(gbif)
 		})
 
@@ -136,7 +134,7 @@ class DomainRepositoryTests(
 	}
 
 	@Test
-	fun `genus keeps its ordered collections, weights and species info`() {
+	fun `genus keeps its ordered collections and species info`() {
 		val g = genera.findById("cyclommatus").orElseThrow()
 		assertEquals("Cyclommatini", g.ranks.single().name)
 		assertEquals("109", g.heroStats.single().figure)
@@ -148,9 +146,6 @@ class DomainRepositoryTests(
 		assertEquals(listOf("cyclommatus-elaphus-elaphus", "cyclommatus-truncatus"), g.taxa.map { it.id })
 
 		val d = genera.findById("dynastes").orElseThrow()
-		assertEquals(185.0, d.weights.single().grams)
-		assertTrue(d.weights.single().reported)
-		assertEquals(listOf("dy-gbif-dh"), d.weights.single().sources.map { it.id })
 		assertEquals("Dynastes hercules", d.speciesInfo.single().speciesSci)
 		assertEquals("Didier Descouens", d.heroImage?.author)
 	}

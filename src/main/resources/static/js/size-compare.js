@@ -1,9 +1,9 @@
 /*
  * Size comparison: every item is drawn in millimetres inside one SVG,
  * so the relative sizes are true to scale. Each taxon uses the silhouette of
- * its group (flower chafer / stag beetle / rhinoceros beetle). Also draws weight bars.
+ * its group (flower chafer / stag beetle / rhinoceros beetle).
  *
- * BPSize.mount({ stage, species, objects, legend, weights }, { taxa, chosen, weights })
+ * BPSize.mount({ stage, species, objects, legend }, { taxa, chosen })
  */
 (function () {
   "use strict";
@@ -47,11 +47,6 @@
     { id: "dichotomus", label: "obj.dichotomus", note: "obj.dichotomus.note", h: 80, w: 80 * 100 / LEN,
       draw: function (x, y) { return beetle("dynastinae", x, y, 80, "#7a4a2a"); } }
   ];
-  // Reference weights shown above the beetle bars.
-  var REF_WEIGHTS = [
-    { label: "w.card", value: 5, approx: true, color: "#5476a8" },
-    { label: "w.coin", value: 7.7, color: "#c9c9c2" }
-  ];
 
   function mount(ids, cfg) {
     var stage = document.getElementById(ids.stage);
@@ -59,7 +54,6 @@
     var spBox = document.getElementById(ids.species);
     var objBox = document.getElementById(ids.objects);
     var legendBox = document.getElementById(ids.legend);
-    var weightsBox = ids.weights && document.getElementById(ids.weights);
 
     var taxa = cfg.taxa.filter(function (x) { return App.maxMale(x); });
     var chosenSpecies = (cfg.chosen || taxa.slice(0, 3).map(function (x) { return x.id; })).slice();
@@ -150,43 +144,7 @@
       drawStage();
     });
 
-    // ---------- weight bars ----------
-    var barsShown = false;
-    var weights = cfg.weights && cfg.weights.items && cfg.weights.items.length ? cfg.weights.items : null;
-    function drawWeights() {
-      if (!weightsBox || !weights) return;
-      var rows = REF_WEIGHTS.map(function (w) { return Object.assign({}, w, { label: App.t(w.label), note: "" }); })
-        .concat(weights.map(function (w, i) {
-          return Object.assign({}, w, { label: App.L(w.label), note: App.L(w.note), color: w.color || (i % 2 ? "#e58a4c" : "#c8692f") });
-        }));
-      var maxW = rows.reduce(function (m, w) { return Math.max(m, w.value); }, 0) * 1.1;
-      weightsBox.innerHTML = rows.map(function (w) {
-        var tag = w.estimate ? " · " + App.t("size.estimate") : w.reported ? " · " + App.t("size.reported") : "";
-        var val = (w.approx ? "≈ " : "") + w.value + " g" + (w.plus ? "+" : "");
-        return '<div class="wbar"><div class="wlabel">' + App.esc(w.label) +
-          (w.note || tag ? "<small>" + App.esc(w.note + tag) + "</small>" : "") + "</div>" +
-          '<div class="track" role="img" aria-label="' + App.esc(w.label + " " + val) + '">' +
-          '<div class="fill' + (w.estimate ? " est" : "") + '" style="--c:' + w.color + '" data-w="' + (w.value / maxW * 100) + '"></div>' +
-          '<span class="val">' + App.esc(val) + "</span></div></div>";
-      }).join("");
-      if (barsShown) growBars();
-    }
-    function growBars() {
-      barsShown = true;
-      weightsBox.querySelectorAll(".fill").forEach(function (f) { f.style.width = f.getAttribute("data-w") + "%"; });
-    }
-    if (weightsBox && weights) {
-      if ("IntersectionObserver" in window) {
-        var io = new IntersectionObserver(function (entries) {
-          if (entries.some(function (e) { return e.isIntersecting; })) { requestAnimationFrame(growBars); io.disconnect(); }
-        }, { threshold: 0.3 });
-        io.observe(weightsBox);
-      } else {
-        barsShown = true;
-      }
-    }
-
-    function all() { drawPickers(); drawStage(); drawWeights(); }
+    function all() { drawPickers(); drawStage(); }
     document.addEventListener("langchange", all);
     all();
   }
