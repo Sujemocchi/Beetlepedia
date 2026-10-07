@@ -1,6 +1,7 @@
 /*
- * Home page: hero, the three groups, the full classification tree,
- * a size comparison across genera and a server-side search over every taxon.
+ * Home page: hero, a step-by-step explorer down the classification (group → genus → species → subspecies)
+ * with a server-side search on top, and a size comparison across genera.
+ * Search results only appear while a query or filter is set; otherwise the explorer is shown.
  */
 (function () {
   "use strict";
@@ -24,62 +25,177 @@
       "<li><b>" + BP.taxa.length + "</b><span>" + esc(t("home.stat.taxa")) + "</span></li>";
   }
 
-  // ---------- groups ----------
-  function renderGroups() {
-    document.getElementById("group-grid").innerHTML = BP.groups.map(function (grp) {
-      var genera = App.generaOf(grp.id);
-      return '<article class="group-card reveal" style="--sp:' + grp.color + '">' +
-        '<div class="emblem">' + App.silhouetteSVG(grp.id) + "</div>" +
-        '<span class="eyebrow">' + esc(grp.sci) + "</span>" +
-        '<h3><a href="' + App.groupUrl(grp.id) + '">' + esc(L(grp.name)) + "</a></h3>" +
-        "<p>" + App.sciText(L(grp.lead)) + "</p>" +
-        '<ul class="genus-links">' + genera.map(function (g) {
-          return '<li><a href="' + App.genusUrl(g.id) + '">' + sci(g.sci) + " <small>" + esc(L(g.name)) + " · " +
-            esc(t("count.taxa", { n: App.taxaOf(g.id).length })) + "</small></a></li>";
-        }).join("") + "</ul></article>";
+  // ---------- explorer ----------
+  // path: [] → groups, [group] → genera, [group, genus] → species, [group, genus, species] → subspecies.
+  // Kept in the URL hash (#explore=group/genus/species) so the back button steps back up.
+  var path = [];
+  var LEVELS = ["group", "genus", "species", "subspecies"];
+
+  // Taxa of a genus grouped by species name, in seed order.
+  function speciesOf(genusId) {
+    var order = [], blocks = {};
+    App.taxaOf(genusId).forEach(function (x) {
+      var sp = App.speciesName(x);
+      if (!blocks[sp]) { blocks[sp] = []; order.push(sp); }
+      blocks[sp].push(x);
+    });
+    return order.map(function (sp) { return { sci: sp, taxa: blocks[sp] }; });
+  }
+  // A species with a single taxon (the species itself, or its only subspecies here) links straight to it;
+  // otherwise it opens its subspecies.
+  function isLeaf(block) { return block.taxa.length === 1; }
+
+  function valid(p) {
+    var grp = p[0] && App.group(p[0]);
+    if (!grp) return [];
+    var g = p[1] && App.genus(p[1]);
+    if (!g || g.group !== grp.id) return [grp.id];
+    var block = p[2] && speciesOf(g.id).filter(function (b) { return b.sci === p[2]; })[0];
+    if (!block || isLeaf(block)) return [grp.id, g.id];
+    return [grp.id, g.id, block.sci];
+  }
+  function pathFromHash() {
+    var m = /^#explore=(.*)$/.exec(location.hash);
+    return m ? valid(decodeURIComponent(m[1]).split("/")) : null;
+  }
+
+  function thumbHTML(img, group) {
+    return img
+      ? '<div class="thumb' + App.frameClass(img) + '">' + App.imgHTML(img, { width: 640 }) + "</div>"
+      : '<div class="thumb empty">' + App.silhouetteSVG(group) + "</div>";
+  }
+  // One card. Cards that go a level deeper are buttons; leaves link to the taxon page.
+  function cardHTML(o) {
+    var inner = (o.thumb || "") + '<div class="body">' +
+      '<span class="rank-tag">' + esc(o.rank) + "</span>" +
+      '<span class="sci">' + o.sci + "</span>" + (o.auth ? '<span class="auth">' + esc(o.auth) + "</span>" : "") +
+      (o.name ? '<span class="kname">' + o.name + "</span>" : "") +
+      (o.lead ? '<p class="lead-text">' + o.lead + "</p>" : "") +
+      '<span class="meta">' + o.meta.map(function (m) { return "<span>" + esc(m) + "</span>"; }).join("") + "</span>" +
+      '<span class="go">' + esc(o.drill ? t("ex.see") : t("ex.open")) + ' <span aria-hidden="true">' + (o.drill ? "↓" : "→") + "</span></span>" +
+      "</div>";
+    var style = ' style="--sp:' + o.color + '"', li = '<li style="--i:' + o.i + '">';
+    return o.drill
+      ? li + '<button type="button" class="ex-card' + (o.cls || "") + '" data-key="' + esc(o.key) + '"' + style + ">" + inner + "</button></li>"
+      : li + '<a class="ex-card leaf' + (o.cls || "") + '" href="' + o.href + '"' + style + ">" + inner + "</a></li>";
+  }
+
+  function levelItems() {
+    var lvl = path.length;
+    if (lvl === 0) {
+      return BP.groups.map(function (grp, i) {
+        var genera = App.generaOf(grp.id);
+        return cardHTML({
+          drill: true, key: grp.id, i: i, color: grp.color, cls: " group",
+          thumb: '<div class="emblem" aria-hidden="true">' + App.silhouetteSVG(grp.id) + "</div>",
+          rank: grp.sci, sci: esc(L(grp.name)), lead: App.sciText(L(grp.lead)),
+          meta: [t("count.genera", { n: genera.length }), t("count.taxa", { n: App.taxaOfGroup(grp.id).length })]
+        });
+      }).join("");
+    }
+    if (lvl === 1) {
+      return App.generaOf(path[0]).map(function (g, i) {
+        var img = g.images && (g.images.card || g.images.hero);
+        return cardHTML({
+          drill: true, key: g.id, i: i, color: g.color, cls: " genus",
+          thumb: thumbHTML(img, g.group), rank: t("rank.genus"), sci: sci(g.sci), auth: g.authority, name: esc(L(g.name)),
+          meta: [t("ex.nSpecies", { n: speciesOf(g.id).length }), t("count.taxa", { n: App.taxaOf(g.id).length })]
+        });
+      }).join("");
+    }
+    if (lvl === 2) {
+      var g = App.genus(path[1]);
+      return speciesOf(g.id).map(function (b, i) {
+        var x = b.taxa[0];
+        var img = b.taxa.map(function (s) { return s.images && s.images[0]; }).filter(Boolean)[0];
+        var info = g.speciesInfo && g.speciesInfo[b.sci];
+        var leaf = isLeaf(b);
+        var max = b.taxa.reduce(function (m, s) { return Math.max(m, App.maxMale(s) || 0); }, 0);
+        return cardHTML({
+          drill: !leaf, key: b.sci, href: leaf ? App.taxonUrl(x) : null, i: i, color: x.color,
+          thumb: thumbHTML(img, x.group), rank: t("rank." + (leaf ? x.rank : "species")), sci: sci(leaf ? x.sci : b.sci), auth: leaf ? x.authority : "",
+          name: leaf ? App.nameHTML(x, App.lang()) : info && info.name ? esc(L(info.name)) : "",
+          meta: (leaf ? [] : [t("ex.nSubspecies", { n: b.taxa.length })]).concat(max ? ["♂ ≤ " + max + " mm"] : [])
+        });
+      }).join("");
+    }
+    var block = speciesOf(path[1]).filter(function (b) { return b.sci === path[2]; })[0];
+    return block.taxa.map(function (x, i) {
+      return cardHTML({
+        drill: false, href: App.taxonUrl(x), i: i, color: x.color,
+        thumb: thumbHTML(x.images && x.images[0], x.group), rank: t("rank." + x.rank), sci: sci(x.sci), auth: x.authority,
+        name: App.nameHTML(x, App.lang()), meta: ["♂ " + App.range(x.size && x.size.male)]
+      });
     }).join("");
   }
 
-  // ---------- classification tree ----------
-  function renderTree() {
-    var root = { label: "Coleoptera · Scarabaeoidea", kids: [], map: {} };
-    function node(parent, key, label) {
-      if (!parent.map[key]) { var n = { label: label, kids: [], map: {} }; parent.map[key] = n; parent.kids.push(n); }
-      return parent.map[key];
-    }
-    BP.groups.forEach(function (grp) {
-      var parent = root;
-      grp.taxonomy.forEach(function (r) {
-        parent = node(parent, r.name, '<span class="rank">' + esc(L(r.rank)) + "</span> " + esc(r.name) + " <small>" + esc(L(r.common)) + "</small>");
-      });
-      parent.href = App.groupUrl(grp.id);
-      App.generaOf(grp.id).forEach(function (g) {
-        var gn = node(parent, g.id, '<span class="rank">' + esc(t("rank.genus")) + '</span> <a href="' + App.genusUrl(g.id) + '">' + sci(g.sci) + "</a> <small>" + esc(L(g.name)) + "</small>");
-        App.taxaOf(g.id).forEach(function (x) {
-          var link = '<a href="' + App.taxonUrl(x) + '" style="--sp:' + x.color + '"><span class="dot" aria-hidden="true"></span>' + sci(x.sci) + "</a>" +
-            (App.taxonName(x) ? " <small>" + esc(App.taxonName(x)) + "</small>" : "");
-          if (x.rank === "subspecies") {
-            var spn = App.speciesName(x);
-            var info = g.speciesInfo && g.speciesInfo[spn];
-            node(gn, spn, '<span class="rank">' + esc(t("rank.species")) + "</span> " + sci(spn) + (info && info.name ? " <small>" + esc(L(info.name)) + "</small>" : ""))
-              .kids.push({ label: '<span class="rank">' + esc(t("rank.subspecies")) + "</span> " + link, kids: [] });
-          } else {
-            gn.kids.push({ label: '<span class="rank">' + esc(t("rank.species")) + "</span> " + link, kids: [] });
-          }
-        });
-      });
-    });
-    function html(n, depth) {
-      var kids = n.kids.length ? '<ul>' + n.kids.map(function (k) { return html(k, depth + 1); }).join("") + "</ul>" : "";
-      if (n.kids.length > 6 && depth > 2) {
-        return '<li><details><summary>' + n.label + ' <span class="count">' + n.kids.length + "</span></summary>" + kids + "</details></li>";
-      }
-      return "<li>" + n.label + kids + "</li>";
-    }
-    document.getElementById("tree-root").innerHTML = '<ul class="tree">' + html(root, 0) + "</ul>";
+  function levelTitle() {
+    var lvl = path.length;
+    if (lvl === 0) return esc(t("ex.pickGroup"));
+    if (lvl === 1) return esc(t("ex.pickGenus", { name: L(App.group(path[0]).name) }));
+    if (lvl === 2) return t("ex.pickSpecies", { name: sci(App.genus(path[1]).sci) });
+    return t("ex.pickSubspecies", { name: sci(path[2]) });
+  }
+  function levelLink() {
+    if (path.length === 1) return '<a class="ex-page" href="' + App.groupUrl(path[0]) + '">' + esc(t("ex.openGroup")) + " →</a>";
+    if (path.length === 2) return '<a class="ex-page" href="' + App.genusUrl(path[1]) + '">' + esc(t("ex.openGenus")) + " →</a>";
+    return "";
   }
 
-  // ---------- index: searched on the server (/api/taxa) ----------
+  function renderSteps() {
+    document.getElementById("ex-steps").innerHTML = LEVELS.map(function (k, i) {
+      return '<li class="' + (i < path.length ? "done" : i === path.length ? "now" : "") + '">' + esc(t("ex.step." + k)) + "</li>";
+    }).join("");
+    var crumbs = [[0, esc(t("ex.all"))]];
+    if (path[0]) crumbs.push([1, esc(L(App.group(path[0]).name))]);
+    if (path[1]) crumbs.push([2, sci(App.genus(path[1]).sci)]);
+    if (path[2]) crumbs.push([3, sci(path[2])]);
+    document.getElementById("ex-crumbs").innerHTML = "<ol>" + crumbs.map(function (c, i) {
+      return i === crumbs.length - 1
+        ? '<li aria-current="step">' + c[1] + "</li>"
+        : '<li><button type="button" data-depth="' + c[0] + '">' + c[1] + "</button></li>";
+    }).join("") + "</ol>";
+  }
+
+  // dir: 1 = stepped in, -1 = stepped out, 0 = no animation (first draw, language change).
+  function renderExplorer(dir, focus) {
+    renderSteps();
+    var panel = document.getElementById("ex-panel");
+    panel.innerHTML =
+      '<div class="ex-head"><h3 tabindex="-1" id="ex-title">' + levelTitle() + "</h3>" + levelLink() + "</div>" +
+      '<ul class="ex-grid level-' + path.length + '">' + levelItems() + "</ul>";
+    panel.classList.remove("in-fwd", "in-back");
+    if (dir) { void panel.offsetWidth; panel.classList.add(dir > 0 ? "in-fwd" : "in-back"); }
+    if (focus) document.getElementById("ex-title").focus({ preventScroll: true });
+  }
+
+  function go(next, dir) {
+    path = next;
+    var hash = path.length ? "#explore=" + encodeURIComponent(path.join("/")) : "#explore";
+    if (location.hash !== hash) history.pushState({ explore: path }, "", hash);
+    renderExplorer(dir, true);
+    var ex = document.getElementById("explorer");
+    if (ex.getBoundingClientRect().top < 0) ex.scrollIntoView({ block: "start" });
+  }
+
+  document.getElementById("ex-panel").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-key]");
+    if (b) go(path.concat([b.getAttribute("data-key")]), 1);
+  });
+  document.getElementById("ex-crumbs").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-depth]");
+    if (b) go(path.slice(0, +b.getAttribute("data-depth")), -1);
+  });
+  window.addEventListener("popstate", function () {
+    var p = pathFromHash();
+    if (p === null && location.hash && location.hash !== "#explore") return; // an ordinary in-page anchor
+    p = p || [];
+    var dir = p.length < path.length ? -1 : p.length > path.length ? 1 : 0;
+    path = p;
+    renderExplorer(dir, false);
+  });
+
+  // ---------- search: on the server (/api/taxa), shown only while active ----------
   function renderFilter() {
     document.getElementById("index-filter").innerHTML = [{ id: "all", name: { ko: t("home.allGroups"), en: t("home.allGroups"), ja: t("home.allGroups") }, color: "#b3bcae" }]
       .concat(BP.groups).map(function (grp) {
@@ -105,7 +221,7 @@
     }).join("");
   }
 
-  function query() {
+  function params() {
     var p = [];
     function add(k, v) { if (v !== "" && v != null) p.push(k + "=" + encodeURIComponent(v)); }
     add("q", document.getElementById("index-q").value.trim());
@@ -115,10 +231,14 @@
     add("maxLength", document.getElementById("f-max").value);
     add("country", document.getElementById("f-country").value);
     if (document.getElementById("f-photo").checked) add("hasImage", "true");
-    return p.join("&");
+    return p;
   }
 
   var lastItems = [], seq = 0, timer = null;
+  function showResults(on) {
+    document.getElementById("index-results").hidden = !on;
+    document.getElementById("explorer").hidden = on;
+  }
   function drawResults() {
     document.getElementById("index-list").innerHTML = lastItems.map(function (x) {
       var g = App.genus(x.genus);
@@ -133,11 +253,21 @@
     document.getElementById("index-empty").hidden = lastItems.length > 0;
   }
   function search() {
+    var p = params();
+    var nFilters = p.filter(function (s) { return s.indexOf("q=") !== 0; }).length;
+    var badge = document.getElementById("filter-count");
+    badge.hidden = !nFilters;
+    badge.textContent = nFilters;
     var mine = ++seq;
-    fetch(App.base + "api/taxa?" + query(), { headers: { Accept: "application/json" } })
+    if (!p.length) { lastItems = []; drawResults(); showResults(false); return; }
+    fetch(App.base + "api/taxa?" + p.join("&"), { headers: { Accept: "application/json" } })
       .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
-      .then(function (data) { if (mine !== seq) return; lastItems = data.items; drawResults(); })
-      .catch(function () { if (mine === seq) document.getElementById("index-count").textContent = t("filter.error"); });
+      .then(function (data) { if (mine !== seq) return; lastItems = data.items; drawResults(); showResults(true); })
+      .catch(function () {
+        if (mine !== seq) return;
+        document.getElementById("index-count").textContent = t("filter.error");
+        showResults(true);
+      });
   }
   function searchSoon() { clearTimeout(timer); timer = setTimeout(search, 200); }
 
@@ -145,6 +275,14 @@
   document.getElementById("index-filters").addEventListener("input", searchSoon);
   document.getElementById("index-filters").addEventListener("change", searchSoon);
   document.getElementById("f-reset").addEventListener("click", function () { setTimeout(search, 0); });
+  document.getElementById("index-clear").addEventListener("click", function () {
+    document.getElementById("index-q").value = "";
+    document.getElementById("index-filters").reset();
+    filter = "all";
+    renderFilter();
+    search();
+    document.getElementById("index-q").focus();
+  });
   document.getElementById("index-filter").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-group]");
     if (!b) return;
@@ -157,18 +295,18 @@
 
   function render() {
     renderHero();
-    renderGroups();
-    renderTree();
+    renderExplorer(0, false);
     renderFilter();
     renderCountries();
     drawResults();
     App.observeReveals();
   }
 
-  App.setNav([["#groups", "nav.groups"], ["#tree", "nav.tree"], ["#size", "nav.size"], ["#index", "nav.index"]]);
+  App.setNav([["#explore", "nav.explore"], ["#size", "nav.size"]]);
+  path = pathFromHash() || [];
   document.addEventListener("langchange", render);
   render();
-  search();
+  if (path.length) document.getElementById("explore").scrollIntoView({ block: "start" });
 
   // Largest taxon of each genus by default.
   var chosen = BP.genera.map(function (g) {

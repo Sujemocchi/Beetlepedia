@@ -26,7 +26,7 @@
 ## 페이지 구조 (계층)
 
 ```
-index.html                      Beetlepedia 홈: 세 분류군, 계통 트리, 속을 넘나드는 크기 비교, 조건 검색(이름·계급·몸길이·국가·사진)
+index.html                      Beetlepedia 홈: 분류 따라 탐색(분류군 → 속 → 종 → 아종 단계별 탐색기, 조건 검색), 속을 넘나드는 크기 비교
 └ group.html?id=<group>         상위 분류군 (cetoniinae / lucanidae / dynastinae): 개요, 분류, 속 목록
   └ genus.html?id=<genus>       속: 개요, 종 카드, 비교표, 분포 지도, 크기 비교, 생활사, 보전·사육, 출처
     └ taxon.html?id=<taxon>     종·아종: 형태·크기, 역사·이슈, 3D(준비 중), 생태, 분포 지도(확대), 사육, 보전, 출처

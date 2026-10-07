@@ -507,25 +507,6 @@ img.cut {
 .hero-media.plate { background: #fbfaf6; }
 .hero-media.plate img, .hero-media.cutout img { object-fit: contain; padding: 6% 4% 26%; }
 
-/* Group cards (home) */
-.group-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
-.group-card {
-  position: relative; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--sp);
-  border-radius: var(--radius); padding: 26px 24px 22px; overflow: hidden;
-}
-.group-card .emblem { position: absolute; right: -6px; top: 14px; width: 92px; color: var(--sp); opacity: 0.18; }
-.group-card .eyebrow { margin-bottom: 4px; color: var(--sp); }
-.group-card h3 { font-size: 1.7rem; margin-bottom: 8px; }
-.group-card h3 a { color: var(--text); text-decoration: none; }
-.group-card h3 a:hover { color: var(--sp); }
-.group-card p { color: var(--text-dim); }
-.genus-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.genus-links a {
-  display: block; padding: 10px 14px; border-radius: 10px; background: var(--surface-2); color: var(--text); text-decoration: none;
-}
-.genus-links a:hover { background: color-mix(in srgb, var(--sp) 18%, var(--surface-2)); }
-.genus-links small { display: block; color: var(--text-dim); }
-
 /* Group page */
 .group-emblem { width: min(240px, 55%); margin: 0 auto; color: var(--sp); opacity: 0.85; }
 .group-hero .name-note.big { font-size: clamp(1.1rem, 2.2vw, 1.35rem); color: var(--text); }
@@ -555,23 +536,93 @@ img.cut {
 .species-card .rank-tag { margin-bottom: 2px; }
 .subspecies.links li { border-left: 3px solid var(--sp); }
 
-/* Classification tree (home) */
-.tree-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(16px, 3vw, 32px); overflow-x: auto; }
-.tree, .tree ul { list-style: none; margin: 0; padding: 0; }
-.tree ul { margin-left: 10px; padding-left: 18px; border-left: 1px dashed var(--line); }
-.tree li { position: relative; padding: 5px 0; }
-.tree ul > li::before { content: ""; position: absolute; left: -18px; top: 1.05em; width: 12px; border-top: 1px dashed var(--line); }
-.tree .rank { display: inline-block; min-width: 3.4em; font-size: 0.75rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; }
-.tree small { color: var(--text-dim); margin-left: 4px; }
-.tree a { color: var(--text); text-decoration: none; }
-.tree a:hover { color: var(--rust-bright); text-decoration: underline; }
-.tree .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--sp); margin-right: 8px; }
-.tree summary { cursor: pointer; }
-.tree summary .count { font-size: 0.75rem; padding: 0 8px; border-radius: 999px; background: var(--surface-2); color: var(--text-dim); margin-left: 6px; }
+/* Explore (home): search on top, then a step-by-step walk down the classification */
+.index-controls { display: grid; gap: 14px; margin-bottom: 28px; }
+@media (min-width: 900px) { .index-controls { grid-template-columns: minmax(260px, 440px) 1fr; align-items: start; } }
+.filter-panel > summary {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; cursor: pointer; list-style: none;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--text-dim); font-weight: 500;
+}
+.filter-panel > summary::-webkit-details-marker { display: none; }
+.filter-panel > summary::after { content: "▾"; font-size: 0.8em; transition: transform 0.25s ease; }
+.filter-panel[open] > summary::after { transform: rotate(180deg); }
+.filter-panel > summary:hover { border-color: var(--text-dim); color: var(--text); }
+.filter-panel .count { min-width: 1.5em; padding: 0 6px; border-radius: 999px; background: var(--rust); color: #fff; font-size: 0.75rem; text-align: center; }
+.filter-panel[open] { display: grid; gap: 14px; }
+.filter-panel[open] > summary { justify-self: start; }
+.results-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.results-head .note { margin: 0; }
 
-/* Index (home) */
-.index-controls { display: grid; gap: 14px; margin-bottom: 20px; }
-@media (min-width: 900px) { .index-controls { grid-template-columns: minmax(260px, 420px) 1fr; align-items: center; } }
+.ex-steps { list-style: none; margin: 0 0 18px; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; counter-reset: step; }
+.ex-steps li {
+  counter-increment: step; position: relative; padding-top: 12px; font-size: 0.8rem; color: var(--text-faint);
+  border-top: 3px solid var(--line); transition: border-color 0.4s ease, color 0.4s ease;
+}
+.ex-steps li::before { content: counter(step) ". "; }
+.ex-steps li.done { border-color: color-mix(in srgb, var(--rust) 55%, var(--line)); color: var(--text-dim); }
+.ex-steps li.now { border-color: var(--rust-bright); color: var(--text); font-weight: 700; }
+.ex-crumbs ol { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.ex-crumbs li { display: inline-flex; align-items: center; gap: 4px; color: var(--text); }
+.ex-crumbs li + li::before { content: "›"; color: var(--text-faint); margin: 0 4px; }
+.ex-crumbs button {
+  background: none; border: 0; padding: 6px 4px; color: var(--rust-bright); font: inherit; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.ex-crumbs button:hover { color: var(--chalk); }
+.ex-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; margin: 10px 0 22px; }
+.ex-head h3 { margin: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
+.ex-head h3:focus { outline: none; }
+.ex-page { font-weight: 700; white-space: nowrap; }
+
+.ex-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+.ex-grid.level-0 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.ex-grid > li { display: flex; }
+.ex-card {
+  position: relative; display: flex; flex-direction: column; width: 100%; padding: 0; text-align: left; cursor: pointer;
+  background: var(--surface); color: var(--text); font: inherit; text-decoration: none; overflow: hidden;
+  border: 1px solid var(--line); border-top: 3px solid var(--sp); border-radius: var(--radius);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.ex-card:hover, .ex-card:focus-visible {
+  transform: translateY(-4px); border-color: var(--sp); color: var(--text);
+  box-shadow: 0 14px 34px -18px color-mix(in srgb, var(--sp) 70%, transparent);
+}
+.ex-card .thumb { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #000; display: grid; place-items: center; }
+.ex-card.genus .thumb { aspect-ratio: 4 / 3; }
+.ex-card .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.ex-card:hover .thumb img { transform: scale(1.04); }
+/* Specimen photos: whole beetle, not a crop (same as .thumb.cutout / .thumb.plate elsewhere) */
+.ex-card .thumb.cutout { background: radial-gradient(ellipse at 50% 55%, rgb(var(--halo) / 0.05), transparent 70%); }
+.ex-card .thumb.cutout img { object-fit: contain; padding: 6%; }
+.ex-card .thumb.plate { background: #fbfaf6; }
+.ex-card .thumb.plate img { object-fit: contain; padding: 4%; }
+.ex-card .thumb.empty { background: var(--surface-2); }
+.ex-card .thumb.empty > svg, .ex-card .thumb > svg { width: 34%; color: var(--sp); opacity: 0.8; }
+.ex-card .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.ex-card .rank-tag { align-self: flex-start; }
+.ex-card .sci { font-size: 1.15rem; color: var(--chalk); }
+.ex-card.group .sci { font-family: var(--font-serif); font-style: normal; font-size: 1.7rem; font-weight: 700; }
+.ex-card .auth { color: var(--text-faint); font-size: 0.85rem; }
+.ex-card .kname { font-weight: 700; margin-top: 4px; }
+.ex-card .lead-text { color: var(--text-dim); font-size: 0.95rem; margin: 6px 0 0; }
+.ex-card .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: auto; padding-top: 12px; font-size: 0.86rem; color: var(--text-dim); }
+.ex-card .go { margin-top: 10px; font-size: 0.88rem; font-weight: 700; color: var(--sp); }
+.ex-card.group { padding-top: 6px; }
+.ex-card.group .emblem { position: absolute; right: -6px; top: 14px; width: 96px; color: var(--sp); opacity: 0.18; pointer-events: none; }
+
+/* Level change: the new level slides in from the side it came from, cards following one by one */
+@keyframes ex-in-fwd { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes ex-in-back { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+.ex-panel.in-fwd .ex-head { animation: ex-in-fwd 0.45s cubic-bezier(.2, .7, .2, 1) both; }
+.ex-panel.in-back .ex-head { animation: ex-in-back 0.45s cubic-bezier(.2, .7, .2, 1) both; }
+.ex-panel.in-fwd .ex-grid > li { animation: ex-in-fwd 0.45s cubic-bezier(.2, .7, .2, 1) calc(var(--i, 0) * 60ms + 60ms) both; }
+.ex-panel.in-back .ex-grid > li { animation: ex-in-back 0.45s cubic-bezier(.2, .7, .2, 1) calc(var(--i, 0) * 60ms + 60ms) both; }
+@media (prefers-reduced-motion: reduce) {
+  .ex-panel .ex-head, .ex-panel .ex-grid > li { animation: none !important; }
+  .ex-card, .ex-card .thumb img, .ex-steps li { transition: none; }
+}
+
+/* Search results (home) */
 .search input {
   width: 100%; appearance: none; background: var(--surface); border: 1px solid var(--line); color: var(--text);
   border-radius: 999px; padding: 12px 18px; font: 500 1rem var(--font-sans); min-height: 46px;

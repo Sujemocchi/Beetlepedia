@@ -59,10 +59,17 @@ console.log(`pages: ${checked} checked`);
   await page.goto(BASE + "/index.html");
   const rows = async () => { await page.waitForTimeout(700); return page.locator("#index-list li").count(); };
   const expect = async (label, want) => { const got = await rows(); if (got !== want) fail(`search ${label}: ${got} rows, expected ${want}`); };
-  await expect("initial", summary.taxa.length);
+  const visible = async (sel) => page.locator(sel).isVisible();
+  // Nothing is listed until a query or filter is set; the explorer shows instead.
+  await expect("initial", 0);
+  if (await visible("#index-results") || !(await visible("#explorer"))) fail("search initial: results shown or explorer hidden");
   await page.fill("#index-q", "hercules");
   await expect("q=hercules", summary.taxa.filter((t) => t.sci.includes("hercules")).length);
-  await page.fill("#index-q", "");
+  if (!(await visible("#index-results")) || await visible("#explorer")) fail("search q=hercules: results hidden or explorer shown");
+  await page.click("#index-clear");
+  await expect("cleared", 0);
+  if (!(await visible("#explorer"))) fail("search cleared: explorer not back");
+  await page.click("#filter-panel > summary");
   await page.fill("#f-min", "150");
   await expect("min 150", summary.taxa.filter((t) => t.size.male && t.size.male[1] >= 150).length);
   await page.click("#f-reset");
@@ -73,6 +80,40 @@ console.log(`pages: ${checked} checked`);
   await expect("subspecies", summary.taxa.filter((t) => t.rank === "subspecies").length);
   await page.close();
   console.log("search UI: checked");
+}
+
+// ---------- 2a. hierarchy explorer: group → genus → species → subspecies, and back ----------
+{
+  const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  await page.goto(BASE + "/index.html");
+  await page.waitForSelector("#ex-panel .ex-card");
+  const cards = () => page.locator("#ex-panel .ex-card").count();
+  const want = async (label, n) => { const got = await cards(); if (got !== n) fail(`explorer ${label}: ${got} cards, expected ${n}`); };
+  await want("groups", summary.groups.length);
+  await page.click('#ex-panel button[data-key="dynastinae"]');
+  await want("dynastinae genera", summary.genera.filter((g) => g.group === "dynastinae").length);
+  await page.click('#ex-panel button[data-key="dynastes"]');
+  const dyn = summary.taxa.filter((t) => t.genus === "dynastes");
+  const species = new Set(dyn.map((t) => t.sci.split(" ").slice(0, 2).join(" ")));
+  await want("dynastes species", species.size);
+  await page.click('#ex-panel button[data-key="Dynastes hercules"]');
+  await want("hercules subspecies", dyn.filter((t) => t.sci.startsWith("Dynastes hercules ")).length);
+  if (!page.url().includes("#explore=dynastinae%2Fdynastes%2FDynastes%20hercules")) fail("explorer: hash not updated: " + page.url());
+  await page.goBack();
+  await page.waitForTimeout(300);
+  await want("back to dynastes species", species.size);
+  await page.click('#ex-crumbs button[data-depth="0"]');
+  await want("crumb to groups", summary.groups.length);
+  // A deep link opens the explorer at that level.
+  await page.goto(BASE + "/index.html#explore=lucanidae/cyclommatus");
+  await page.reload();
+  await page.waitForSelector("#ex-panel .ex-card");
+  await want("deep link cyclommatus", new Set(summary.taxa.filter((t) => t.genus === "cyclommatus").map((t) => t.sci.split(" ").slice(0, 2).join(" "))).size);
+  // Leaves link to taxon pages.
+  const href = await page.locator("#ex-panel a.ex-card").first().getAttribute("href");
+  if (!href || !href.startsWith("taxon.html?id=")) fail("explorer: leaf link " + href);
+  await page.close();
+  console.log("explorer: checked");
 }
 
 // ---------- 2b. map: zoom, drag, popup ----------
