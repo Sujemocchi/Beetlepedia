@@ -73,7 +73,10 @@ class SeedLoaderTests(
 
 		val lichyi = taxa.findById("dynastes-hercules-lichyi").orElseThrow()
 		assertEquals(listOf(85.0, 180.4), listOf(lichyi.size.male?.min, lichyi.size.male?.max))
-		assertEquals(listOf("Dynastes hercules.lichyi (male).JPG"), lichyi.images.map { it.file })
+		assertEquals("Dynastes hercules lichyi (Lachaume, 1985) male (8538222465).png", lichyi.images.first().file)
+		assertEquals(3, lichyi.images.size)
+		// Every specimen photo has its background-removed copy
+		assertEquals("cutouts/dynastes-hercules-lichyi-udo-male.webp", lichyi.images.first().cutout)
 		assertTrue(lichyi.images.first().white)
 		assertTrue(lichyi.issues.isNotEmpty() && lichyi.issues.all { !it.text.ja.isNullOrBlank() })
 		assertTrue(lichyi.sources.isNotEmpty() && lichyi.sources.all { it.id.startsWith("dy-") })

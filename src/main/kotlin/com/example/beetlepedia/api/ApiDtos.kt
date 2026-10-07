@@ -41,6 +41,7 @@ data class ImageDto(
 	val licenseUrl: String?,
 	val white: Boolean,
 	val alt: TextDto,
+	val cutout: String?,
 )
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

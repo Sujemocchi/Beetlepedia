@@ -207,6 +207,7 @@ class AdminService(
 		img.license = f.license.trim()
 		img.licenseUrl = f.licenseUrl.clean()
 		img.white = f.white
+		img.cutout = f.cutout.clean()
 		img.alt = f.alt.toText() ?: LocalizedText()
 		problems += validator.validateImage("image", img)
 		if (problems.isNotEmpty()) {

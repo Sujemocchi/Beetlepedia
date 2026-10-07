@@ -17,6 +17,8 @@
   --rust-bright: #e58a4c;
   --chalk: #f4f1e6;
   --focus: #ffd27a;
+  /* Glow along the outline of background-removed specimens (chalk, as R G B) */
+  --halo: 244 241 230;
 
   --font-serif: "Noto Serif KR", "Noto Serif", Georgia, serif;
   --font-sans: "Noto Sans KR", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -413,6 +415,16 @@ table.compare .en { color: var(--text-faint); display: block; font-size: 0.85rem
 .figure.plate img, .thumb.plate, .thumb.plate img { background: #fbfaf6; }
 .figure.plate img, .thumb.plate img { object-fit: contain; padding: 4%; }
 .detail-hero .figure.plate img { background: #fbfaf6; object-fit: contain; }
+/* Background-removed specimens: no frame or plate; a faint light edge plus a wide, very soft glow follows the
+   outline (drop-shadow traces the alpha channel), so dark legs and antennae stay readable on the dark page. */
+img.cut {
+  filter: drop-shadow(0 0 0.6px rgb(var(--halo) / 0.55)) drop-shadow(0 0 5px rgb(var(--halo) / 0.16))
+          drop-shadow(0 0 18px rgb(var(--halo) / 0.08));
+}
+.figure.cutout img, .thumb.cutout img { object-fit: contain; background: transparent; border-radius: 0; padding: 6%; }
+.thumb.cutout { background: radial-gradient(ellipse at 50% 55%, rgb(var(--halo) / 0.05), transparent 70%); }
+.detail-hero .figure.cutout img { background: transparent; }
+.gallery .figure.cutout img { object-fit: contain; }
 .thumb.empty { display: grid; place-items: center; background: var(--surface-2); }
 .thumb.empty svg { width: 34%; color: color-mix(in srgb, var(--sp) 70%, var(--text-faint)); opacity: 0.8; }
 
@@ -421,13 +433,14 @@ table.compare .en { color: var(--text-faint); display: block; font-size: 0.85rem
 .hero-media.mosaic .tile { position: relative; overflow: hidden; background: #000; }
 .hero-media.mosaic .tile img { width: 100%; height: 100%; object-fit: cover; }
 .hero-media.mosaic .tile.plate { background: #fbfaf6; }
-.hero-media.mosaic .tile.plate img { object-fit: contain; padding: 14% 8% 34%; }
+.hero-media.mosaic .tile.plate img, .hero-media.mosaic .tile.cutout img { object-fit: contain; padding: 14% 8% 34%; }
+.hero-media.mosaic .tile.cutout { background: transparent; }
 @media (max-width: 700px) {
   .hero-media.mosaic { grid-template-columns: repeat(3, 1fr); }
-  .hero-media.mosaic .tile.plate img { padding: 30% 4% 60%; }
+  .hero-media.mosaic .tile.plate img, .hero-media.mosaic .tile.cutout img { padding: 30% 4% 60%; }
 }
 .hero-media.plate { background: #fbfaf6; }
-.hero-media.plate img { object-fit: contain; padding: 6% 4% 26%; }
+.hero-media.plate img, .hero-media.cutout img { object-fit: contain; padding: 6% 4% 26%; }
 
 /* Group cards (home) */
 .group-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
@@ -527,7 +540,9 @@ table.compare .en { color: var(--text-faint); display: block; font-size: 0.85rem
 .hero h1.long { font-size: clamp(2.4rem, 7.4vw, 5.4rem); }
 /* A white-background specimen photo sits to the right of the hero text on wide screens */
 @media (min-width: 900px) {
-  .hero-media.plate img { object-position: right center; padding: 9% 3% 14% 42%; }
+  .hero-media.plate img, .hero-media.cutout img { object-position: right center; padding: 9% 3% 14% 42%; }
+  /* Beside the text, the cut-out can sit above the darkening gradient */
+  .hero-media.cutout { z-index: 0; pointer-events: none; }
 }
 
 /* Japanese: JP fonts, and normal line breaking (keep-all would stop kana/kanji from wrapping) */

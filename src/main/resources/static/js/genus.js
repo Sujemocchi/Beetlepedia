@@ -44,7 +44,8 @@
     // Hero
     var hero = g.images && g.images.hero;
     var heroImg = document.getElementById("hero-img");
-    heroImg.classList.toggle("plate", !!(hero && hero.white));
+    heroImg.classList.toggle("plate", App.frameClass(hero) === " plate");
+    heroImg.classList.toggle("cutout", App.frameClass(hero) === " cutout");
     heroImg.innerHTML = hero ? App.imgHTML(hero, { width: 1920, eager: true, priority: true }) : "";
     document.getElementById("hero-credit").innerHTML = hero ? App.creditHTML(hero) : "";
     document.getElementById("hero-crumbs").innerHTML = App.breadcrumbHTML([

@@ -10,6 +10,7 @@ import com.example.beetlepedia.domain.TaxonGroup
 import com.example.beetlepedia.domain.TaxonRank
 import com.example.beetlepedia.seed.MapGeometry
 import jakarta.persistence.Embeddable
+import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
 import kotlin.reflect.full.memberProperties
 
@@ -29,6 +30,7 @@ class RangeContext(val countries: Set<String>, val areas: Map<String, Area>)
 class TaxonomyValidator(private val geometry: MapGeometry) {
 
 	private val color = Regex("^#[0-9A-Fa-f]{6}$")
+	private val cutoutName = Regex("""^cutouts/[a-z0-9-]+\.(webp|png)$""")
 
 	fun validateAll(groups: List<TaxonGroup>, genera: List<Genus>, ctx: RangeContext): List<Problem> {
 		val problems = mutableListOf<Problem>()
@@ -118,6 +120,10 @@ class TaxonomyValidator(private val geometry: MapGeometry) {
 		if (img.licenseUrl.isNullOrBlank()) problems += Problem(owner, "image ${img.file} needs a licence URL")
 		if (img.alt.ko.isNullOrBlank() || img.alt.en.isNullOrBlank()) problems += Problem(owner, "image ${img.file} needs Korean and English alt text")
 		problems += missingJapanese("$owner image ${img.file}", img.alt)
+		img.cutout?.let { c ->
+			if (!cutoutName.matches(c)) problems += Problem(owner, "image ${img.file}: cut-out must look like cutouts/<name>.webp or .png")
+			else if (!ClassPathResource("static/assets/images/$c").exists()) problems += Problem(owner, "image ${img.file}: cut-out file $c is missing")
+		}
 		return problems
 	}
 

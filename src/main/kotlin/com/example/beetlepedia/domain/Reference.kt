@@ -32,6 +32,8 @@ class Image(
 	/** Specimen photographed on a plain white background (shown whole on a light plate). */
 	@Column(nullable = false) var white: Boolean = false,
 	@Embedded var alt: LocalizedText = LocalizedText(),
+	/** Background-removed copy under static/assets/images (e.g. "cutouts/elapus.webp"); the page falls back to the original. */
+	@Column(length = 200) var cutout: String? = null,
 ) {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	var id: Long? = null

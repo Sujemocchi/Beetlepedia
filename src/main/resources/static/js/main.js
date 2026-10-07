@@ -144,25 +144,45 @@
   function creditHTML(img) {
     return '<span class="credit">© ' + esc(img.author) + ' · <a href="' + esc(img.licenseUrl) +
       '" target="_blank" rel="noopener">' + esc(img.license) + '</a> · <a href="' + commonsPage(img.file) +
-      '" target="_blank" rel="noopener">Wikimedia Commons</a></span>';
+      '" target="_blank" rel="noopener">Wikimedia Commons</a>' +
+      (img.cutout ? " · " + esc(t("img.cutout")) : "") + "</span>";
   }
-  // Specimen photos shot on a white background are shown whole on a light plate.
+  // A background-removed copy (tools/cutout) sits straight on the page; otherwise specimen photos shot on a
+  // white background are shown whole on a light plate. Containers take the class from frameClass().
+  function frameClass(img) {
+    return !img ? "" : img.cutout ? " cutout" : img.white ? " plate" : "";
+  }
   function imgHTML(img, opts) {
     opts = opts || {};
-    return '<img class="commons' + (img.white ? " on-white" : "") + '" src="' + commonsSrc(img.file, opts.width) +
-      '" alt="' + esc(L(img.alt)) + '"' + (opts.eager ? "" : ' loading="lazy"') +
+    var original = commonsSrc(img.file, opts.width);
+    return '<img class="commons' + (img.cutout ? " cut" : img.white ? " on-white" : "") + '" src="' +
+      (img.cutout ? base + "assets/images/" + esc(img.cutout) : original) + '"' +
+      (img.cutout ? ' data-fallback="' + esc(original) + '"' + (img.white ? " data-white" : "") : "") +
+      ' alt="' + esc(L(img.alt)) + '"' + (opts.eager ? "" : ' loading="lazy"') +
       (opts.priority ? ' fetchpriority="high"' : "") + ' decoding="async">';
   }
   function figureHTML(img, opts) {
     opts = opts || {};
-    return '<figure class="figure' + (img.white ? " plate" : "") + '">' + imgHTML(img, opts) +
+    return '<figure class="figure' + frameClass(img) + '">' + imgHTML(img, opts) +
       (opts.noCaption ? "" : "<figcaption>" + creditHTML(img) + "</figcaption>") +
       "</figure>";
   }
-  // Replace any image that fails to load with a labelled placeholder.
+  // A missing cut-out falls back to the original photo; any other image that fails becomes a labelled placeholder.
   document.addEventListener("error", function (ev) {
     var img = ev.target;
     if (!img || img.tagName !== "IMG" || !img.classList.contains("commons")) return;
+    var fallback = img.getAttribute("data-fallback");
+    if (fallback) {
+      img.removeAttribute("data-fallback");
+      img.classList.remove("cut");
+      var frame = img.parentElement;
+      if (frame) {
+        frame.classList.remove("cutout");
+        if (img.hasAttribute("data-white")) { frame.classList.add("plate"); img.classList.add("on-white"); }
+      }
+      img.src = fallback;
+      return;
+    }
     var box = document.createElement("div");
     box.className = "img-placeholder";
     box.setAttribute("role", "img");
@@ -348,7 +368,7 @@
   function taxonCardHTML(x) {
     var img = x.images && x.images[0];
     var thumb = img
-      ? '<div class="thumb' + (img.white ? " plate" : "") + '">' + imgHTML(img, { width: 640 }) + "</div>"
+      ? '<div class="thumb' + frameClass(img) + '">' + imgHTML(img, { width: 640 }) + "</div>"
       : '<div class="thumb empty">' + silhouetteSVG(x.group) + "</div>";
     return '<a class="species-card reveal" href="' + taxonUrl(x) + '" style="--sp:' + x.color + '">' +
       '<span class="swatch" aria-hidden="true"></span>' + thumb +
@@ -365,7 +385,7 @@
     var n = taxaOf(g.id).length;
     var longest = taxaOf(g.id).reduce(function (m, x) { return Math.max(m, maxMale(x) || 0); }, 0);
     return '<a class="genus-card reveal" href="' + genusUrl(g.id) + '" style="--sp:' + g.color + '">' +
-      '<div class="thumb' + (img && img.white ? " plate" : "") + '">' +
+      '<div class="thumb' + frameClass(img) + '">' +
       (img ? imgHTML(img, { width: 800 }) : silhouetteSVG(g.group)) + "</div>" +
       '<div class="body"><span class="rank-tag">' + esc(t("rank.genus")) + "</span>" +
       '<span class="sci">' + esc(g.sci) + '</span><span class="auth">' + esc(g.authority) + "</span>" +
@@ -384,7 +404,7 @@
     group: group, genus: genus, taxon: taxon, generaOf: generaOf, taxaOf: taxaOf, taxaOfGroup: taxaOfGroup,
     speciesName: speciesName, abbr: abbr, ladder: ladder, areaName: areaName, rangeNames: rangeNames,
     homeUrl: homeUrl, groupUrl: groupUrl, genusUrl: genusUrl, taxonUrl: taxonUrl,
-    commonsSrc: commonsSrc, commonsPage: commonsPage, creditHTML: creditHTML, imgHTML: imgHTML, figureHTML: figureHTML,
+    commonsSrc: commonsSrc, commonsPage: commonsPage, creditHTML: creditHTML, imgHTML: imgHTML, figureHTML: figureHTML, frameClass: frameClass,
     silhouette: silhouette, silhouetteSVG: silhouetteSVG,
     setNav: setNav, breadcrumbHTML: breadcrumbHTML, observeReveals: observeReveals,
     range: range, maxMale: maxMale, taxonName: taxonName, nameHTML: nameHTML, sourceItemHTML: sourceItemHTML,

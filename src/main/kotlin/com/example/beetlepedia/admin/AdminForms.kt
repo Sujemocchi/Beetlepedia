@@ -113,8 +113,9 @@ class ImageForm(
 	var licenseUrl: String? = null,
 	var white: Boolean = false,
 	var alt: TextForm = TextForm(),
+	var cutout: String? = null,
 ) {
 	companion object {
-		fun of(i: Image) = ImageForm(i.id, i.file, i.author, i.license, i.licenseUrl, i.white, TextForm.of(i.alt))
+		fun of(i: Image) = ImageForm(i.id, i.file, i.author, i.license, i.licenseUrl, i.white, TextForm.of(i.alt), i.cutout)
 	}
 }
