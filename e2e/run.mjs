@@ -4,7 +4,7 @@
 //
 // 1. Every page (home, groups, genera, taxa, unknown ids) at 1280 px and 375 px in KO / EN / JA:
 //    no page errors or console errors, no horizontal overflow.
-// 2. The home page search UI.
+// 2. The home page search UI, and the map (zoom levels, drag, click popup).
 // 3. The admin screen: login, a rejected save, a successful save (needs E2E_ADMIN_PASSWORD).
 import { chromium } from "playwright";
 
@@ -73,6 +73,55 @@ console.log(`pages: ${checked} checked`);
   await expect("subspecies", summary.taxa.filter((t) => t.rank === "subspecies").length);
   await page.close();
   console.log("search UI: checked");
+}
+
+// ---------- 2b. map: zoom, drag, popup ----------
+{
+  const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  await page.route(/commons\.wikimedia\.org|fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
+  await page.goto(BASE + "/genus.html?id=" + summary.genera[0].id);
+  const stage = page.locator("#map-stage");
+  await stage.scrollIntoViewIfNeeded();
+  const level = () => page.locator("#map-stage .lvl").innerText();
+  if ((await level()) !== "1 / 3") fail("map does not start at zoom level 1");
+  await page.click('#map-stage [data-z="in"]');
+  await page.click('#map-stage [data-z="in"]');
+  await page.waitForTimeout(400);
+  if ((await level()) !== "3 / 3") fail("map + buttons do not reach level 3");
+  if (!(await page.locator("#map-stage .city").count())) fail("no city labels at zoom level 3");
+  await page.click('#map-stage [data-z="out"]');
+  await page.click('#map-stage [data-z="out"]');
+  await page.waitForTimeout(400);
+  // A click on an area with taxa opens the popup; a drag does not.
+  const spot = await page.evaluate(() => {
+    for (const path of document.querySelectorAll("#map-stage path.adm")) {
+      const r = path.getBoundingClientRect();
+      for (let f = 0.3; f <= 0.7; f += 0.1) {
+        const x = r.left + r.width * f, y = r.top + r.height * f;
+        if (r.width > 8 && document.elementFromPoint(x, y) === path) return { x, y };
+      }
+    }
+    return null;
+  });
+  if (!spot) fail("no clickable area found on the map");
+  else await page.mouse.click(spot.x, spot.y);
+  await page.waitForTimeout(200);
+  const popup = page.locator("#map-stage .map-popup");
+  if ((await popup.count()) !== 1) fail("clicking an area did not open the map popup");
+  else if (!/^https:\/\/www\.google\.com\/maps\//.test(await popup.locator(".pop-gmaps").getAttribute("href"))) fail("map popup has no Google Maps link");
+  await page.keyboard.press("Escape");
+  if (await popup.count()) fail("Escape did not close the map popup");
+  await page.click('#map-stage [data-z="in"]');
+  await page.waitForTimeout(400);
+  const s = await stage.boundingBox();
+  await page.mouse.move(s.x + s.width / 2, s.y + s.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(s.x + s.width / 2 + 90, s.y + s.height / 2 + 30, { steps: 6 });
+  await page.mouse.up();
+  await page.waitForTimeout(200);
+  if (await popup.count()) fail("a drag on the map opened the popup");
+  await page.close();
+  console.log("map: checked");
 }
 
 // ---------- 3. admin ----------
