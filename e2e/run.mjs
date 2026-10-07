@@ -131,6 +131,33 @@ console.log(`pages: ${checked} checked`);
     }
     await page.close();
   }
+  // Pacing: no section starts to be covered before it has been on screen whole (or, if taller than the screen,
+  // before its bottom has reached the bottom of the screen), and then only after a hold of scrolling.
+  for (const [url, width, height] of [["genus.html?id=cyclommatus", 1280, 900], ["taxon.html?id=dynastes-hercules-lichyi", 1280, 900], ["taxon.html?id=goliathus-goliatus", 375, 800]]) {
+    const page = await browser.newPage({ viewport: { width, height } });
+    await page.goto(BASE + "/" + url);
+    await page.waitForSelector("main > section:nth-of-type(3)");
+    await page.waitForTimeout(800);
+    await page.addStyleTag({ content: "html{scroll-behavior:auto!important}" });
+    const problems = await page.evaluate(async () => {
+      const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      const vh = innerHeight, header = 64, secs = [...document.querySelectorAll("main > section")].slice(0, -1);
+      const seen = secs.map(() => ({ whole: null, cover: null }));
+      for (let y = 0; y < document.documentElement.scrollHeight; y += 20) {
+        scrollTo(0, y); await frame();
+        secs.forEach((s, i) => {
+          const r = s.getBoundingClientRect(), c = +(s.style.getPropertyValue("--cover") || 0);
+          const whole = s.offsetHeight <= vh - header ? r.top >= header - 1 && r.bottom <= vh + 1 : r.bottom <= vh + 1;
+          if (whole && seen[i].whole == null && !c) seen[i].whole = y;
+          if (c > 0 && seen[i].cover == null) seen[i].cover = y;
+        });
+      }
+      return seen.map((v, i) => ({ id: secs[i].id || secs[i].className, ...v }))
+        .filter((v) => v.cover != null && (v.whole == null || v.cover - v.whole < vh * 0.3));
+    });
+    problems.forEach((v) => fail(`scenes pacing ${url} ${width}px: section ${v.id} shown whole at ${v.whole}, covered from ${v.cover}`));
+    await page.close();
+  }
   const context = await browser.newContext({ reducedMotion: "reduce" });
   const page = await context.newPage();
   await page.goto(BASE + "/genus.html?id=cyclommatus");

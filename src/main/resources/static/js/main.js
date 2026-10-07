@@ -356,9 +356,11 @@
   function flowTop(el) {
     var scene = scenes.filter(function (s) { return s.contains(el); })[0];
     if (!scene) return el.getBoundingClientRect().top + window.scrollY;
+    // Sections after the first have a top margin: the hold before they come up (--scene-hold in the CSS).
+    function margin(s) { return parseFloat(getComputedStyle(s).marginTop) || 0; }
     var y = document.getElementById("main").getBoundingClientRect().top + window.scrollY;
-    for (var i = 0; scenes[i] !== scene; i++) y += scenes[i].offsetHeight;
-    return y + (el === scene ? 0 : el.getBoundingClientRect().top - scene.getBoundingClientRect().top);
+    for (var i = 0; scenes[i] !== scene; i++) y += margin(scenes[i]) + scenes[i].offsetHeight;
+    return y + margin(scene) + (el === scene ? 0 : el.getBoundingClientRect().top - scene.getBoundingClientRect().top);
   }
   // Scrolls so that el sits just below the fixed header. Something near the end of a section stops where that
   // section is still uncovered (its bottom at the bottom of the screen), not under the next one.
