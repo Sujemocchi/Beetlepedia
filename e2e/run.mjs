@@ -116,6 +116,30 @@ console.log(`pages: ${checked} checked`);
   console.log("explorer: checked");
 }
 
+// ---------- 2a'. scroll scenes: sticky sections, nav jumps in both directions, reduced motion ----------
+{
+  for (const width of [1280, 375]) {
+    const page = await browser.newPage({ viewport: { width, height: 900 } });
+    await page.goto(BASE + "/genus.html?id=cyclommatus");
+    await page.waitForSelector("#species-groups .species-card");
+    if (!(await page.evaluate(() => document.documentElement.classList.contains("scenes")))) fail(`scenes ${width}: not enabled`);
+    for (const id of ["map", "references", "species", "overview"]) {
+      if (width < 500) await page.click(".menu-btn");
+      await page.click(`.site-nav a[href="#${id}"]`);
+      await page.waitForFunction((id) => { const t = document.getElementById(id).getBoundingClientRect().top; return t > 40 && t < 120; }, id, { timeout: 5000 })
+        .catch(async () => fail(`scenes ${width}: jump to #${id} landed at ${await page.evaluate((id) => Math.round(document.getElementById(id).getBoundingClientRect().top), id)}`));
+    }
+    await page.close();
+  }
+  const context = await browser.newContext({ reducedMotion: "reduce" });
+  const page = await context.newPage();
+  await page.goto(BASE + "/genus.html?id=cyclommatus");
+  await page.waitForSelector("#species-groups .species-card");
+  if (await page.evaluate(() => document.documentElement.classList.contains("scenes"))) fail("scenes: on despite reduced motion");
+  await context.close();
+  console.log("scenes: checked");
+}
+
 // ---------- 2b. map: zoom, drag, popup ----------
 {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });

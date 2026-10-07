@@ -439,6 +439,23 @@ table.compare .en { color: var(--text-faint); display: block; font-size: 0.85rem
 }
 .no-js .reveal { opacity: 1; transform: none; }
 
+/* ---------- Scroll scenes (main.js initScenes) ----------
+   Sections stick when their bottom reaches the bottom of the screen (top is set inline) and the next one slides
+   over them. The covered section is clipped at the incoming edge (--clip) while its content sinks back and fades
+   (--cover, 0 → 1); a hero's photo slowly zooms in instead. No transform on <main> or the sections themselves,
+   so the fixed habitat backdrop and the header stay put. */
+html.scenes main > section { position: sticky; }
+html.scenes main > section + section { box-shadow: 0 -30px 60px -30px rgba(0, 0, 0, 0.8); }
+html.scenes main > section.section:not(.alt) { background: var(--bg); }
+html.scenes .has-habitat main > section.section:not(.alt) { background: transparent; }
+html.scenes main > section.covering { clip-path: inset(0 0 var(--clip, 0px) 0); }
+html.scenes main > section.covering > :not(.hero-media) {
+  transform: translateY(calc(var(--cover) * -48px)) scale(calc(1 - var(--cover) * 0.06));
+  transform-origin: 50% 0; opacity: calc(1 - var(--cover) * 1.2);
+}
+html.scenes main > section.covering > .hero-media { transform: scale(calc(1 + var(--cover) * 0.12)); }
+html.scenes .site-footer { position: relative; z-index: 20; background: var(--bg); box-shadow: 0 -30px 60px -30px rgba(0, 0, 0, 0.8); }
+
 .visually-hidden {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;

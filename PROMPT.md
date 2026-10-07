@@ -154,6 +154,7 @@ e2e/run.mjs                브라우저 점검 (Playwright)
 
 - 다크 테마(짙은 숲 녹색·검정 바탕, 녹슨 갈색·흰색 포인트). 분류군·속·종마다 고유 색(`--sp`, `--accent`)을 쓴다.
 - 화면을 채우는 큰 사진, 넓은 여백, 큰 제목. 스크롤하면 섹션이 부드럽게 나타난다(IntersectionObserver, `prefers-reduced-motion`이면 끔).
+- 스크롤 장면 전환: `main`의 각 섹션은 아래 끝이 화면 아래에 닿으면 멈추고(sticky), 다음 섹션이 그 위로 올라와 덮는다. 덮이는 섹션은 들어오는 섹션의 윗변에서 잘리고(`clip-path`) 내용이 뒤로 물러나며 흐려지고, 히어로 사진은 살짝 확대된다(`main.js` initScenes, `--cover`·`--clip`). `main`과 섹션 자체에는 transform을 쓰지 않아 고정 배경·헤더가 흔들리지 않게 한다. 같은 페이지 앵커 이동은 멈춘 위치가 아닌 원래 흐름 위치로 스크롤한다. `prefers-reduced-motion`이면 전부 끈다.
 - 글꼴: Noto Serif/Sans KR (일본어는 JP). 색은 CSS 변수.
 - 접근성: 이미지 대체 텍스트(한/영), 키보드 이동, 충분한 명도 대비, 지도는 지역마다 `aria-label`.
 - 실루엣은 대표 종 표본의 누끼에서 윤곽을 따서 만든다(`tools/cutout/silhouette.py` → `data/silhouettes.js`). 상자는 w × 160이고 몸길이 측정 기준(큰턱·뿔 끝 → 딱지날개 끝)이 y = 5 … 158이다. 새 상위 분류군을 추가하면 이 스크립트의 `GROUPS`에 넣고, 원본 사진 출처는 푸터에 자동으로 표시된다.

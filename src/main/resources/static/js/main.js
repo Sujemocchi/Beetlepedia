@@ -306,17 +306,20 @@
     }).join("");
     if (spy) spy.disconnect();
     if (!("IntersectionObserver" in window)) return;
-    var links = {};
+    var links = {}, inBand = {};
     nav.querySelectorAll('a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+    // Sections stack (see scenes below), so a covered section can stay in the band under the next one:
+    // the current one is the last section, in page order, that is in the middle band.
+    var order = Object.keys(links).map(function (id) { return document.getElementById(id); }).filter(Boolean)
+      .sort(function (p, q) { return p.compareDocumentPosition(q) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1; });
     spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        var a = links[en.target.id];
-        if (!a || !en.isIntersecting) return;
-        Object.keys(links).forEach(function (k) { links[k].removeAttribute("aria-current"); });
-        a.setAttribute("aria-current", "true");
-      });
+      entries.forEach(function (en) { inBand[en.target.id] = en.isIntersecting; });
+      var current = order.filter(function (s) { return inBand[s.id]; }).pop();
+      if (!current) return;
+      Object.keys(links).forEach(function (k) { links[k].removeAttribute("aria-current"); });
+      links[current.id].setAttribute("aria-current", "true");
     }, { rootMargin: "-45% 0px -50% 0px" });
-    Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
+    order.forEach(function (s) { spy.observe(s); });
   }
 
   // Breadcrumb trail: [[href|null, html], …]
@@ -342,6 +345,85 @@
     (root || document).querySelectorAll(".reveal:not(.in)").forEach(function (el) {
       if (observer) observer.observe(el); else el.classList.add("in");
     });
+  }
+
+  // ---------- scroll scenes ----------
+  // Each top-level section of <main> sticks once its bottom reaches the bottom of the viewport, so the next
+  // section (or the footer) slides up over it like a new scene; the covered one sinks back and fades.
+  // --cover (0 → 1) is how far the next section has come up over the screen. Off for reduced motion.
+  var scenes = [];
+  // Where an element sits in the normal page flow (a stuck section reports its stuck position instead).
+  function flowTop(el) {
+    var scene = scenes.filter(function (s) { return s.contains(el); })[0];
+    if (!scene) return el.getBoundingClientRect().top + window.scrollY;
+    var y = document.getElementById("main").getBoundingClientRect().top + window.scrollY;
+    for (var i = 0; scenes[i] !== scene; i++) y += scenes[i].offsetHeight;
+    return y + (el === scene ? 0 : el.getBoundingClientRect().top - scene.getBoundingClientRect().top);
+  }
+  // Scrolls so that el sits just below the fixed header.
+  function scrollToEl(el, smooth) {
+    var pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    window.scrollTo({ top: Math.max(0, flowTop(el) - pad), behavior: smooth && !reduceMotion ? "smooth" : "auto" });
+  }
+  function initScenes() {
+    var main = document.getElementById("main");
+    if (reduceMotion || !main || !window.requestAnimationFrame) return;
+    var vh = 0, queued = false;
+    var resize = "ResizeObserver" in window ? new ResizeObserver(function () { layout(); }) : null;
+
+    function collect() {
+      scenes = [].filter.call(main.children, function (el) { return el.tagName === "SECTION"; });
+      document.documentElement.classList.toggle("scenes", scenes.length > 1);
+      if (resize) { resize.disconnect(); scenes.forEach(function (s) { resize.observe(s); }); }
+      layout();
+    }
+    function layout() {
+      vh = window.innerHeight;
+      scenes.forEach(function (s, i) {
+        s.style.top = Math.min(0, vh - s.offsetHeight) + "px";
+        s.style.zIndex = i + 1;
+      });
+      update();
+    }
+    function update() {
+      queued = false;
+      if (scenes.length < 2) return;
+      var footer = document.querySelector(".site-footer");
+      scenes.forEach(function (s, i) {
+        var next = scenes[i + 1] || footer;
+        var top = next ? next.getBoundingClientRect().top : vh;
+        var p = Math.max(0, Math.min(1, (vh - top) / vh));
+        if (p > 0.001) {
+          // Clip what lies under the incoming section, so translucent sections never show the old text through.
+          var under = Math.max(0, s.getBoundingClientRect().bottom - top);
+          s.classList.add("covering");
+          s.style.setProperty("--cover", p.toFixed(3));
+          s.style.setProperty("--clip", under.toFixed(1) + "px");
+        } else if (s.classList.contains("covering")) {
+          s.classList.remove("covering");
+          s.style.removeProperty("--cover");
+          s.style.removeProperty("--clip");
+        }
+      });
+    }
+    function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+
+    // A stuck section reports its stuck position, so the browser's own jump to "#id" lands in the wrong place
+    // when going back up. Jump to where the target sits in the normal flow instead.
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || scenes.length < 2) return;
+      var el = document.getElementById(decodeURIComponent(a.getAttribute("href").slice(1)));
+      if (!el || el === main || !main.contains(el)) return;
+      e.preventDefault();
+      scrollToEl(el, true);
+      if (location.hash !== a.getAttribute("href")) history.pushState(null, "", a.getAttribute("href"));
+    });
+
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", layout);
+    new MutationObserver(collect).observe(main, { childList: true });
+    collect();
   }
 
   // ---------- shared HTML pieces ----------
@@ -419,7 +501,7 @@
     commonsSrc: commonsSrc, commonsPage: commonsPage, creditHTML: creditHTML, imgHTML: imgHTML,
     habitat: habitat, habitatBackdrop: habitatBackdrop, habitatCreditHTML: habitatCreditHTML, figureHTML: figureHTML, frameClass: frameClass,
     silhouette: silhouette, silhouetteSVG: silhouetteSVG, silhouetteWidth: silhouetteWidth,
-    setNav: setNav, breadcrumbHTML: breadcrumbHTML, observeReveals: observeReveals,
+    setNav: setNav, breadcrumbHTML: breadcrumbHTML, observeReveals: observeReveals, scrollToEl: scrollToEl,
     range: range, maxMale: maxMale, taxonName: taxonName, nameHTML: nameHTML, sourceItemHTML: sourceItemHTML,
     taxonomyHTML: taxonomyHTML, taxonCardHTML: taxonCardHTML, genusCardHTML: genusCardHTML
   };
@@ -429,4 +511,5 @@
   renderChrome();
   applyLang();
   observeReveals();
+  initScenes();
 })();
