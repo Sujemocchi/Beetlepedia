@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component
 /**
  * Entity → response mapping. Must run inside a transaction (lazy collections).
  * Empty optional lists become null where the pages treat "missing" as "use the default"
- * (hero stats, size defaults, species info, subspecies, weights).
+ * (hero stats, size defaults, species info, subspecies).
  */
 @Component
 class ApiMapper {
@@ -73,12 +73,6 @@ class ApiMapper {
 		care = g.care.map(::textOrEmpty),
 		facts = g.facts.map(::textOrEmpty),
 		defaults = DefaultsDto(text(g.dimorphism), text(g.food), text(g.season)),
-		weights = if (g.weights.isEmpty() && g.weightsNote == null) null else WeightsDto(
-			text(g.weightsNote),
-			g.weights.map {
-				WeightItemDto(textOrEmpty(it.label), it.grams, it.approx, it.estimate, it.reported, it.plus, text(it.note), it.color, ids(it.sources))
-			},
-		),
 		latin = g.latinTerms.toList(),
 		images = GenusImagesDto(g.heroImage?.let(::image), g.overviewImage?.let(::image)),
 		sizeDefaults = g.sizeDefaults.toList().orNullIfEmpty(),
@@ -163,7 +157,6 @@ class ApiMapper {
 		lifecycle = LifecycleDto(null, emptyList()),
 		conservation = null, care = emptyList(), facts = emptyList(),
 		defaults = DefaultsDto(null, null, null),
-		weights = null,
 		latin = g.latinTerms.toList(),
 		images = GenusImagesDto(g.heroImage?.let(::image), null),
 		sizeDefaults = null,

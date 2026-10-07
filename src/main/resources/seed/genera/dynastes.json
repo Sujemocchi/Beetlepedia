@@ -62,15 +62,6 @@
         "en": "Max. male length (captive record)",
         "ja": "オス最大体長（飼育記録）"
       }
-    },
-    {
-      "value": "185",
-      "unit": " g",
-      "label": {
-        "ko": "유충 최대 무게 (사육 보고)",
-        "en": "Max. larval weight (captive report)",
-        "ja": "幼虫最大体重（飼育報告）"
-      }
     }
   ],
   "speciesInfo": {
@@ -201,9 +192,9 @@
           "ja": "約1～2年（3令が最も長い）"
         },
         "text": {
-          "ko": "애벌레는 썩은 나무 속에서 썩은 목재를 먹으며 3령을 거친다. 실험실 25°C에서 1령 약 50일, 2령 약 56일, 3령 약 450일이다. 야생 종령은 몸길이 110 mm, 체중 약 120 g에 이른다.",
-          "en": "Larvae feed inside rotting wood through three instars; at 25°C instars last c. 50, 56 and 450 days. A wild final instar reaches c. 110 mm and c. 120 g.",
-          "ja": "幼虫は朽木の中で材を食べて育ち、3令を経る。25°Cでは各令期間は約50日、56日、450日である。野外の終令幼虫は約110 mm、約120 gに達する。"
+          "ko": "애벌레는 썩은 나무 속에서 썩은 목재를 먹으며 3령을 거친다. 실험실 25°C에서 1령 약 50일, 2령 약 56일, 3령 약 450일이다. 야생 종령은 몸길이 110 mm에 이른다.",
+          "en": "Larvae feed inside rotting wood through three instars; at 25°C instars last c. 50, 56 and 450 days. A wild final instar reaches c. 110 mm.",
+          "ja": "幼虫は朽木の中で材を食べて育ち、3令を経る。25°Cでは各令期間は約50日、56日、450日である。野外の終令幼虫は約110 mmに達する。"
         }
       },
       {
@@ -278,9 +269,9 @@
       "ja": "有名な「体重の850倍を持ち上げる」という話には根拠がなく、実測されたカブトムシ類の限界はせいぜい約100倍だった。"
     },
     {
-      "ko": "애벌레는 곤충 중에서도 가장 큰 편으로, 사육 하에서는 180 g을 넘기도 한다.",
-      "en": "Its larva is among the largest of any insect; captive larvae can exceed 180 g.",
-      "ja": "幼虫は昆虫の中でも最大級で、飼育下では180 gを超えることもある。"
+      "ko": "애벌레는 곤충 중에서도 가장 큰 편에 속한다.",
+      "en": "Its larva is among the largest of any insect.",
+      "ja": "幼虫は昆虫の中でも最大級である。"
     },
     {
       "ko": "드물게 딱지날개가 푸르스름한 회백색인 \"블루 헤라클레스\"가 나타난다. 원명아종에서 약 5%로 가장 흔하다는 추정이 있다.",
@@ -309,54 +300,6 @@
       "en": "Nocturnal; hides under wet leaf litter by day and feeds on rotting fruit and sap at night. Males fight by pinning a rival between the two horns and throwing it. Disturbed adults produce a huffing stridulation.",
       "ja": "夜行性で、昼は湿った落ち葉の下に隠れ、夜に腐った果実や樹液を食べる。オスは2本の角で相手を挟み込んで投げ飛ばして戦う。刺激を受けた成虫は「フー」という摩擦音を出す。"
     }
-  },
-  "weights": {
-    "note": {
-      "ko": "성충 무게 자료는 찾지 못해 유충 무게만 표시했습니다. 사육 개체는 야생보다 훨씬 크게 자랍니다.",
-      "en": "No adult weights were found, so only larval weights are shown. Captive larvae grow far heavier than wild ones.",
-      "ja": "成虫の体重データは見つからなかったため、幼虫の体重のみを示す。飼育下の幼虫は野外のものよりはるかに重くなる。"
-    },
-    "items": [
-      {
-        "label": {
-          "ko": "헤라클레스 유충 (야생 종령)",
-          "en": "Hercules larva (wild, final instar)",
-          "ja": "ヘラクレス幼虫（野外・終令）"
-        },
-        "value": 120,
-        "approx": true,
-        "reported": true,
-        "note": {
-          "ko": "몸길이 약 110mm",
-          "en": "about 110 mm long",
-          "ja": "体長約110 mm"
-        },
-        "color": "#9FBF4A",
-        "sources": [
-          "dy-keller-cave",
-          "dy-enwiki",
-          "dy-rassart2008"
-        ]
-      },
-      {
-        "label": {
-          "ko": "헤라클레스 유충 (사육 최대)",
-          "en": "Hercules larva (captive max.)",
-          "ja": "ヘラクレス幼虫（飼育最大）"
-        },
-        "value": 185,
-        "reported": true,
-        "note": {
-          "ko": "2025년 184.3mm 기록 수컷의 3령 유충",
-          "en": "third instar of the 2025 record 184.3 mm male",
-          "ja": "2025年の184.3 mm記録オスの3令幼虫"
-        },
-        "color": "#C2D96F",
-        "sources": [
-          "dy-jawiki"
-        ]
-      }
-    ]
   },
   "latin": [
     "Scarabaeus hercules",
@@ -462,9 +405,9 @@
         "ja": "一年中見られるが、7～9月に発生のピークがある。グアドループでは7月と12月に個体数が増えるとの報告がある。"
       },
       "captivityNote": {
-        "ko": "일본에서 가장 인기 있는 아종이며 유통 개체는 모두 사육 번식 개체다. 수컷 3령 체중 110~130 g이면 140 mm 이상으로 우화할 가능성이 있다.",
-        "en": "The most popular subspecies in Japan; all animals sold are captive-bred. Male larvae of 110–130 g may yield adults over 140 mm.",
-        "ja": "日本で最も人気のある亜種で、流通個体はすべて飼育下で繁殖したものである。オス幼虫が110～130 gあれば140 mmを超える成虫が羽化する可能性がある。"
+        "ko": "일본에서 가장 인기 있는 아종이며 유통 개체는 모두 사육 번식 개체다.",
+        "en": "The most popular subspecies in Japan; all animals sold are captive-bred.",
+        "ja": "日本で最も人気のある亜種で、流通個体はすべて飼育下で繁殖したものである。"
       },
       "conservation": {
         "status": {

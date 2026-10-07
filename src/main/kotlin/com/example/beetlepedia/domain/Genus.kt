@@ -20,8 +20,8 @@ import jakarta.persistence.OrderColumn
 import jakarta.persistence.Table
 
 /**
- * A genus with everything its page shows: overview, life cycle, care, facts,
- * weights and the defaults its taxa inherit (diet, season, sexual dimorphism).
+ * A genus with everything its page shows: overview, life cycle, care, facts
+ * and the defaults its taxa inherit (diet, season, sexual dimorphism).
  */
 @Entity
 @Table(name = "genus")
@@ -46,7 +46,6 @@ class Genus(
 	@Embedded var speciesNote: LocalizedText? = null,
 	@Embedded var lifecycleLead: LocalizedText? = null,
 	@Embedded var conservation: LocalizedText? = null,
-	@Embedded var weightsNote: LocalizedText? = null,
 
 	/** Defaults shown on taxon pages unless the taxon overrides them. */
 	@Embedded var dimorphism: LocalizedText? = null,
@@ -106,11 +105,6 @@ class Genus(
 	@OneToMany(mappedBy = "genus", cascade = [CascadeType.ALL], orphanRemoval = true)
 	// Insertion order (identity ids); @OrderColumn is not supported on the mappedBy side
 	@OrderBy("id")
-	var weights: MutableList<GenusWeight> = mutableListOf()
-
-	@OneToMany(mappedBy = "genus", cascade = [CascadeType.ALL], orphanRemoval = true)
-	// Insertion order (identity ids); @OrderColumn is not supported on the mappedBy side
-	@OrderBy("id")
 	var speciesInfo: MutableList<SpeciesInfo> = mutableListOf()
 
 	@ManyToMany
@@ -127,39 +121,7 @@ class Genus(
 	@OrderBy("sortOrder")
 	var taxa: MutableList<Taxon> = mutableListOf()
 
-	fun addWeight(weight: GenusWeight) = weight.also { it.genus = this; weights.add(it) }
 	fun addSpeciesInfo(info: SpeciesInfo) = info.also { it.genus = this; speciesInfo.add(it) }
-}
-
-/** A bar in the weight comparison (e.g. maximum larval weight), with its own sources. */
-@Entity
-@Table(name = "genus_weight")
-class GenusWeight(
-	@Embedded var label: LocalizedText = LocalizedText(),
-	@Column(name = "weight_grams", nullable = false) var grams: Double = 0.0,
-	@Embedded var note: LocalizedText? = null,
-	@Column(length = 7) var color: String? = null,
-	/** Shown with "≈". */
-	@Column(nullable = false) var approx: Boolean = false,
-	/** Shown with "+" (can exceed the value). */
-	@Column(nullable = false) var plus: Boolean = false,
-	@Column(nullable = false) var estimate: Boolean = false,
-	@Column(nullable = false) var reported: Boolean = false,
-) {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	var id: Long? = null
-
-	@ManyToOne(fetch = FetchType.LAZY, optional = false) @JoinColumn(name = "genus_id")
-	var genus: Genus? = null
-
-	@ManyToMany
-	@JoinTable(
-		name = "genus_weight_source",
-		joinColumns = [JoinColumn(name = "weight_id")],
-		inverseJoinColumns = [JoinColumn(name = "source_id")],
-	)
-	@OrderColumn(name = "position")
-	var sources: MutableList<Source> = mutableListOf()
 }
 
 /**

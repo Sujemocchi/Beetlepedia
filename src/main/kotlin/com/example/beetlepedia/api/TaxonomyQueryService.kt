@@ -80,7 +80,6 @@ class TaxonomyQueryService(
 				groupList.forEach { g -> g.sources.forEach { ids += it.id } }
 				genusList.filter { full(it.id) }.forEach { g ->
 					g.sources.forEach { ids += it.id }
-					g.weights.forEach { w -> w.sources.forEach { ids += it.id } }
 					g.speciesInfo.forEach { s -> s.sources.forEach { ids += it.id } }
 				}
 				taxonList.filter { full(it.genus!!.id) }.forEach { x ->

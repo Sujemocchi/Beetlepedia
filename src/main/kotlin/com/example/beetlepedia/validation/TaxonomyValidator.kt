@@ -69,7 +69,6 @@ class TaxonomyValidator(private val geometry: MapGeometry) {
 		g.sizeDefaults.filter { id -> g.taxa.none { it.id == id } }.forEach { problems += Problem(where, "size default '$it' is not a taxon of this genus") }
 		listOfNotNull(g.heroImage, g.overviewImage).forEach { problems += validateImage(where, it) }
 		problems += missingJapanese(where, g)
-		g.weights.forEach { problems += missingJapanese("$where weight", it) }
 		g.speciesInfo.forEach { problems += missingJapanese("$where species ${it.speciesSci}", it) }
 		g.taxa.forEach { problems += validateTaxon(it, ctx) }
 		return problems

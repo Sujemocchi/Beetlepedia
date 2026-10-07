@@ -280,17 +280,6 @@ table.compare .en { color: var(--text-faint); display: block; font-size: 0.85rem
 .picker-title { font-size: 0.85rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 10px; font-family: var(--font-sans); font-weight: 700; }
 .size-legend { display: grid; gap: 4px; margin-top: 12px; font-size: 0.85rem; color: var(--text-faint); }
 
-.weights { display: grid; gap: 14px; margin-top: 8px; }
-.wbar { display: grid; grid-template-columns: minmax(120px, 13em) 1fr; gap: 12px; align-items: center; }
-@media (max-width: 560px) { .wbar { grid-template-columns: 1fr; gap: 4px; } }
-.wbar .wlabel { font-size: 0.92rem; }
-.wbar .wlabel small { display: block; color: var(--text-faint); font-size: 0.8rem; line-height: 1.4; }
-.wbar .track { position: relative; height: 30px; background: var(--bg-2); border-radius: 8px; overflow: hidden; }
-.wbar .fill { height: 100%; border-radius: 8px; background: var(--c, var(--text-faint)); width: 0; transition: width 0.9s cubic-bezier(.2,.7,.2,1); }
-.wbar .fill.est { background: repeating-linear-gradient(-45deg, var(--c), var(--c) 8px, color-mix(in srgb, var(--c) 70%, #000) 8px, color-mix(in srgb, var(--c) 70%, #000) 16px); }
-.wbar .val { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; font-weight: 700; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.7); white-space: nowrap; }
-@media (prefers-reduced-motion: reduce) { .wbar .fill { transition: none; } }
-
 /* ---------- Timeline ---------- */
 .timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; counter-reset: stage; }
 @media (min-width: 900px) { .timeline { grid-template-columns: repeat(4, 1fr); } }

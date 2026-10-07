@@ -106,22 +106,16 @@ window.I18N = {
   "size.pickSpecies": { ko: "분류군 (수컷 최대 몸길이)", en: "Taxa (max. male length)", ja: "分類群（オスの最大体長）" },
   "size.pickObjects": { ko: "비교 대상", en: "Compare with", ja: "比較対象" },
   "size.scale": { ko: "눈금 1칸 = 1cm", en: "1 grid square = 1 cm", ja: "1 マス = 1 cm" },
-  "size.weightTitle": { ko: "무게 비교", en: "Weight comparison", ja: "重さ比較" },
-  "size.estimate": { ko: "추정", en: "estimate", ja: "推定" },
-  "size.reported": { ko: "보고값", en: "reported", ja: "報告値" },
   "size.aria": { ko: "딱정벌레와 일상 물건의 실제 비율 크기 비교 그림", en: "To-scale drawing comparing beetles with everyday objects", ja: "甲虫と身近な物を実寸比で比べた図" },
 
   "obj.hand": { ko: "성인 손", en: "Adult hand", ja: "大人の手" },
   "obj.hand.note": { ko: "손목~가운뎃손가락 끝 약 18.5cm (평균값, 개인차 큼)", en: "Wrist to fingertip ≈ 18.5 cm (average; varies)", ja: "手首～中指の先 約 18.5 cm（平均値、個人差が大きい）" },
   "obj.coin": { ko: "500원 동전", en: "500-won coin", ja: "500ウォン硬貨" },
-  "obj.coin.note": { ko: "지름 26.5mm, 무게 7.7g", en: "26.5 mm across, 7.7 g", ja: "直径 26.5 mm、重さ 7.7 g" },
+  "obj.coin.note": { ko: "지름 26.5mm", en: "26.5 mm across", ja: "直径 26.5 mm" },
   "obj.card": { ko: "신용카드", en: "Credit card", ja: "クレジットカード" },
   "obj.card.note": { ko: "85.6 × 54.0mm (ISO/IEC 7810)", en: "85.6 × 54.0 mm (ISO/IEC 7810)", ja: "85.6 × 54.0 mm（ISO/IEC 7810）" },
   "obj.dichotomus": { ko: "장수풍뎅이 수컷", en: "Japanese rhinoceros beetle ♂", ja: "カブトムシ（オス）" },
   "obj.dichotomus.note": { ko: "Trypoxylus dichotomus (= Allomyrina dichotoma), 뿔 포함 약 8cm (대형 개체 기준, 추정)", en: "Trypoxylus dichotomus (= Allomyrina dichotoma), ≈ 8 cm incl. horn (large individual, estimate)", ja: "Trypoxylus dichotomus（= Allomyrina dichotoma）、角を含め約 8 cm（大型個体、推定）" },
-
-  "w.coin": { ko: "500원 동전", en: "500-won coin", ja: "500ウォン硬貨" },
-  "w.card": { ko: "신용카드", en: "Credit card", ja: "クレジットカード" },
 
   "life.title": { ko: "생활사", en: "Life cycle", ja: "生活史" },
 

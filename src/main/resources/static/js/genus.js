@@ -110,11 +110,6 @@
       return '<li class="reveal">' + App.sciText(L(f)) + "</li>";
     }).join("");
 
-    // Weights
-    var wb = document.getElementById("weights-block");
-    wb.hidden = !(g.weights && g.weights.items && g.weights.items.length);
-    if (!wb.hidden) document.getElementById("weights-note").innerHTML = App.sciText(L(g.weights.note));
-
     // References & credits
     var srcIds = Object.keys(g.sources || {}).concat(grp.sources || [], ["naturalearth"]);
     document.getElementById("refs-list").innerHTML = srcIds.filter(function (id, i) { return srcIds.indexOf(id) === i; }).map(App.sourceItemHTML).join("");
@@ -200,8 +195,8 @@
   window.BPMap.mountInteractive(g.map, taxa, { stage: "map-stage", info: "map-info", chips: "map-chips", legend: "map-legend", all: "map-all", none: "map-none" });
   var bySize = taxa.filter(App.maxMale).sort(function (a, b) { return App.maxMale(b) - App.maxMale(a); });
   window.BPSize.mount(
-    { stage: "size-stage", species: "size-species", objects: "size-objects", legend: "size-legend", weights: "weights" },
-    { taxa: taxa, chosen: (g.sizeDefaults || bySize.slice(0, 3).map(function (x) { return x.id; })), weights: g.weights }
+    { stage: "size-stage", species: "size-species", objects: "size-objects", legend: "size-legend" },
+    { taxa: taxa, chosen: (g.sizeDefaults || bySize.slice(0, 3).map(function (x) { return x.id; })) }
   );
   // Re-scroll to a #hash once the dynamic content exists.
   if (window.location.hash) {

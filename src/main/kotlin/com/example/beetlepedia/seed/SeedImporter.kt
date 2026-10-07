@@ -7,7 +7,6 @@ import com.example.beetlepedia.domain.Country
 import com.example.beetlepedia.domain.GeoBox
 import com.example.beetlepedia.domain.GeoPoint
 import com.example.beetlepedia.domain.Genus
-import com.example.beetlepedia.domain.GenusWeight
 import com.example.beetlepedia.domain.HeroStat
 import com.example.beetlepedia.domain.HistoryEntry
 import com.example.beetlepedia.domain.Image
@@ -145,7 +144,6 @@ class SeedImporter {
 				speciesNote = g.overview?.speciesNote?.toText(),
 				lifecycleLead = g.lifecycle?.lead?.toText(),
 				conservation = g.conservation?.toText(),
-				weightsNote = g.weights?.note?.toText(),
 				dimorphism = g.defaults?.dimorphism?.toText(),
 				food = g.defaults?.food?.toText(),
 				season = g.defaults?.season?.toText(),
@@ -160,10 +158,6 @@ class SeedImporter {
 				facts.addAll(g.facts.map { it.toText() })
 				latinTerms.addAll(g.latin)
 				sizeDefaults.addAll(g.sizeDefaults)
-				g.weights?.items.orEmpty().forEach { w ->
-					addWeight(GenusWeight(w.label.toText(), w.value, w.note?.toText(), w.color, w.approx, w.plus, w.estimate, w.reported))
-						.sources.addAll(src("$where weight", w.sources))
-				}
 				g.speciesInfo.forEach { (sci, s) ->
 					addSpeciesInfo(SpeciesInfo(sci, s.authority, s.name?.toText(), s.text?.toText())).sources.addAll(src("$where species $sci", s.sources))
 				}

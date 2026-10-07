@@ -121,12 +121,6 @@ class SeedExporter(
 		care = g.care.map { text(it)!! },
 		facts = g.facts.map { text(it)!! },
 		defaults = DefaultsSeed(text(g.dimorphism), text(g.food), text(g.season)),
-		weights = if (g.weights.isEmpty() && g.weightsNote == null) null else WeightsSeed(
-			text(g.weightsNote),
-			g.weights.map {
-				WeightItemSeed(text(it.label)!!, it.grams, it.approx, it.estimate, it.reported, it.plus, text(it.note), it.color, it.sources.map(Source::id))
-			},
-		),
 		latin = g.latinTerms.toList(),
 		images = if (g.heroImage == null && g.overviewImage == null) null
 			else GenusImagesSeed(g.heroImage?.let(::image), g.overviewImage?.let(::image)),

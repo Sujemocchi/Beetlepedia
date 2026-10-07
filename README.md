@@ -28,7 +28,7 @@
 ```
 index.html                      Beetlepedia 홈: 세 분류군, 계통 트리, 속을 넘나드는 크기 비교, 조건 검색(이름·계급·몸길이·국가·사진)
 └ group.html?id=<group>         상위 분류군 (cetoniinae / lucanidae / dynastinae): 개요, 분류, 속 목록
-  └ genus.html?id=<genus>       속: 개요, 종 카드, 비교표, 분포 지도, 크기·무게 비교, 생활사, 보전·사육, 출처
+  └ genus.html?id=<genus>       속: 개요, 종 카드, 비교표, 분포 지도, 크기 비교, 생활사, 보전·사육, 출처
     └ taxon.html?id=<taxon>     종·아종: 형태·크기, 역사·이슈, 3D(준비 중), 생태, 분포 지도(확대), 사육, 보전, 출처
 ```
 
@@ -41,6 +41,7 @@ src/main/resources/
   seed/core.json                분류 계층(상과까지 공통 + 분류군별), 국가 이름, 지도 이름, 공통 출처
   seed/genera/<genus>.json      속 하나의 모든 데이터: 속 개요·생활사·사육, 종·아종, 섬/지역 정의, 출처 (한/영/일)
   db/migration/V1__init.sql     DB 스키마 (Flyway)
+  db/migration/V2__drop_weights.sql  무게 비교 테이블·컬럼 삭제
   static/
     index.html, group.html, genus.html, taxon.html
     css/style.css               디자인 ("모던 다큐멘터리" 다크 테마, CSS 변수, 반응형)
@@ -48,7 +49,7 @@ src/main/resources/
     js/main.js                  공통: 언어 전환, 헤더·푸터, 분류 트리 조회, 학명 이탤릭 처리, 실루엣, 카드
     js/home.js | group.js | genus.js | taxon.js   페이지별 렌더링
     js/map.js                   분포 지도 (국가·섬 단위 강조, 작은 섬은 점, 종 페이지에서는 분포에 맞춰 확대)
-    js/size-compare.js          실제 비율 크기 비교 (분류군별 실루엣) + 무게 막대
+    js/size-compare.js          실제 비율 크기 비교 (분류군별 실루엣)
     data/i18n.js                UI 문구 (한/영/일)
     assets/maps/<region>.js     지역 지도: africa, southeast-asia, neotropics
 src/main/kotlin/com/example/beetlepedia/
@@ -185,7 +186,6 @@ node tools/mapgen/gen.js countries-50m.json src/main/resources/static/assets/map
 
 #### *Goliathus* 골리앗꽃무지속
 - 몸길이는 영문 Wikipedia 각 종 문서(원출처: Natural Worlds, Beetles Space 등) 기준입니다.
-- 무게는 속 전체 기준입니다. 흔히 말하는 "100g 이상"은 유충의 무게이고, 성충은 약 50g(추정)입니다.
 - *G. regius* × *G. cacicus* 자연 교잡종 *G.* "atlas"를 두 종의 "특별한 이슈"에 정리했습니다.
 - Catalogue of Life는 6종(*G. kolbei* 포함)을 싣고 있으며, 이 사이트는 5종을 다룹니다. 5종 모두 IUCN 미평가(NE)입니다.
 - 일본어 이름 중 *goliatus* 외 4종(レギウス 등)은 일본 자료로 확인하지 못해 "非公式名"으로 표시합니다.

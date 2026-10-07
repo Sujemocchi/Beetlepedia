@@ -71,22 +71,6 @@ data class LifecycleDto(val lead: TextDto?, val stages: List<StageDto>)
 data class DefaultsDto(val dimorphism: TextDto?, val food: TextDto?, val season: TextDto?)
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class WeightItemDto(
-	val label: TextDto,
-	val value: Double,
-	val approx: Boolean,
-	val estimate: Boolean,
-	val reported: Boolean,
-	val plus: Boolean,
-	val note: TextDto?,
-	val color: String?,
-	val sources: List<String>,
-)
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-data class WeightsDto(val note: TextDto?, val items: List<WeightItemDto>)
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
 data class SpeciesInfoDto(val authority: String?, val name: TextDto?, val text: TextDto?, val sources: List<String>)
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -113,7 +97,6 @@ data class GenusDto(
 	val care: List<TextDto>,
 	val facts: List<TextDto>,
 	val defaults: DefaultsDto,
-	val weights: WeightsDto?,
 	val latin: List<String>,
 	val images: GenusImagesDto,
 	val sizeDefaults: List<String>?,
