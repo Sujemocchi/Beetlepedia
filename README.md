@@ -42,22 +42,26 @@ src/main/resources/
   seed/genera/<genus>.json      속 하나의 모든 데이터: 속 개요·생활사·사육, 종·아종, 섬/지역 정의, 출처 (한/영/일)
   db/migration/V1__init.sql     DB 스키마 (Flyway)
   db/migration/V2__drop_weights.sql  무게 비교 테이블·컬럼 삭제
+  db/migration/V3__image_cutout.sql  사진의 배경 제거본 경로(image.cutout)
   static/
     index.html, group.html, genus.html, taxon.html
     css/style.css               디자인 ("모던 다큐멘터리" 다크 테마, CSS 변수, 반응형)
     js/boot.js                  페이지에 맞는 /api/bootstrap 범위를 불러와 window.BP를 채운 뒤 페이지 스크립트를 순서대로 실행
-    js/main.js                  공통: 언어 전환, 헤더·푸터, 분류 트리 조회, 학명 이탤릭 처리, 실루엣, 카드
+    js/main.js                  공통: 언어 전환, 헤더·푸터, 분류 트리 조회, 학명 이탤릭 처리, 사진(누끼·원본), 실루엣, 카드
     js/home.js | group.js | genus.js | taxon.js   페이지별 렌더링
-    js/map.js                   분포 지도 (국가·섬 단위 강조, 작은 섬은 점, 종 페이지에서는 분포에 맞춰 확대)
-    js/size-compare.js          실제 비율 크기 비교 (분류군별 실루엣)
+    js/map.js                   분포 지도: 국가·섬 단위 강조, 작은 섬은 점, 행정구역 이름, 이동·3단계 확대·도시, 클릭 팝업
+    js/size-compare.js          실제 비율 크기 비교 (실제 표본에서 딴 분류군별 실루엣)
     data/i18n.js                UI 문구 (한/영/일)
-    assets/maps/<region>.js     지역 지도: africa, southeast-asia, neotropics
+    data/silhouettes.js         분류군 실루엣 (tools/cutout/silhouette.py로 생성)
+    assets/maps/<region>.js     지역 지도: africa, southeast-asia, neotropics (행정구역·국가 이름·도시 포함)
+    assets/images/cutouts/      사진의 배경 제거본 (투명 WebP)
+    assets/images/silhouettes/  실루엣 셰이딩용 흑백 이미지
 src/main/kotlin/com/example/beetlepedia/
   domain/        엔티티        repository/   리포지토리
   seed/          시드 읽기·적재, 지도 다각형      validation/   데이터 규칙
   api/           조회 REST API
 tools/
-  mapgen/gen.js                 Natural Earth → 지역 지도 생성기
+  mapgen/gen.js, admin.js       Natural Earth → 지역 지도 생성기 (admin.js: 행정구역·섬 이름, admin-names.json: 이름 보정표)
   cutout/                       사진 배경 제거(누끼) 파이프라인(manifest.json, cutout.py), 실루엣 생성기(silhouette.py)
 ```
 
@@ -76,8 +80,10 @@ tools/
 ### 새 속을 추가하는 방법
 
 1. `src/main/resources/seed/genera/<id>.json`을 만들어 속·분류군·출처·지역을 넣습니다(`goliathus.json`이 예시). 일본어(`ja`)도 함께 넣습니다.
-2. 지도가 없는 지역이면 `tools/mapgen/gen.js`의 `REGIONS`에 범위를 추가해 지도를 만들고, `seed/core.json`의 `maps`에 이름을 넣고, `genus.html`·`taxon.html`에 지도 스크립트를 추가합니다.
-3. `./gradlew test`를 실행합니다. `SeedLoaderTests`가 시드 전체를 규칙대로 검사해 문제를 목록으로 보여 줍니다.
+2. 지도가 없는 지역이면 `tools/mapgen/gen.js`의 `REGIONS`에 범위(`adminTol`, `cities` 포함)를 추가해 지도를 만들고([지도](#지도)), `seed/core.json`의 `maps`에 이름을 넣고, `genus.html`·`taxon.html`에 지도 스크립트를 추가합니다. 섬나라라면 `tools/mapgen/admin.js`의 섬 표에 섬을 더합니다.
+3. 사진은 위에서 본 등면 표본 사진을 고르고, `tools/cutout/manifest.json`에 항목을 더해 누끼를 만든 뒤 이미지의 `cutout`에 경로를 넣습니다([이미지](#이미지)).
+4. 새 상위 분류군이면 대표 종의 누끼로 `tools/cutout/silhouette.py`의 `GROUPS`에 실루엣을 추가합니다.
+5. `./gradlew test`와 브라우저 점검(`e2e/run.mjs`)을 실행합니다. `SeedLoaderTests`가 시드 전체를 규칙대로 검사해 문제를 목록으로 보여 줍니다.
 
 ### 언어 (한국어 · English · 日本語)
 
@@ -126,7 +132,7 @@ BEETLEPEDIA_ADMIN_PASSWORD=비밀번호 ./gradlew bootRun     # 아이디 admin
 - **분류군**: 속별 목록, 편집·추가·삭제. 이름·몸길이·분포·서식지·생태·보전·사진·출처 등을 한/영/일로 고칩니다.
   저장할 때 `TaxonomyValidator` 규칙을 그대로 검사하며, 하나라도 어기면 **아무것도 저장하지 않고** 문제 목록을 보여 줍니다.
   (연표·특별한 이슈·재미있는 사실·아종 목록은 아직 시드 JSON에서 고칩니다.)
-- **출처**, **사진**: 목록·편집·추가 (사진은 Wikimedia Commons 파일 이름, 작가, 라이선스, 흰 배경 여부, 대체 텍스트)
+- **출처**, **사진**: 목록·편집·추가 (사진은 Wikimedia Commons 파일 이름, 작가, 라이선스, 흰 배경 여부, 배경 제거본 경로, 대체 텍스트)
 - **시드로 내보내기**: 지금 DB를 시드 형식(zip)으로 받습니다. `src/main/resources/seed`에 풀어 커밋하면 수정이 저장소에 남습니다.
 - **시드에서 다시 불러오기**: DB를 비우고 시드로 다시 채웁니다(시드가 규칙을 어기면 DB는 그대로).
 
@@ -138,7 +144,7 @@ BEETLEPEDIA_ADMIN_PASSWORD=비밀번호 ./gradlew bootRun     # 아이디 admin
 ./gradlew test    # DB 스키마·리포지토리, 시드 검증·적재·내보내기 왕복, API, 관리자 화면·보안, 모든 페이지 서빙
 ```
 
-브라우저 점검(모든 페이지 × 1280/375px × 한·영·일, 검색 UI, 관리자 화면)은 서버를 띄운 뒤 실행합니다.
+브라우저 점검(모든 페이지 × 1280/375px × 한·영·일, 검색 UI, 지도 확대·드래그·팝업, 관리자 화면)은 서버를 띄운 뒤 실행합니다.
 
 ```bash
 BEETLEPEDIA_ADMIN_PASSWORD=pw ./gradlew bootRun
@@ -198,6 +204,10 @@ tools/cutout/.venv/Scripts/python tools/cutout/cutout.py elapus   # 이름에 el
 - 신경망(rembg `isnet-general-use`) 마스크와, 배경색 모델과의 색 차이 마스크를 합칩니다. 신경망이 놓치는 가는 다리·더듬이 끝을 색 차이 마스크가 살립니다.
 - `manifest.json` 항목별로 `rotate`(회전), `floor`(배경으로 볼 색 차이 하한: 어두운 표본·받침 그림자용), `de`(색 차이 범위)를 조절합니다.
 - `tools/cutout/.review/`의 검토 이미지(원본 | 어두운 배경 | 자홍색 배경)로 다리·발톱·더듬이·큰턱 톱니가 남았는지, 흰 테두리나 그림자가 없는지 반드시 눈으로 확인합니다.
+- 회전한 사진(Udo Schmidt의 *D. h. lichyi* 수컷·암컷)은 누끼만 회전되어 있으므로, 누끼를 불러오지 못할 때 보이는 원본은 옆으로 누워 있습니다.
+
+라이선스를 확인한 사진이 없는 분류군은 실루엣과 "사진을 아직 찾지 못했습니다" 안내를 표시합니다.
+
 ### 실루엣
 홈의 분류군 카드, 크기 비교, 헤더 아이콘의 실루엣은 실제 표본 누끼에서 윤곽을 딴 것입니다: 꽃무지 *Goliathus regius*(Hannes Grobe, CC BY-SA 4.0), 사슴벌레 *Cyclommatus elaphus*(keusju, 퍼블릭 도메인), 장수풍뎅이 *Dynastes hercules lichyi*(Udo Schmidt, CC BY-SA 2.0). 출처는 모든 페이지 푸터에 표시합니다.
 ```bash
@@ -206,9 +216,6 @@ tools/cutout/.venv/Scripts/python tools/cutout/silhouette.py   # data/silhouette
 ```
 - 몸길이 측정 기준(큰턱·뿔·머리뿔 끝 → 딱지날개 끝)에 맞춰 그 사이만 잘라 윤곽을 따므로, 실루엣의 위·아래 끝(높이 160 상자에서 y = 5 … 158)이 곧 측정점입니다. 그 밖으로 나온 앞다리·뒷다리 끝은 잘립니다.
 - 셰이딩은 같은 범위의 누끼를 흑백·저대비로 만든 이미지를 윤곽 안에 `soft-light`로 겹친 것이라, 분류군 색(`currentColor`)이 그대로 유지됩니다.
-
-- 회전한 사진(Udo Schmidt의 *D. h. lichyi* 수컷·암컷)은 누끼만 회전되어 있으므로, 누끼를 불러오지 못할 때 보이는 원본은 옆으로 누워 있습니다.
-라이선스를 확인한 사진이 없는 분류군은 실루엣과 "사진을 아직 찾지 못했습니다" 안내를 표시합니다.
 
 ### TODO: 이미지
 - 사진 없음: *C. monguilloni*, *C. chewi*, *C. lunifer*, *D. h. reidi*, *baudrii*, *occidentalis*, *tuxtlaensis*, *trinidadensis*, *bleuzeni*, *paschoali*, *morishimai*, *takakuwai*.

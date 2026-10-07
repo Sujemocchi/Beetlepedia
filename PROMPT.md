@@ -35,8 +35,11 @@ taxon.html?id=<taxon>    종·아종 페이지 (taxon = 종 또는 아종)
 seed/core.json             분류 계층(공통 상위 단계 + 분류군별 단계), 국가 이름, 지역 지도 목록, 공통 출처
 seed/genera/<genus>.json   속 하나의 모든 데이터 (한/영/일)
 static/data/i18n.js        UI 문구 (ko / en / ja)
-static/assets/maps/*.js    지역 지도 (tools/mapgen/gen.js로 생성)
+static/data/silhouettes.js 분류군 실루엣 (tools/cutout/silhouette.py로 생성)
+static/assets/maps/*.js    지역 지도: 국가·섬 경로, 1급 행정구역, 국가 이름, 도시 (tools/mapgen/gen.js로 생성)
+static/assets/images/      cutouts/ 사진의 배경 제거본, silhouettes/ 실루엣 셰이딩 (tools/cutout으로 생성)
 TaxonomyValidator (Kotlin) 데이터 규칙 검증 — 서버 시작과 ./gradlew test에서 실행
+e2e/run.mjs                브라우저 점검 (Playwright)
 ```
 
 - **페이지는 템플릿 하나에 데이터를 채운다.** 종이 늘어나도 HTML 파일을 새로 만들지 않는다.
@@ -60,7 +63,7 @@ TaxonomyValidator (Kotlin) 데이터 규칙 검증 — 서버 시작과 ./gradle
 | `defaults` | 종 페이지 공통값: `dimorphism`, `food`, `season` |
 | `areas` | (선택) 섬·지역 정의: `box`(경위도 상자) 또는 `point`(경위도) |
 | `latin[]` | 본문에서 이탤릭 처리할 그 밖의 라틴어 이름 |
-| `images.hero` | 대표 사진 |
+| `images.hero`, `images.overview` | 대표 사진, 개요 사진 |
 | `taxa[]`, `sources{}` | 분류군 목록, 출처 (id에 속별 접두사) |
 
 ### 분류군 (taxon)
@@ -69,6 +72,7 @@ TaxonomyValidator (Kotlin) 데이터 규칙 검증 — 서버 시작과 ./gradle
 `distribution`(국가 코드 또는 `areas` 키), `distributionNote`, `habitat`, `ecology`, `captivityNote`,
 `conservation`(`status`, `text`), `history[]`(`year`, `ko`, `en`), `issues[]`(`title`?, `text`, `sources`), `facts[]`, `images[]`, `model3d`, `sources[]`.
 
+- 사진(`images.*`, `images[]`): `file`(Commons 파일 이름), `author`, `license`, `licenseUrl`, `white`(흰·단색 배경), `alt`(한/영/일), `cutout`(배경 제거본 경로, 예: `cutouts/elapus.webp`). 같은 파일은 어디에 쓰든 같은 값으로 적는다.
 - 몸길이는 `[min, max]`(mm). **최댓값만 알면 `[null, max]`** — 최솟값을 지어내지 않는다.
 - 사슴벌레는 큰턱, 장수풍뎅이는 뿔을 포함한 길이다. 야외 기록과 사육 기록(BE-KUWA 등)은 `size.note`에 구분해 적는다.
 
@@ -86,6 +90,12 @@ TaxonomyValidator (Kotlin) 데이터 규칙 검증 — 서버 시작과 ./gradle
 
 ### 속 페이지
 히어로 → 속 개요(분류 체계, 이름의 유래 등) → 종·아종 카드(아종이 많은 종은 묶어서) → 비교표(정렬) → 분포 지도 → 크기 비교 → 생활사 → 보전·사육·재미있는 사실 → 참고문헌·이미지 출처.
+
+### 분포 지도 (속·종 페이지 공통)
+- 분포는 국가·섬 단위로 칠하고(여러 분류군이 겹치면 줄무늬, 작은 섬은 점), 1급 행정구역 경계를 그 위에 가늘게 그린다.
+- 마우스를 올리면 `행정구역, 섬, 국가`(예: 벵쿨루, 수마트라섬, 인도네시아)와 그곳의 분류군을 보여 주고, 클릭(탭)하면 같은 이름·분류군 링크·"구글 지도에서 보기"(API 키 없는 URL, 새 탭) 팝업을 띄운다. 드래그는 클릭이 아니다.
+- 드래그로 이동(지역 범위 안), 3단계 확대(지역 → 국가·큰 섬 → 도시): `+`/`−` 버튼, Ctrl(⌘)+휠, 더블클릭, 핀치, 방향키·`+`/`-`. 3단계에서는 큰 도시 이름을 겹치지 않게 보여 준다. 선·점·글자 크기는 화면 기준으로 일정하게 둔다.
+- 종 페이지 지도는 분포 범위가 다 보이는 가장 가까운 단계로 맞춘다.
 
 ### 종·아종 페이지 (섹션 순서)
 1. 분류·형태·크기 (명명자, 분류, 몸길이 막대, 암수 차이, 색·무늬, 아종 목록 또는 같은 종의 다른 아종)
@@ -112,8 +122,9 @@ TaxonomyValidator (Kotlin) 데이터 규칙 검증 — 서버 시작과 ./gradle
 작업 순서:
 1. **조사**: 7장 규칙에 따라 속·분류군 자료를 모은다(분류군이 많으면 나눠서 병렬로).
 2. **데이터**: `seed/genera/<genus>.json` 작성(한/영/일). 섬·지역 분포는 `areas`로 정의한다.
-3. **지도**: 새 지역이면 `tools/mapgen/gen.js`의 `REGIONS`에 추가해 지도를 만들고 `seed/core.json`의 `maps`에 이름을 넣고, `genus.html`·`taxon.html`에 지도 스크립트를 추가한다.
-4. **검증**: 11장의 점검을 모두 통과시킨다. HTML 파일은 따로 만들지 않는다.
+3. **지도**: 새 지역이면 `tools/mapgen/gen.js`의 `REGIONS`에 추가해 지도(행정구역·도시 포함)를 만들고 `seed/core.json`의 `maps`에 이름을 넣고, `genus.html`·`taxon.html`에 지도 스크립트를 추가한다. 섬나라는 `tools/mapgen/admin.js`의 섬 표에, 틀리거나 빠진 지명 번역은 `admin-names.json`에 넣는다(확신할 수 없는 번역은 보고한다).
+4. **사진**: 8장 기준으로 고르고 `tools/cutout`으로 누끼를 만든다. 다리·더듬이 끝이 잘리지 않았는지 검토 이미지로 확인한다.
+5. **검증**: 11장의 점검을 모두 통과시킨다. HTML 파일은 따로 만들지 않는다.
 
 ## 7. 조사·정확성 규칙
 
@@ -129,7 +140,8 @@ TaxonomyValidator (Kotlin) 데이터 규칙 검증 — 서버 시작과 ./gradle
 ## 8. 이미지
 
 - Wikimedia Commons의 CC 라이선스 / 퍼블릭 도메인 이미지만 쓴다. 작가·라이선스·원본 링크를 캡션과 출처 목록에 표시한다.
-- **위에서 내려다본 등면 표본 사진**으로 통일하고, **흰 배경 표본 사진을 우선** 고른다(`white: true`).
+- **위에서 내려다본 등면 표본 사진**으로 통일하고(머리가 위, 좌우 대칭, 다리·더듬이·큰턱/뿔이 보이는 것, 성별이 표시되면 수컷을 대표로), **흰 배경 표본 사진을 우선** 고른다(`white: true`). 옆모습·생태 사진·여러 마리·손 위 사진은 쓰지 않는다. 조건에 맞는 사진이 없으면 억지로 바꾸지 말고 README의 이미지 TODO에 적는다.
+- 영어 외에 일본어로도 찾는다(예: 「ギラファノコギリクワガタ 標本」).
 - 배경을 제거한 투명 WebP(`cutout`, `tools/cutout`)가 있으면 그것을 쓰고, 곤충 외곽선을 따라 은은한 후광을 준다. 없으면 원본을 밝은 판 위에 통째로 보여 준다. 누끼는 2차 저작물이므로 원본 라이선스를 유지하고 출처에 "배경 제거 등 편집"을 표시한다.
 - Commons API로 파일이 실제로 있는지와 라이선스를 확인한다. 동정이 의심스러운 사진은 쓰지 않거나 대체 텍스트에 그 사실을 적는다.
 - 사진이 없으면 실루엣과 "사진을 아직 찾지 못했습니다"를 보여 주고 README의 이미지 TODO에 적는다.
@@ -146,15 +158,17 @@ TaxonomyValidator (Kotlin) 데이터 규칙 검증 — 서버 시작과 ./gradle
 - 화면을 채우는 큰 사진, 넓은 여백, 큰 제목. 스크롤하면 섹션이 부드럽게 나타난다(IntersectionObserver, `prefers-reduced-motion`이면 끔).
 - 글꼴: Noto Serif/Sans KR (일본어는 JP). 색은 CSS 변수.
 - 접근성: 이미지 대체 텍스트(한/영), 키보드 이동, 충분한 명도 대비, 지도는 지역마다 `aria-label`.
-- 새 상위 분류군을 추가하면 크기 비교용 실루엣(100×160 상자, y=5…158)도 `js/main.js`에 추가한다.
+- 실루엣은 대표 종 표본의 누끼에서 윤곽을 따서 만든다(`tools/cutout/silhouette.py` → `data/silhouettes.js`). 상자는 w × 160이고 몸길이 측정 기준(큰턱·뿔 끝 → 딱지날개 끝)이 y = 5 … 158이다. 새 상위 분류군을 추가하면 이 스크립트의 `GROUPS`에 넣고, 원본 사진 출처는 푸터에 자동으로 표시된다.
+- 누끼 사진은 틀 없이 페이지 배경 위에 두고, 외곽선을 따라 은은한 후광(`drop-shadow` 여러 겹)을 준다.
 
 ## 11. 점검
 
 - `./gradlew test` — 시드 검증(id 중복, 분포 코드↔지도 다각형, 출처 id, 이미지 메타데이터, 일본어 누락), DB·API, 모든 페이지 서빙
-- 브라우저로 모든 페이지를 375px·1280px, 세 언어로 열어 콘솔 에러와 가로 넘침이 없는지 확인
+- `e2e/run.mjs` — 모든 페이지를 375px·1280px, 세 언어로 열어 콘솔 에러와 가로 넘침 확인, 검색 UI, 지도(확대 단계·도시·팝업·드래그), 관리자 화면
+- 화면이 바뀌는 작업은 실제 사진이 보이는 상태로 데스크톱·모바일 스크린샷을 직접 확인한다
 
 ## 12. 작업 보고와 PR
 
 - 단계를 마칠 때마다 무엇을 만들었는지 짧게 알린다.
-- PR은 기능 단위로 나눠 올린다(예: 데이터 모델 / 지도 / 페이지 / 새 속 데이터 / 번역 / 문서).
+- PR은 기능 단위로 나눠 올린다(예: 데이터 모델 / 지도 / 페이지 / 새 속 데이터 / 번역 / 문서). 여러 단계를 이어서 할 때는 단계마다 브랜치를 만들고, 앞 단계에 의존하면 앞 단계 브랜치를 base로 쌓는다.
   제목은 Conventional Commits 형식(`feat:`, `fix:`, `docs:`, `chore:`), 본문은 요약 · 변경 사항 · 테스트 방법 순서로 쓴다.
