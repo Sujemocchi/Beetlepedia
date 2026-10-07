@@ -19,6 +19,7 @@
   var taxa = App.taxaOf(g.id);
   document.body.style.setProperty("--sp", g.color);
   document.body.style.setProperty("--accent", grp.color);
+  App.habitatBackdrop(g.id);
 
   // Taxa grouped by species (a species with several subspecies gets its own block).
   function speciesBlocks() {
@@ -124,7 +125,7 @@
     }).map(function (img) {
       return '<li><a href="' + App.commonsPage(img.file) + '" target="_blank" rel="noopener">' + esc(img.file) + "</a> — " +
         esc(img.author) + ", " + '<a href="' + esc(img.licenseUrl) + '" target="_blank" rel="noopener">' + esc(img.license) + "</a></li>";
-    }).join("");
+    }).join("") + (App.habitat(g.id) ? "<li>" + App.habitatCreditHTML(g.id) + "</li>" : "");
 
     App.observeReveals();
   }

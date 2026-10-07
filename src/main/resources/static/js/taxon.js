@@ -22,6 +22,7 @@
 
   document.body.style.setProperty("--sp", x.color);
   document.body.style.setProperty("--accent", grp.color);
+  App.habitatBackdrop(g.id);
 
   function sizeBar(label, r) {
     if (!r) return '<div class="size-bar"><span>' + label + '</span><span class="rng-label dim">' + esc(t("species.noData")) + "</span></div>";
@@ -169,7 +170,8 @@
       (x.facts && x.facts.length ? '<ul class="facts">' + x.facts.map(function (f) { return '<li class="reveal">' + App.sciText(L(f)) + "</li>"; }).join("") + "</ul>" : "") +
       '<h3 style="margin-top:56px">' + esc(t("detail.sources")) + '</h3><ol class="refs">' +
       (x.sources || []).map(App.sourceItemHTML).join("") + "</ol>" +
-      (images.length ? '<p class="note">' + esc(t("refs.images")) + ": " + images.map(App.creditHTML).join(" / ") + "</p>" : "");
+      (images.length ? '<p class="note">' + esc(t("refs.images")) + ": " + images.map(App.creditHTML).join(" / ") + "</p>" : "") +
+      (App.habitat(g.id) ? '<p class="note">' + App.habitatCreditHTML(g.id) + "</p>" : "");
 
     // 8. Prev / next within the genus
     function pageLink(s, cls, key) {
