@@ -1,0 +1,20 @@
+{
+  "IDN:Bengkulu": {
+    "ko": "벵쿨루"
+  },
+  "IDN:Nusa Tenggara Timur": {
+    "island": "lessersunda"
+  },
+  "IDN:Nusa Tenggara Barat": {
+    "island": "lessersunda"
+  },
+  "TLS:Ambeno": {
+    "island": "timor"
+  },
+  "TTO:Tunapuna/Piarco": {
+    "ja": "トゥナプナ＝ピアルコ地域自治体"
+  },
+  "PHL:Southern Leyte": {
+    "island": "leyte"
+  }
+}

@@ -154,10 +154,21 @@ GitHub Actions(`.github/workflows/ci.yml`)가 PR과 `main` 푸시마다 두 가�
 [world-atlas 2.0.2](https://github.com/topojson/world-atlas)(ISC) TopoJSON으로 받아 `tools/mapgen/gen.js`로 단순화했습니다(등장방형 투영).
 다시 만들려면:
 
+1급 행정구역(주·도)은 Natural Earth 1:10m admin-1, 국가 이름(한/영/일)은 1:50m admin-0에서 가져옵니다.
 ```bash
+mkdir -p tools/mapgen/.cache && cd tools/mapgen/.cache
 curl -o countries-50m.json https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json
-node tools/mapgen/gen.js countries-50m.json src/main/resources/static/assets/maps
+curl -L -o admin1.geojson https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson
+curl -L -o admin0.geojson https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson
+cd ../../.. && node tools/mapgen/gen.js tools/mapgen/.cache/countries-50m.json src/main/resources/static/assets/maps tools/mapgen/.cache/admin1.geojson
 ```
+
+- 지도에 마우스를 올리면 **"행정구역, 섬, 국가"** 형식으로 이름을 보여 줍니다(예: 벵쿨루, 수마트라섬, 인도네시아 / Bengkulu, Sumatra, Indonesia / ブンクル州、スマトラ島、インドネシア). 섬이 국가·행정구역 이름과 같으면(쿠바, 발리 등) 섬 이름은 생략합니다.
+- 행정구역 이름은 Natural Earth의 `name_ko`·`name_ja`(Wikidata 기반)를 쓰고, 틀리거나 비어 있는 것은 `tools/mapgen/admin-names.json`에서 고칩니다(예: "븡쿨루" → "벵쿨루"). 여러 섬에 걸친 주(동·서누사틍가라 → 소순다 열도)의 섬 이름도 여기서 지정합니다.
+- 섬 이름은 `tools/mapgen/admin.js`의 섬 표(인도네시아·말레이시아·필리핀·파푸아뉴기니·적도기니·탄자니아·카리브해 등)로 붙입니다. 행정구역의 가장 큰 부분의 중심이 그 섬의 1:50m 육지 안(또는 해안선 10 km 이내)에 있으면 그 섬으로 봅니다.
+- 행정구역 경계는 분포 색 위에 가는 선으로 그리고, 마우스를 올린 구역만 강조합니다. 분포 칠하기는 이전과 같이 국가·섬 단위입니다.
+- 파일 크기(행정구역 추가 전 → 후, gzip): 아프리카 50 → 188 KB (18 → 75 KB), 동남아 98 → 185 KB (31 → 67 KB), 신열대 61 → 159 KB (20 → 59 KB). 서버는 응답을 gzip으로 압축합니다(`server.compression.enabled`).
+- 번역 확인이 더 필요한 이름: 파푸아뉴기니의 "서부"·"중앙"·"걸프"(Western·Central·Gulf 주), 동티모르 "현" 표기, 말레이시아 주 이름의 한국어 표기(크다, 슬랑오르 등은 국립국어원 말레이시아어 표기 기준과 같음) 등 Natural Earth 원문을 그대로 쓴 것들.
 
 - 섬 하나하나가 별도 경로라서 섬 단위 분포(수마트라, 방가이 제도 등)를 표시할 수 있습니다.
 - 프랑스 해외 영토(과들루프, 마르티니크, 프랑스령 기아나)는 프랑스에서 분리했습니다.

@@ -6,6 +6,8 @@
  * Range codes: ISO-3 country codes, or keys of BP.areas (see data/core.js).
  * Countries shared by several selected taxa get diagonal stripes in each colour.
  * Islands too small to see are drawn as dots.
+ * First-level administrative regions (MAP.admin, Natural Earth) are outlined thinly on top; hovering one names it
+ * as "region, island, country" with the taxa recorded there.
  *
  * BPMap.render(stage, opts) is used on genus pages (all taxa, with toggles)
  * and on taxon pages (one taxon, zoomed to its range).
@@ -48,6 +50,7 @@
     svg.setAttribute("aria-label", App.t("map.aria", { region: regionName() }));
     var defs = el("defs");
     var gBase = el("g");
+    var gAdmin = el("g", { "class": "admin" });
     var gDots = el("g");
     var hl = el("path", { fill: "none", stroke: "#f4f1e6", "stroke-width": "1.6", "pointer-events": "none" });
     var uid = "m" + Math.random().toString(36).slice(2, 7);
@@ -88,8 +91,18 @@
       }
     });
 
+    // Administrative regions: [iso, outline, label lon, label lat, name en, ko, ja, island key] (0 = same as en / none)
+    var admins = (MAP.admin || []).map(function (a, i) {
+      var here = taxa.filter(function (x) {
+        return (x.distribution || []).some(function (c) { return !isPoint(c) && matches({ iso: a[0], lon: a[2], lat: a[3] }, c); });
+      });
+      gAdmin.appendChild(el("path", { d: a[1], "class": "adm", "data-a": i }));
+      return { a: a, taxa: here };
+    });
+
     svg.appendChild(defs);
     svg.appendChild(gBase);
+    svg.appendChild(gAdmin);
     svg.appendChild(gDots);
     svg.appendChild(hl);
     stage.appendChild(svg);
@@ -116,8 +129,27 @@
       if (!p.area) part.taxa.forEach(function (x) {
         (x.distribution || []).forEach(function (c) { if (BP.areas[c] && !isPoint(c) && matches(p, c) && codes.indexOf(c) === -1) codes.push(c); });
       });
-      var country = BP.countries[p.iso] ? App.L(BP.countries[p.iso]) : p.name;
+      var country = countryName(p.iso) || p.name;
       return codes.length ? codes.map(App.areaName).join(", ") + " (" + country + ")" : country;
+    }
+    var LANG_I = { en: 0, ko: 1, ja: 2 };
+    function countryName(iso) {
+      if (BP.countries[iso]) return App.L(BP.countries[iso]);
+      var c = MAP.countries && MAP.countries[iso];
+      return c ? c[LANG_I[App.lang()]] || c[0] : "";
+    }
+    // "Bengkulu, Sumatra, Indonesia" / "벵쿨루, 수마트라섬, 인도네시아" / 「ブンクル州、スマトラ島、インドネシア」
+    function adminLabel(a) {
+      var lang = App.lang(), island = a[7] && MAP.islands && MAP.islands[a[7]];
+      var name = lang === "ko" ? a[5] || a[4] : lang === "ja" ? a[6] || a[4] : a[4];
+      return [name, island ? island[lang] || island.en : "", countryName(a[0])].filter(Boolean).join(lang === "ja" ? "、" : ", ");
+    }
+    function describeAdmin(ad) {
+      var list = ad.taxa.filter(function (x) { return selected.indexOf(x.id) !== -1; });
+      var names = list.length
+        ? list.map(function (x) { return '<em class="sci">' + App.esc(x.sci) + "</em>"; }).join(", ")
+        : App.esc(App.t("map.noSpecies"));
+      return "<strong>" + App.esc(adminLabel(ad.a)) + "</strong>" + (ad.taxa.length ? " — " + names : "");
     }
     function describe(part) {
       var list = shown(part);
@@ -136,6 +168,12 @@
       });
     }
     function show(target) {
+      if (target && target.getAttribute && target.getAttribute("data-a") != null) {
+        var ad = admins[+target.getAttribute("data-a")];
+        hl.setAttribute("d", ad.a[1]);
+        if (opts.onInfo) opts.onInfo(describeAdmin(ad));
+        return;
+      }
       if (!target || !target.getAttribute || target.getAttribute("data-i") == null) return;
       var part = parts[+target.getAttribute("data-i")];
       if (part.dot) {

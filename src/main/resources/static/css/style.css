@@ -265,6 +265,9 @@ table.compare .en { color: var(--text-faint); display: block; font-size: 0.85rem
 .map-stage .country.has { cursor: pointer; }
 .map-stage .country:not(.has):hover { fill: #33483a; }
 .map-stage .country:focus { outline: none; }
+/* Administrative regions: hairlines over the range colours; the hovered one is outlined by the highlight path */
+.map-stage .adm { fill: transparent; stroke: rgb(var(--halo) / 0.14); stroke-width: 0.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.map-stage .adm:hover { fill: rgb(var(--halo) / 0.06); }
 .map-info {
   margin-top: 12px; min-height: 3.2em; font-size: 0.95rem; color: var(--text-dim);
 }
