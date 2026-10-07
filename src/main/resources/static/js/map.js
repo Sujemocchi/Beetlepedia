@@ -15,6 +15,9 @@
  * Pan and zoom: three fixed levels (whole region → countries / large islands → cities, where the largest cities
  * are labelled). Drag to move (kept inside the region frame), +/− buttons, Ctrl/⌘ + wheel at the cursor,
  * double-click, pinch, and arrow / + / − keys. Strokes, dots, stripes and labels keep their size on screen.
+ *
+ * Click (tap, or Enter on a focused area): a popup names the place, lists the taxa recorded there (links to their
+ * pages) and links to Google Maps. A drag that ends on the map is not a click.
  */
 (function () {
   "use strict";
@@ -31,6 +34,17 @@
     return !(area.exclude || []).some(function (b) { return inBox(p, b); });
   }
   function isPoint(code) { return !!(BP.areas[code] && BP.areas[code].point); }
+  // Map units back to longitude / latitude (equirectangular: x = (lon − lon0)·k, y = (lat0 − lat)·k).
+  function toLonLat(projection, x, y) {
+    return { lon: projection.lon0 + x / projection.k, lat: projection.lat0 - y / projection.k };
+  }
+  // Google Maps URLs that need no API key: a place search, or a map centred on a point.
+  function googleSearchUrl(query) { return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query); }
+  function googleCenterUrl(lat, lon, zoom) {
+    return "https://www.google.com/maps/@?api=1&map_action=map&center=" + lat.toFixed(4) + "," + lon.toFixed(4) + "&zoom=" + zoom;
+  }
+  // Region names too generic to search for on their own ("Central", "Western" …): use the clicked point instead.
+  var GENERIC = /^(central|centre|center|western|eastern|northern|southern|north|south|east|west|nord|sud|est|ouest|littoral|capital|national capital|federal district|distrito federal)$/i;
   function el(name, attrs) {
     var e = document.createElementNS(SVGNS, name);
     Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); });
@@ -150,6 +164,14 @@
       var name = lang === "ko" ? a[5] || a[4] : lang === "ja" ? a[6] || a[4] : a[4];
       return [name, island ? island[lang] || island.en : "", countryName(a[0])].filter(Boolean).join(lang === "ja" ? "、" : ", ");
     }
+    function countryNameEn(iso) {
+      if (BP.countries[iso]) return BP.countries[iso].en || App.L(BP.countries[iso]);
+      return MAP.countries && MAP.countries[iso] ? MAP.countries[iso][0] : iso;
+    }
+    function adminLabelEn(a) {
+      var island = a[7] && MAP.islands && MAP.islands[a[7]];
+      return [a[4], island ? island.en : "", countryNameEn(a[0])].filter(Boolean).join(", ");
+    }
     function describeAdmin(ad) {
       var list = ad.taxa.filter(function (x) { return selected.indexOf(x.id) !== -1; });
       var names = list.length
@@ -193,6 +215,78 @@
     function hide() {
       hl.removeAttribute("d");
       if (opts.onInfo) opts.onInfo("");
+    }
+
+    // ---------- click popup ----------
+    var popup = null, popupReturn = null;
+    // What a click on node (at map point m) refers to: { label, taxa, url }
+    function placeAt(node, m) {
+      if (!node || !node.getAttribute) return null;
+      var zoom = [5, 7, 10][level - 1], ll = toLonLat(MAP.projection, m.x, m.y);
+      var byPoint = googleCenterUrl(ll.lat, ll.lon, zoom);
+      if (node.getAttribute("data-a") != null) {
+        var ad = admins[+node.getAttribute("data-a")];
+        return { label: adminLabel(ad.a), taxa: ad.taxa, url: GENERIC.test(ad.a[4]) ? byPoint : googleSearchUrl(adminLabelEn(ad.a)) };
+      }
+      if (node.getAttribute("data-i") != null) {
+        var part = parts[+node.getAttribute("data-i")], p = part.p;
+        if (p.area) {  // narrow endemic drawn as a dot: its own coordinates
+          return { label: placeLabel(part), taxa: part.taxa, url: googleCenterUrl(p.lat, p.lon, 10) };
+        }
+        var codes = part.taxa.length ? [] : null;
+        part.taxa.forEach(function (x) {
+          (x.distribution || []).forEach(function (c) { if (BP.areas[c] && !isPoint(c) && matches(p, c) && codes.indexOf(c) === -1) codes.push(c); });
+        });
+        var en = (codes && codes.length ? codes.map(function (c) { return BP.areas[c].name.en; }).join(", ") + ", " : "") + countryNameEn(p.iso);
+        return { label: placeLabel(part), taxa: part.taxa, url: googleSearchUrl(en) };
+      }
+      return null;
+    }
+    function closePopup(restoreFocus) {
+      if (!popup) return;
+      popup.remove();
+      popup = null;
+      document.removeEventListener("click", outside, true);
+      document.removeEventListener("keydown", onEsc, true);
+      if (restoreFocus && popupReturn) popupReturn.focus();
+    }
+    function outside(e) {
+      if (popup && !popup.contains(e.target) && !svg.contains(e.target)) closePopup(false);
+    }
+    function onEsc(e) {
+      if (e.key === "Escape") { e.preventDefault(); closePopup(true); }
+    }
+    function openPopup(place, clientX, clientY, returnTo) {
+      closePopup(false);
+      popupReturn = returnTo || stage;
+      var id = uid + "-pop";
+      popup = document.createElement("div");
+      popup.className = "map-popup";
+      popup.setAttribute("role", "dialog");
+      popup.setAttribute("aria-labelledby", id);
+      popup.innerHTML =
+        '<button type="button" class="pop-close" aria-label="' + App.esc(App.t("map.popupClose")) + '">×</button>' +
+        '<p class="pop-title" id="' + id + '">' + App.esc(place.label) + "</p>" +
+        (place.taxa.length
+          ? '<ul class="pop-taxa">' + place.taxa.map(function (x) {
+              var name = App.taxonName(x);
+              return '<li style="--sp:' + x.color + '"><a href="' + App.taxonUrl(x) + '"><span class="dot" aria-hidden="true"></span><em class="sci">' +
+                App.esc(x.sci) + "</em>" + (name ? " <small>" + App.esc(name) + "</small>" : "") + "</a></li>";
+            }).join("") + "</ul>"
+          : '<p class="pop-none">' + App.esc(App.t("map.popupNone")) + "</p>") +
+        '<a class="pop-gmaps" href="' + App.esc(place.url) + '" target="_blank" rel="noopener">' + App.esc(App.t("map.googleMaps")) + ' <span aria-hidden="true">↗</span></a>';
+      stage.appendChild(popup);
+      // Place it next to the click, flipped and clamped so it stays inside the map.
+      var sr = stage.getBoundingClientRect(), pw = popup.offsetWidth, ph = popup.offsetHeight, gap = 12, pad = 8;
+      var x = clientX - sr.left + gap, y = clientY - sr.top + gap;
+      if (x + pw > sr.width - pad) x = clientX - sr.left - gap - pw;
+      if (y + ph > sr.height - pad) y = clientY - sr.top - gap - ph;
+      popup.style.left = Math.max(pad, Math.min(sr.width - pw - pad, x)) + "px";
+      popup.style.top = Math.max(pad, Math.min(sr.height - ph - pad, y)) + "px";
+      popup.querySelector(".pop-close").addEventListener("click", function () { closePopup(true); });
+      document.addEventListener("click", outside, true);
+      document.addEventListener("keydown", onEsc, true);
+      popup.querySelector(".pop-close").focus({ preventScroll: true });
     }
     svg.addEventListener("mouseover", function (e) { show(e.target); });
     svg.addEventListener("mouseleave", hide);
@@ -264,6 +358,7 @@
       var fx = px == null ? 0.5 : (px - view.x) / view.w, fy = py == null ? 0.5 : (py - view.y) / view.h;
       if (px == null) { px = view.x + view.w / 2; py = view.y + view.h / 2; }
       level = n;
+      closePopup(false);
       updateControls();
       goTo({ x: px - fx * w, y: py - fy * h, w: w, h: h }, true);
     }
@@ -387,6 +482,7 @@
       if (!drag.moved && Math.hypot(dx, dy) < 5) return;
       if (!drag.moved) {
         drag.moved = true;
+        closePopup(false);
         try { svg.setPointerCapture(drag.id); } catch (err) { /* pointer already released */ }
         stage.classList.add("dragging");
       }
@@ -410,6 +506,21 @@
     svg.addEventListener("click", function (e) {
       if (suppressClick) { e.stopImmediatePropagation(); e.preventDefault(); }
     }, true);
+    svg.addEventListener("click", function (e) {
+      var place = placeAt(e.target, clientToMap(e.clientX, e.clientY));
+      if (place) openPopup(place, e.clientX, e.clientY, e.target.getAttribute("tabindex") ? e.target : stage);
+      else closePopup(false);
+    });
+    // Enter / Space on a focused area opens the same popup at its centre.
+    svg.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      var r = e.target.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var place = placeAt(e.target, clientToMap(cx, cy));
+      if (!place) return;
+      e.preventDefault();
+      e.stopPropagation();
+      openPopup(place, cx, cy, e.target);
+    });
 
     // Taxon pages: frame the selected ranges at the closest level that shows them whole.
     function fit() {
@@ -493,5 +604,5 @@
     return map;
   }
 
-  window.BPMap = { render: render, mountInteractive: mountInteractive };
+  window.BPMap = { render: render, mountInteractive: mountInteractive, toLonLat: toLonLat };
 })();

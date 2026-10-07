@@ -294,6 +294,27 @@ table.compare .en { color: var(--text-faint); display: block; font-size: 0.85rem
   paint-order: stroke; stroke: #0b100c; stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke;
 }
 @media (max-width: 560px) { .map-zoom { top: 8px; right: 8px; } .map-zoom button { width: 30px; height: 30px; } }
+/* Click popup */
+.map-popup {
+  position: absolute; z-index: 3; width: max-content; max-width: min(300px, calc(100% - 16px)); padding: 12px 14px 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 10px 30px rgb(0 0 0 / 0.45);
+  font-size: 0.9rem; cursor: auto;
+}
+.map-popup .pop-title { margin: 0 26px 8px 0; font-weight: 700; color: var(--text); line-height: 1.4; }
+.map-popup .pop-close {
+  position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; border: 0; border-radius: 7px;
+  background: transparent; color: var(--text-dim); font-size: 1.3rem; line-height: 1; cursor: pointer;
+}
+.map-popup .pop-close:hover { background: var(--surface-2); color: var(--text); }
+.map-popup .pop-taxa { list-style: none; margin: 0 0 10px; padding: 0; display: grid; gap: 4px; max-height: 180px; overflow-y: auto; }
+.map-popup .pop-taxa a { display: flex; align-items: baseline; gap: 6px; color: var(--text); text-decoration: none; padding: 2px 0; }
+.map-popup .pop-taxa a:hover .sci { text-decoration: underline; }
+.map-popup .pop-taxa .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--sp); flex: none; align-self: center; }
+.map-popup .pop-taxa small { color: var(--text-faint); }
+.map-popup .pop-none { margin: 0 0 10px; color: var(--text-faint); }
+.map-popup .pop-gmaps { color: var(--rust-bright); font-weight: 600; }
+.map-popup .pop-taxa a { flex-wrap: wrap; row-gap: 0; }
+.map-popup .pop-taxa small { flex-basis: 100%; padding-left: 15px; }
 .map-info {
   margin-top: 12px; min-height: 3.2em; font-size: 0.95rem; color: var(--text-dim);
 }
