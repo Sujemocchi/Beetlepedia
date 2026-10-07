@@ -153,7 +153,12 @@ p { margin: 0 0 1em; }
   font-size: 0.75rem; color: var(--text-faint); line-height: 1.4;
 }
 .credit a { color: var(--text-dim); }
-.hero .credit { position: absolute; right: var(--gutter); bottom: 14px; text-align: right; max-width: 70%; }
+.hero .credit, .hero .credit-stack { position: absolute; right: var(--gutter); bottom: 14px; text-align: right; max-width: 70%; }
+/* Several photos (home mosaic): stack their credits instead of overlapping them, and keep room below the content */
+.hero .credit-stack { font-size: 0.75rem; line-height: 1.4; }
+.hero .credit-stack .credit { position: static; max-width: none; }
+.hero.hero-multi { padding-bottom: 96px; }
+@media (max-width: 560px) { .hero .credit-stack { max-width: none; left: var(--gutter); font-size: 0.68rem; } }
 
 /* ---------- Sections ---------- */
 .section { padding: clamp(72px, 12vw, 140px) 0; }

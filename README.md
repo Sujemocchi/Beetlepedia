@@ -165,13 +165,17 @@ node tools/mapgen/gen.js countries-50m.json src/main/resources/static/assets/map
 ## 이미지
 
 모든 사진은 Wikimedia Commons에서 `Special:FilePath`로 불러오며, 작가·라이선스·원본 링크를 캡션과 각 속 페이지의 "이미지 출처"에 표시합니다.
-**흰 배경 표본 사진을 우선** 골랐고(`white: true`), 이런 사진은 잘리지 않게 밝은 "표본 판" 위에 통째로 보여 줍니다.
+**구도는 위에서 내려다본 등면 표본 사진으로 통일**합니다(머리가 위, 좌우 대칭, 다리·더듬이·큰턱/뿔이 보이는 것, 흰색·단색 배경, 성별이 표시되면 수컷을 대표로). 옆모습·생태 사진·여러 마리 사진·손 위 사진은 쓰지 않습니다.
+흰 배경 사진(`white: true`)은 잘리지 않게 밝은 "표본 판" 위에 통째로 보여 줍니다.
 라이선스를 확인한 사진이 없는 분류군은 실루엣과 "사진을 아직 찾지 못했습니다" 안내를 표시합니다.
 
 ### TODO: 이미지
 - 사진 없음: *C. monguilloni*, *C. chewi*, *C. lunifer*, *D. h. reidi*, *baudrii*, *occidentalis*, *tuxtlaensis*, *trinidadensis*, *bleuzeni*, *paschoali*, *morishimai*, *takakuwai*.
 - *C. metallifer finae*의 `Ssp finae.JPG`는 파일명과 일본어 위키백과 캡션은 펠렝(finae)인데 Commons 설명란에는 *aenomicans*로 적혀 있습니다. 확인이 필요합니다.
-- *C. truncatus*의 사진은 세 종을 함께 찍은 단체 사진입니다. 잘라 낸 사진이 있으면 교체하기.
+- *C. truncatus*의 사진은 세 종을 함께 찍은 단체 사진입니다. 단독 등면 사진이 Commons에 없어 그대로 둡니다(잘라 낸 사진이 있으면 교체하기).
+- 등면 표본 사진을 찾지 못해 기존 사진을 유지: *D. h. hercules*(야생·사육 개체), *D. h. septentrionalis*(야생 암컷·수컷). *D. h. ecuatorianus*는 수컷 등면 사진이 없어 암컷 등면 사진이 대표입니다.
+- 머리가 옆을 향한 고해상도 등면 사진(Udo Schmidt: *D. h. lichyi* 수컷·암컷, *C. m. metallifer* 수컷)은 회전이 필요해 빼 두었습니다. 누끼 단계에서 회전해 쓸 수 있습니다.
+- *G. orientalis*의 대표 사진은 'meleagris' 형 표본입니다(이 사이트에서는 orientalis와 거의 같은 것으로 봅니다).
 - *C. speciosus*의 RBINS 사진 3장은 종 수준 동정이며 아종(원명아종) 확인은 되지 않았습니다.
 
 ## 정확성 메모

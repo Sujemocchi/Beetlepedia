@@ -288,15 +288,15 @@
   ],
   "images": {
     "hero": {
-      "file": "Cyclommatus cropped.jpg",
-      "author": "Sq10",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "file": "Elapus.JPG",
+      "author": "keusju",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
       "white": true,
       "alt": {
-        "ko": "흰 바탕 위 가위사슴벌레속 표본 넷. 왼쪽부터 엘라푸스·임페라토르 수컷, 트룬카투스 수컷과 암컷이다.",
-        "en": "Four Cyclommatus specimens on white: C. elaphus male, C. imperator male, and a C. truncatus male and female.",
-        "ja": "白地に置かれたホソアカクワガタ属の標本4点：C. elaphus の雄、C. imperator の雄、C. truncatus の雄と雌。"
+        "ko": "흰 바탕 위 엘라푸스가위사슴벌레 수컷의 등면 표본. 금록색 몸과 길게 휜 큰턱이 보인다.",
+        "en": "Dorsal view of a golden-green male Cyclommatus elaphus with long curved mandibles on white.",
+        "ja": "白地に置かれた、長く湾曲した大顎をもつ金緑色のエラフスホソアカクワガタ雄の背面。"
       }
     }
   },
@@ -646,18 +646,6 @@
             "en": "Dorsal view of a male Cyclommatus metallifer with very long toothed mandibles on white.",
             "ja": "白地に置かれた、細かい歯のある非常に長い大顎をもつメタリフェルホソアカクワガタ雄の背面。"
           }
-        },
-        {
-          "file": "Cyclommatus metallifer metallifer (Boisduval,1835) male (3772658452).jpg",
-          "author": "Udo Schmidt",
-          "license": "CC BY-SA 2.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-          "white": true,
-          "alt": {
-            "ko": "흰 바탕 위 메탈리퍼가위사슴벌레 원명아종 수컷(술라웨시, 70mm)의 등면.",
-            "en": "Dorsal view of a 70 mm male Cyclommatus metallifer metallifer from Sulawesi on white.",
-            "ja": "白地に置かれたスラウェシ島産メタリフェルホソアカクワガタ原名亜種（Cyclommatus metallifer metallifer）70 mm雄の背面。"
-          }
         }
       ],
       "model3d": null,
@@ -676,8 +664,7 @@
         "cy-wiki-en-metallifer",
         "cy-gbif-iucn",
         "cy-gotoh-lavine2014",
-        "cy-commons-ssp-finae",
-        "cy-commons-udo-metallifer"
+        "cy-commons-ssp-finae"
       ]
     },
     {
@@ -830,18 +817,6 @@
       ],
       "images": [
         {
-          "file": "Ssp imperator.JPG",
-          "author": "keusju",
-          "license": "Public domain",
-          "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-          "white": true,
-          "alt": {
-            "ko": "흰 바탕 위 임페라토르가위사슴벌레 수컷의 등면 표본(와메나산).",
-            "en": "Dorsal view of a male Cyclommatus imperator from Wamena on white.",
-            "ja": "白地に置かれたワメナ産インペラトールホソアカクワガタ雄の背面。"
-          }
-        },
-        {
           "file": "Imperator2.JPG",
           "author": "keusju",
           "license": "CC BY-SA 3.0",
@@ -851,6 +826,18 @@
             "ko": "흰 바탕 위 임페라토르가위사슴벌레 수컷(보통형, 74mm)의 등면.",
             "en": "Dorsal view of a 74 mm normal-form male Cyclommatus imperator on white.",
             "ja": "白地に置かれた通常型74 mmのインペラトールホソアカクワガタ雄の背面。"
+          }
+        },
+        {
+          "file": "Ssp imperator.JPG",
+          "author": "keusju",
+          "license": "Public domain",
+          "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "white": true,
+          "alt": {
+            "ko": "흰 바탕 위 임페라토르가위사슴벌레 수컷의 등면 표본(와메나산).",
+            "en": "Dorsal view of a male Cyclommatus imperator from Wamena on white.",
+            "ja": "白地に置かれたワメナ産インペラトールホソアカクワガタ雄の背面。"
           }
         },
         {
@@ -1137,15 +1124,27 @@
       ],
       "images": [
         {
-          "file": "Cyclommatus pulchellus m1.jpg",
-          "author": "JohnSka",
-          "license": "CC BY-SA 3.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-          "white": false,
+          "file": "Cyclomatus pulchellus (from projects.biodiversity.be) ID-1717.jpg",
+          "author": "Noël Mal (Royal Belgian Institute of Natural Sciences pictorial beetle collection)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
           "alt": {
-            "ko": "핀에 꽂힌 풀켈루스가위사슴벌레 수컷 표본의 옆모습.",
-            "en": "Side view of a pinned male Cyclommatus pulchellus specimen.",
-            "ja": "針に刺したプルケルスホソアカクワガタ雄の標本の側面。"
+            "ko": "흰 배경 위 풀켈루스가위사슴벌레 수컷 표본의 등면",
+            "en": "Dorsal view of a male Cyclommatus pulchellus specimen on white",
+            "ja": "白地に置かれたプルケルスホソアカクワガタ雄標本の背面"
+          }
+        },
+        {
+          "file": "Cyclomatus pulchellus (from projects.biodiversity.be) ID-1718.jpg",
+          "author": "Noël Mal (Royal Belgian Institute of Natural Sciences pictorial beetle collection)",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": {
+            "ko": "흰 배경 위 풀켈루스가위사슴벌레 암컷 표본의 등면",
+            "en": "Dorsal view of a female Cyclommatus pulchellus specimen on white",
+            "ja": "白地に置かれたプルケルスホソアカクワガタ雌標本の背面"
           }
         }
       ],
@@ -1161,7 +1160,8 @@
         "cy-bekuwa2022",
         "cy-papua-insects",
         "cy-gbif-iucn",
-        "cy-commons-pulchellus"
+        "cy-commons-pulchellus-1717",
+        "cy-commons-pulchellus-1718"
       ]
     },
     {
@@ -2160,10 +2160,6 @@
       "title": "Wikimedia Commons: File:Ssp finae.JPG",
       "url": "https://commons.wikimedia.org/wiki/File:Ssp_finae.JPG"
     },
-    "cy-commons-udo-metallifer": {
-      "title": "Wikimedia Commons: File:Cyclommatus metallifer metallifer (Boisduval,1835) male (3772658452).jpg",
-      "url": "https://commons.wikimedia.org/wiki/File:Cyclommatus_metallifer_metallifer_(Boisduval,1835)_male_(3772658452).jpg"
-    },
     "cy-yanagawa-imperator": {
       "title": "kuwa-yanagawa blog: 飼育種紹介 その30 インペラトールホソアカクワガタ",
       "url": "https://ameblo.jp/kuwa-yanagawa/entry-12652252500.html"
@@ -2224,9 +2220,13 @@
       "title": "Zhu X.L., Yuan J.J., Zhou L.Y., Bartolozzi L., Wan X. (2023) Molecular phylogeny and historical biogeography of Cyclommatus stag beetles. Frontiers in Ecology and Evolution 11: 974315",
       "url": "https://www.frontiersin.org/articles/10.3389/fevo.2023.974315/full"
     },
-    "cy-commons-pulchellus": {
-      "title": "Wikimedia Commons: File:Cyclommatus pulchellus m1.jpg",
-      "url": "https://commons.wikimedia.org/wiki/File:Cyclommatus_pulchellus_m1.jpg"
+    "cy-commons-pulchellus-1717": {
+      "title": "Wikimedia Commons: File:Cyclomatus pulchellus (from projects.biodiversity.be) ID-1717.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Cyclomatus_pulchellus_(from_projects.biodiversity.be)_ID-1717.jpg"
+    },
+    "cy-commons-pulchellus-1718": {
+      "title": "Wikimedia Commons: File:Cyclomatus pulchellus (from projects.biodiversity.be) ID-1718.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Cyclomatus_pulchellus_(from_projects.biodiversity.be)_ID-1718.jpg"
     },
     "cy-ecolors-hosoaka": {
       "title": "e-colors (Japanese dealer): ホソアカクワガタ species list with max sizes",
@@ -2399,10 +2399,6 @@
     "cy-goyens2015": {
       "title": "Goyens J. et al. (2015) Cost of flight and the evolution of stag beetle weaponry. J. R. Soc. Interface 12: 20150222",
       "url": "https://doi.org/10.1098/rsif.2015.0222"
-    },
-    "cy-commons-cyclommatus-cropped": {
-      "title": "Wikimedia Commons: File:Cyclommatus cropped.jpg",
-      "url": "https://commons.wikimedia.org/wiki/File:Cyclommatus_cropped.jpg"
     }
   },
   "areas": {

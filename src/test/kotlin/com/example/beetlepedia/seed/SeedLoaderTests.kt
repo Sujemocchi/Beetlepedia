@@ -53,7 +53,7 @@ class SeedLoaderTests(
 		assertEquals(5, taxa.findAllByGenusIdOrderBySortOrder("goliathus").size)
 		assertEquals(10, taxa.findAllByGenusIdOrderBySortOrder("cyclommatus").size)
 		assertEquals(13, taxa.findAllBySpeciesSciOrderBySortOrder("Dynastes hercules").size)
-		assertEquals(142, sources.count())
+		assertEquals(141, sources.count())
 		assertEquals(3, maps.count())
 		assertEquals(13, areas.count())
 		assertEquals(61, countries.count())
@@ -73,7 +73,7 @@ class SeedLoaderTests(
 
 		val lichyi = taxa.findById("dynastes-hercules-lichyi").orElseThrow()
 		assertEquals(listOf(85.0, 180.4), listOf(lichyi.size.male?.min, lichyi.size.male?.max))
-		assertEquals(4, lichyi.images.size)
+		assertEquals(listOf("Dynastes hercules.lichyi (male).JPG"), lichyi.images.map { it.file })
 		assertTrue(lichyi.images.first().white)
 		assertTrue(lichyi.issues.isNotEmpty() && lichyi.issues.all { !it.text.ja.isNullOrBlank() })
 		assertTrue(lichyi.sources.isNotEmpty() && lichyi.sources.all { it.id.startsWith("dy-") })
@@ -84,8 +84,7 @@ class SeedLoaderTests(
 
 		// Same photo row shared by the genus hero and a subspecies
 		val dynastes = genera.findById("dynastes").orElseThrow()
-		val ecuatorianus = taxa.findById("dynastes-hercules-ecuatorianus").orElseThrow()
-		assertEquals(dynastes.heroImage?.id, ecuatorianus.images.first().id)
+		assertEquals(dynastes.heroImage?.id, lichyi.images.first().id)
 	}
 
 	@Test
