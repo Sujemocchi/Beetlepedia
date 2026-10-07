@@ -47,3 +47,9 @@ reference/
 
 ### Local H2 database (development) ###
 data/
+
+### Image cut-out pipeline (venv, model cache, downloaded originals, review sheets) ###
+tools/cutout/.venv/
+tools/cutout/.cache/
+tools/cutout/.originals/
+tools/cutout/.review/

@@ -322,16 +322,17 @@
   ],
   "images": {
     "hero": {
-      "file": "Dynastes hercules.lichyi (male).JPG",
-      "author": "Anaxibia",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "file": "Dynastes hercules lichyi (Lachaume, 1985) male (8538222465).png",
+      "author": "Udo Schmidt from Deutschland",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
       "white": true,
       "alt": {
-        "ko": "페루산 헤라클레스 리키 수컷 표본(144mm)의 등면. 흰 스티로폼 바탕",
-        "en": "Male D. h. lichyi from Peru, 144 mm, dorsal view on white styrofoam",
-        "ja": "ペルー産D. h. lichyiのオス、144 mm。白い発泡スチロール上での背面"
-      }
+        "ko": "흰 바탕 위 헤라클레스 리키 수컷 표본의 등면",
+        "en": "Dorsal view of a male D. h. lichyi specimen on white",
+        "ja": "白地に置かれたヘラクレス・リッキー雄標本の背面"
+      },
+      "cutout": "cutouts/dynastes-hercules-lichyi-udo-male.webp"
     }
   },
   "taxa": [
@@ -905,6 +906,19 @@
       ],
       "images": [
         {
+          "file": "Dynastes hercules lichyi (Lachaume, 1985) male (8538222465).png",
+          "author": "Udo Schmidt from Deutschland",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "white": true,
+          "alt": {
+            "ko": "흰 바탕 위 헤라클레스 리키 수컷 표본의 등면",
+            "en": "Dorsal view of a male D. h. lichyi specimen on white",
+            "ja": "白地に置かれたヘラクレス・リッキー雄標本の背面"
+          },
+          "cutout": "cutouts/dynastes-hercules-lichyi-udo-male.webp"
+        },
+        {
           "file": "Dynastes hercules.lichyi (male).JPG",
           "author": "Anaxibia",
           "license": "CC BY-SA 3.0",
@@ -914,7 +928,21 @@
             "ko": "페루산 헤라클레스 리키 수컷 표본(144mm)의 등면. 흰 스티로폼 바탕",
             "en": "Male D. h. lichyi from Peru, 144 mm, dorsal view on white styrofoam",
             "ja": "ペルー産D. h. lichyiのオス、144 mm。白い発泡スチロール上での背面"
-          }
+          },
+          "cutout": "cutouts/dynastes-hercules-lichyi-male.webp"
+        },
+        {
+          "file": "Dynastes hercules lichyi (Lachaume, 1985) female (8538216877).png",
+          "author": "Udo Schmidt from Deutschland",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "white": true,
+          "alt": {
+            "ko": "흰 바탕 위 헤라클레스 리키 암컷 표본의 등면(62mm, 베네수엘라 란초그란데)",
+            "en": "Dorsal view of a female D. h. lichyi, 62 mm, Rancho Grande, Venezuela, on white",
+            "ja": "白地に置かれたヘラクレス・リッキー雌標本の背面（62 mm、ベネズエラ・ランチョグランデ）"
+          },
+          "cutout": "cutouts/dynastes-hercules-lichyi-udo-female.webp"
         }
       ],
       "model3d": null,
@@ -1065,7 +1093,8 @@
             "ko": "헤라클레스장수풍뎅이 에콰토리아누스 암컷 표본의 등면. 밝은 바탕",
             "en": "Female D. h. ecuatorianus, dorsal view on plain light background",
             "ja": "D. h. ecuatorianusのメス。明るい無地の背景での背面"
-          }
+          },
+          "cutout": "cutouts/dynastes-hercules-f2.webp"
         }
       ],
       "model3d": null,

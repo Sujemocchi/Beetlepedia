@@ -294,7 +294,8 @@
         "ko": "흰 바탕 위 골리앗꽃무지 수컷 표본의 등면. 흰 머리와 검은 줄무늬 앞가슴, 적갈색 딱지날개",
         "en": "Dorsal view of a male Goliathus goliatus specimen on white: white head, black-striped pronotum, red-brown elytra",
         "ja": "白地に置かれたGoliathus goliatus雄標本の背面：白い頭部、黒い縞のある前胸背板、赤褐色の上翅"
-      }
+      },
+      "cutout": "cutouts/goliathus-goliathus-drury3-hg.webp"
     },
     "overview": {
       "file": "Goliathus-regius 2007-04.jpg",
@@ -306,7 +307,8 @@
         "ko": "흰 바탕 위 레기우스 골리앗꽃무지 수컷 표본의 등면. 흰 딱지날개 양옆에 검은 무늬",
         "en": "Dorsal view of a male Goliathus regius specimen on white, with black markings along the white elytra",
         "ja": "白地に置かれたGoliathus regius雄標本の背面。白い上翅の両側に黒い斑紋がある"
-      }
+      },
+      "cutout": "cutouts/goliathus-regius-2007-04.webp"
     }
   },
   "taxa": [
@@ -465,7 +467,8 @@
             "ko": "골리앗꽃무지 수컷 표본의 등면. 흰 머리와 검은 줄무늬 앞가슴, 갈색 딱지날개",
             "en": "Dorsal view of a male Goliathus goliatus specimen: white head, black-striped pronotum, brown elytra",
             "ja": "Goliathus goliatus雄標本の背面：白い頭部、黒い縞のある前胸背板、褐色の上翅"
-          }
+          },
+          "cutout": "cutouts/goliathus-goliatus-dos.webp"
         },
         {
           "file": "Goliathus-goliathus-drury1 hg.jpg",
@@ -477,7 +480,8 @@
             "ko": "흰 바탕 위 골리앗꽃무지 수컷 표본의 등면(다른 개체)",
             "en": "Dorsal view of another male Goliathus goliatus specimen on white",
             "ja": "白地に置かれた別のGoliathus goliatus雄標本の背面"
-          }
+          },
+          "cutout": "cutouts/goliathus-goliathus-drury1-hg.webp"
         }
       ],
       "model3d": null,
@@ -643,7 +647,8 @@
             "ko": "레기우스 골리앗꽃무지 표본. 흰 딱지날개에 검은 무늬",
             "en": "Goliathus regius specimen: white elytra with black markings",
             "ja": "Goliathus regius標本：黒い斑紋のある白い上翅"
-          }
+          },
+          "cutout": "cutouts/goliathus-regius-hg.webp"
         },
         {
           "file": "Goliathus regius mâle GLAM muséum Lille 2016.JPG",
@@ -655,7 +660,8 @@
             "ko": "흰 바탕 위 레기우스 골리앗꽃무지 수컷 표본의 등면(릴 자연사박물관)",
             "en": "Dorsal view of a male Goliathus regius on white (Lille Natural History Museum)",
             "ja": "白地に置かれたGoliathus regius雄標本の背面（リール自然史博物館）"
-          }
+          },
+          "cutout": "cutouts/goliathus-regius-male-glam-museum-lille-2016.webp"
         }
       ],
       "model3d": null,
@@ -833,7 +839,8 @@
             "ko": "흰 바탕 위 오리엔탈리스 골리앗꽃무지('meleagris' 형) 수컷 표본의 등면. 흰 딱지날개에 검은 그물 무늬",
             "en": "Dorsal view of a male Goliathus orientalis ('meleagris' form) on white, with a black net pattern on the white elytra",
             "ja": "白地に置かれたGoliathus orientalis（'meleagris'型）雄標本の背面。白い上翅に黒い網目模様がある"
-          }
+          },
+          "cutout": "cutouts/goliathus-meleagris-hg.webp"
         },
         {
           "file": "Goliathusorientalis.JPG",
@@ -845,7 +852,8 @@
             "ko": "오리엔탈리스 골리앗꽃무지 표본. 흰 딱지날개에 검은 고리 무늬",
             "en": "Goliathus orientalis specimen with black ring markings on white elytra",
             "ja": "白い上翅に黒い環状斑紋をもつGoliathus orientalis標本"
-          }
+          },
+          "cutout": "cutouts/goliathusorientalis.webp"
         },
         {
           "file": "Goliathus orientalis - Sankt-Peterburg.jpg",
@@ -856,7 +864,8 @@
             "ko": "상트페테르부르크에서 촬영된 오리엔탈리스 골리앗꽃무지",
             "en": "Goliathus orientalis photographed in Saint Petersburg",
             "ja": "サンクトペテルブルクで撮影されたGoliathus orientalis"
-          }
+          },
+          "cutout": "cutouts/goliathus-orientalis-sankt-peterburg.webp"
         }
       ],
       "model3d": null,
@@ -1022,7 +1031,8 @@
             "ko": "흰 바탕 위 카키쿠스 골리앗꽃무지 수컷 표본의 등면. 주황빛 앞가슴과 흰 딱지날개",
             "en": "Dorsal view of a male Goliathus cacicus on white: orange-tinged pronotum and white elytra",
             "ja": "白地に置かれたGoliathus cacicus雄標本の背面：橙色を帯びた前胸背板と白い上翅"
-          }
+          },
+          "cutout": "cutouts/goliathus-cacicus-male-glam-museum-lille-2016.webp"
         },
         {
           "file": "Goliathus-cacicus hg.jpg",
@@ -1034,7 +1044,8 @@
             "ko": "카키쿠스 골리앗꽃무지 표본",
             "en": "Goliathus cacicus specimen",
             "ja": "Goliathus cacicus標本"
-          }
+          },
+          "cutout": "cutouts/goliathus-cacicus-hg.webp"
         }
       ],
       "model3d": null,
@@ -1212,7 +1223,8 @@
             "ko": "알보시그나투스 골리앗꽃무지 수컷 표본. 딱지날개를 가로지르는 검은 띠",
             "en": "Male Goliathus albosignatus specimen with black bands across the elytra",
             "ja": "上翅を横切る黒い帯をもつGoliathus albosignatus雄標本"
-          }
+          },
+          "cutout": "cutouts/goliathus-albosignatusmale.webp"
         },
         {
           "file": "Goliathus albosignatusFemale.JPG",
@@ -1224,7 +1236,8 @@
             "ko": "흰 바탕 위 알보시그나투스 골리앗꽃무지 암컷 표본의 등면",
             "en": "Dorsal view of a female Goliathus albosignatus specimen on white",
             "ja": "白地に置かれたGoliathus albosignatus雌標本の背面"
-          }
+          },
+          "cutout": "cutouts/goliathus-albosignatusfemale.webp"
         }
       ],
       "model3d": {

@@ -93,13 +93,13 @@ class SeedImporter {
 			images[s.file]?.let { existing ->
 				// One row per file: every use must describe it the same way
 				if (existing.author != s.author || existing.license != s.license || existing.licenseUrl != s.licenseUrl ||
-					existing.white != s.white || existing.alt.ko != s.alt.ko || existing.alt.en != s.alt.en || existing.alt.ja != s.alt.ja
+					existing.white != s.white || existing.cutout != s.cutout || existing.alt.ko != s.alt.ko || existing.alt.en != s.alt.en || existing.alt.ja != s.alt.ja
 				) {
 					problems += Problem(owner, "image '${s.file}' appears with different credits or alt text")
 				}
 				return existing
 			}
-			return Image(s.file, s.author, s.license, s.licenseUrl, s.white, s.alt.toText()).also { images[s.file] = it }
+			return Image(s.file, s.author, s.license, s.licenseUrl, s.white, s.alt.toText(), s.cutout).also { images[s.file] = it }
 		}
 
 		val countries = core.countries.mapValuesTo(linkedMapOf()) { (code, name) -> Country(code, name.toText()) }

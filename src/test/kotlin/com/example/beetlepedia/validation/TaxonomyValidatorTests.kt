@@ -95,4 +95,13 @@ class TaxonomyValidatorTests(
 		assertTrue("image x.jpg needs a licence URL" in m)
 		assertTrue("image x.jpg needs Korean and English alt text" in m)
 	}
+
+	@Test
+	fun `a cut-out must be an existing file under assets images cutouts`() {
+		val alt = LocalizedText("표본", "Specimen", "標本")
+		fun cutout(path: String) = Image("x.jpg", "someone", "CC BY 4.0", "https://creativecommons.org/licenses/by/4.0", true, alt, path)
+		assertEquals(emptyList(), validator.validateImage("t", cutout("cutouts/elapus.webp")).map { it.message })
+		assertEquals(listOf("image x.jpg: cut-out file cutouts/nope.webp is missing"), validator.validateImage("t", cutout("cutouts/nope.webp")).map { it.message })
+		assertEquals(listOf("image x.jpg: cut-out must look like cutouts/<name>.webp or .png"), validator.validateImage("t", cutout("../secret.webp")).map { it.message })
+	}
 }

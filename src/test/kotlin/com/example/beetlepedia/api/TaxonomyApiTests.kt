@@ -112,8 +112,9 @@ class TaxonomyApiTests(@Autowired val mvc: MockMvc) {
 		mvc.get("/api/taxa/dynastes-hercules-lichyi").andExpect {
 			jsonPath("$.issues[0].title.ko") { value("아종인가, 종인가") }
 			jsonPath("$.issues[0].sources[0]") { exists() }
-			jsonPath("$.images", hasSize<Any>(1))
+			jsonPath("$.images", hasSize<Any>(3))
 			jsonPath("$.images[0].white") { value(true) }
+			jsonPath("$.images[0].cutout") { value("cutouts/dynastes-hercules-lichyi-udo-male.webp") }
 		}
 	}
 

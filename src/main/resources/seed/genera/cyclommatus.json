@@ -297,7 +297,8 @@
         "ko": "흰 바탕 위 엘라푸스가위사슴벌레 수컷의 등면 표본. 금록색 몸과 길게 휜 큰턱이 보인다.",
         "en": "Dorsal view of a golden-green male Cyclommatus elaphus with long curved mandibles on white.",
         "ja": "白地に置かれた、長く湾曲した大顎をもつ金緑色のエラフスホソアカクワガタ雄の背面。"
-      }
+      },
+      "cutout": "cutouts/elapus.webp"
     }
   },
   "taxa": [
@@ -449,7 +450,8 @@
             "ko": "흰 바탕 위 엘라푸스가위사슴벌레 수컷의 등면 표본. 금록색 몸과 길게 휜 큰턱이 보인다.",
             "en": "Dorsal view of a golden-green male Cyclommatus elaphus with long curved mandibles on white.",
             "ja": "白地に置かれた、長く湾曲した大顎をもつ金緑色のエラフスホソアカクワガタ雄の背面。"
-          }
+          },
+          "cutout": "cutouts/elapus.webp"
         },
         {
           "file": "Elaphus.JPG",
@@ -461,7 +463,8 @@
             "ko": "흰 바탕 위 적갈색 엘라푸스가위사슴벌레 수컷의 등면 표본.",
             "en": "Dorsal view of a red-brown male Cyclommatus elaphus on white.",
             "ja": "白地に置かれた赤褐色のエラフスホソアカクワガタ雄の背面。"
-          }
+          },
+          "cutout": "cutouts/elaphus.webp"
         },
         {
           "file": "Cyclommatus elaphus.JPG",
@@ -473,7 +476,8 @@
             "ko": "흰 스티로폼 위 엘라푸스가위사슴벌레 수컷의 등면. 큰턱 밑동에 주황 무늬가 있다.",
             "en": "Dorsal view of a male Cyclommatus elaphus with orange mandible bases on white styrofoam.",
             "ja": "白い発泡スチロール上の、大顎基部が橙色のエラフスホソアカクワガタ雄の背面。"
-          }
+          },
+          "cutout": "cutouts/cyclommatus-elaphus.webp"
         }
       ],
       "model3d": null,
@@ -645,7 +649,8 @@
             "ko": "흰 바탕 위 메탈리퍼가위사슴벌레 수컷의 등면 표본. 매우 긴 큰턱에 잔 톱니가 있다.",
             "en": "Dorsal view of a male Cyclommatus metallifer with very long toothed mandibles on white.",
             "ja": "白地に置かれた、細かい歯のある非常に長い大顎をもつメタリフェルホソアカクワガタ雄の背面。"
-          }
+          },
+          "cutout": "cutouts/ssp-finae.webp"
         }
       ],
       "model3d": null,
@@ -826,7 +831,8 @@
             "ko": "흰 바탕 위 임페라토르가위사슴벌레 수컷(보통형, 74mm)의 등면.",
             "en": "Dorsal view of a 74 mm normal-form male Cyclommatus imperator on white.",
             "ja": "白地に置かれた通常型74 mmのインペラトールホソアカクワガタ雄の背面。"
-          }
+          },
+          "cutout": "cutouts/imperator2.webp"
         },
         {
           "file": "Ssp imperator.JPG",
@@ -838,7 +844,8 @@
             "ko": "흰 바탕 위 임페라토르가위사슴벌레 수컷의 등면 표본(와메나산).",
             "en": "Dorsal view of a male Cyclommatus imperator from Wamena on white.",
             "ja": "白地に置かれたワメナ産インペラトールホソアカクワガタ雄の背面。"
-          }
+          },
+          "cutout": "cutouts/ssp-imperator.webp"
         },
         {
           "file": "Imperator1.JPG",
@@ -850,7 +857,8 @@
             "ko": "흰 바탕 위 검은 임페라토르가위사슴벌레 수컷(78mm)의 등면.",
             "en": "Dorsal view of a dark 78 mm male Cyclommatus imperator on white.",
             "ja": "白地に置かれた黒っぽい78 mmのインペラトールホソアカクワガタ雄の背面。"
-          }
+          },
+          "cutout": "cutouts/imperator1.webp"
         }
       ],
       "model3d": null,
@@ -1133,7 +1141,8 @@
             "ko": "흰 배경 위 풀켈루스가위사슴벌레 수컷 표본의 등면",
             "en": "Dorsal view of a male Cyclommatus pulchellus specimen on white",
             "ja": "白地に置かれたプルケルスホソアカクワガタ雄標本の背面"
-          }
+          },
+          "cutout": "cutouts/cyclomatus-pulchellus-rbins-id-1717.webp"
         },
         {
           "file": "Cyclomatus pulchellus (from projects.biodiversity.be) ID-1718.jpg",
@@ -1145,7 +1154,8 @@
             "ko": "흰 배경 위 풀켈루스가위사슴벌레 암컷 표본의 등면",
             "en": "Dorsal view of a female Cyclommatus pulchellus specimen on white",
             "ja": "白地に置かれたプルケルスホソアカクワガタ雌標本の背面"
-          }
+          },
+          "cutout": "cutouts/cyclomatus-pulchellus-rbins-id-1718.webp"
         }
       ],
       "model3d": null,
@@ -1633,7 +1643,8 @@
             "ko": "흰 배경 위 타란두스가위사슴벌레 대형 수컷 표본의 등면. 길게 휘어진 갈색 큰턱이 보인다.",
             "en": "Dorsal view of a large male Cyclommatus tarandus specimen on white, with long curved brown mandibles.",
             "ja": "白背景に置いたタランドゥスホソアカクワガタ（Cyclommatus tarandus）大型雄標本の背面。長く湾曲した褐色の大顎をもつ。"
-          }
+          },
+          "cutout": "cutouts/cyclomatus-tarandus-rbins-id-1729.webp"
         },
         {
           "file": "Cyclomatus tarandus (from projects.biodiversity.be) ID-1730.jpg",
@@ -1645,7 +1656,8 @@
             "ko": "흰 배경 위 타란두스가위사슴벌레 소형 수컷 표본의 등면. 큰턱이 짧다.",
             "en": "Dorsal view of a small male C. tarandus with short mandibles, on white.",
             "ja": "白背景に置いた大顎の短いC. tarandus小型雄の背面。"
-          }
+          },
+          "cutout": "cutouts/cyclomatus-tarandus-rbins-id-1730.webp"
         },
         {
           "file": "Cyclomatus tarandus (from projects.biodiversity.be) ID-1731.jpg",
@@ -1657,7 +1669,8 @@
             "ko": "흰 배경 위 타란두스가위사슴벌레 암컷 표본의 등면.",
             "en": "Dorsal view of a female C. tarandus specimen on white.",
             "ja": "白背景に置いたC. tarandus雌標本の背面。"
-          }
+          },
+          "cutout": "cutouts/cyclomatus-tarandus-rbins-id-1731.webp"
         }
       ],
       "model3d": null,
@@ -2008,7 +2021,8 @@
             "ko": "흰 배경 위 스페시오수스가위사슴벌레 수컷 표본의 등면. 머리가 넓고 큰턱이 안쪽으로 휜다.",
             "en": "Dorsal view of a male Cyclommatus speciosus on white, with a broad head and inward-curving mandibles.",
             "ja": "白背景に置いたスペキオススホソアカクワガタ（Cyclommatus speciosus）雄の背面。頭部は幅広く、大顎は内側に湾曲する。"
-          }
+          },
+          "cutout": "cutouts/cyclomatus-speciosus-rbins-id-1727.webp"
         },
         {
           "file": "Cyclomatus speciosus (from projects.biodiversity.be) ID-1725.jpg",
@@ -2020,7 +2034,8 @@
             "ko": "흰 배경 위 스페시오수스가위사슴벌레 소형 수컷 표본의 등면.",
             "en": "Dorsal view of a small male C. speciosus on white.",
             "ja": "白背景に置いたC. speciosus小型雄の背面。"
-          }
+          },
+          "cutout": "cutouts/cyclomatus-speciosus-rbins-id-1725.webp"
         },
         {
           "file": "Cyclomatus speciosus (from projects.biodiversity.be) ID-1726.jpg",
@@ -2032,7 +2047,8 @@
             "ko": "흰 배경 위 스페시오수스가위사슴벌레 암컷으로 보이는 표본의 등면.",
             "en": "Dorsal view of an apparently female C. speciosus specimen on white.",
             "ja": "白背景に置いた、雌とみられるC. speciosus標本の背面。"
-          }
+          },
+          "cutout": "cutouts/cyclomatus-speciosus-rbins-id-1726.webp"
         }
       ],
       "model3d": null,

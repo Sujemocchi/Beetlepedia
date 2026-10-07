@@ -15,7 +15,7 @@
   function renderHero() {
     var imgs = BP.genera.map(function (g) { return g.images && (g.images.card || g.images.hero); }).filter(Boolean);
     document.getElementById("hero-img").innerHTML = imgs.map(function (img) {
-      return '<div class="tile' + (img.white ? " plate" : "") + '">' + App.imgHTML(img, { width: 1000, eager: true }) + "</div>";
+      return '<div class="tile' + App.frameClass(img) + '">' + App.imgHTML(img, { width: 1000, eager: true }) + "</div>";
     }).join("");
     document.getElementById("hero-credit").innerHTML = imgs.map(App.creditHTML).join("<br>");
     document.getElementById("hero-stats").innerHTML =

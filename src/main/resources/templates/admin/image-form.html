@@ -16,6 +16,7 @@
       <label>라이선스 <input th:field="*{license}" placeholder="CC BY-SA 4.0" required></label>
       <label class="wide">라이선스 URL <input type="url" th:field="*{licenseUrl}" placeholder="https://creativecommons.org/licenses/by-sa/4.0"></label>
       <label class="check"><input type="checkbox" th:field="*{white}"> 흰 배경 표본 사진</label>
+      <label class="wide">배경 제거본 (static/assets/images 기준, 선택) <input th:field="*{cutout}" placeholder="cutouts/elapus.webp"></label>
     </fieldset>
     <fieldset th:replace="~{admin/fragments :: tri('대체 텍스트', 'alt', 2)}"></fieldset>
     <div class="actions">

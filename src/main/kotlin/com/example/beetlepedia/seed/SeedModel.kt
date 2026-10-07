@@ -44,6 +44,8 @@ data class ImageSeed(
 	val licenseUrl: String? = null,
 	val white: Boolean = false,
 	val alt: TextSeed = TextSeed(),
+	/** Background-removed copy under static/assets/images, made with tools/cutout. */
+	val cutout: String? = null,
 )
 
 /** [box] = [lonMin, latMin, lonMax, latMax]; [point] = [lon, lat]. */

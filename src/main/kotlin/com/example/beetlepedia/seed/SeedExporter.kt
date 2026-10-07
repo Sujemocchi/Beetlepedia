@@ -165,7 +165,7 @@ class SeedExporter(
 	private fun text(t: LocalizedText?) = t?.takeUnless { it.isEmpty() }?.let { TextSeed(it.ko, it.en, it.ja) }
 	private fun rank(r: RankEntry) = RankSeed(text(r.rank)!!, r.name, text(r.common))
 	private fun source(s: Source) = SourceSeed(s.title, s.url)
-	private fun image(i: Image) = ImageSeed(i.file, i.author, i.license, i.licenseUrl, i.white, text(i.alt) ?: TextSeed())
+	private fun image(i: Image) = ImageSeed(i.file, i.author, i.license, i.licenseUrl, i.white, text(i.alt) ?: TextSeed(), i.cutout)
 	private fun range(r: SizeRange?): List<Double?>? = r?.takeIf { it.max != null }?.let { listOf(it.min, it.max) }
 	private fun area(a: Area) = AreaSeed(
 		name = text(a.name)!!,

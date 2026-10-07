@@ -30,7 +30,7 @@ class ApiMapper {
 	fun rank(r: BaseRank) = RankDto(textOrEmpty(r.rank), r.name, text(r.common))
 	fun source(s: Source) = SourceDto(s.title, s.url)
 
-	fun image(i: Image) = ImageDto(i.file, i.author, i.license, i.licenseUrl, i.white, textOrEmpty(i.alt))
+	fun image(i: Image) = ImageDto(i.file, i.author, i.license, i.licenseUrl, i.white, textOrEmpty(i.alt), i.cutout)
 
 	fun area(a: Area) = AreaDto(
 		name = textOrEmpty(a.name),
