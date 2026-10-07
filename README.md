@@ -160,9 +160,12 @@ mkdir -p tools/mapgen/.cache && cd tools/mapgen/.cache
 curl -o countries-50m.json https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json
 curl -L -o admin1.geojson https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson
 curl -L -o admin0.geojson https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson
+curl -L -o places-full.geojson https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_populated_places.geojson
 cd ../../.. && node tools/mapgen/gen.js tools/mapgen/.cache/countries-50m.json src/main/resources/static/assets/maps tools/mapgen/.cache/admin1.geojson
 ```
 
+- **이동·확대**: 드래그(모바일은 한 손가락)로 움직이고, 지도 틀(지역 범위) 밖으로는 나가지 않습니다. 확대는 3단계(지역 전체 → 국가·큰 섬 → 도시)이며, `+`/`−` 버튼, Ctrl(⌘)+휠(한 칸 = 한 단계, 커서 기준; 그냥 휠은 페이지 스크롤과 안내 표시), 더블클릭, 두 손가락 핀치, 지도에 포커스가 있을 때 방향키·`+`/`-`로 조작합니다. 확대해도 선 두께·점 크기·줄무늬·글자 크기는 화면 기준으로 같습니다. 종 페이지 지도는 분포 범위가 다 보이는 가장 가까운 단계로 맞춥니다.
+- **도시**: 3단계에서 Natural Earth 1:10m populated places의 큰 도시(지역마다 인구순 300여 곳, 수도 포함)를 인구 순서대로 겹치지 않게 최대 60개까지 표시합니다(수도는 주황색 점).
 - 지도에 마우스를 올리면 **"행정구역, 섬, 국가"** 형식으로 이름을 보여 줍니다(예: 벵쿨루, 수마트라섬, 인도네시아 / Bengkulu, Sumatra, Indonesia / ブンクル州、スマトラ島、インドネシア). 섬이 국가·행정구역 이름과 같으면(쿠바, 발리 등) 섬 이름은 생략합니다.
 - 행정구역 이름은 Natural Earth의 `name_ko`·`name_ja`(Wikidata 기반)를 쓰고, 틀리거나 비어 있는 것은 `tools/mapgen/admin-names.json`에서 고칩니다(예: "븡쿨루" → "벵쿨루"). 여러 섬에 걸친 주(동·서누사틍가라 → 소순다 열도)의 섬 이름도 여기서 지정합니다.
 - 섬 이름은 `tools/mapgen/admin.js`의 섬 표(인도네시아·말레이시아·필리핀·파푸아뉴기니·적도기니·탄자니아·카리브해 등)로 붙입니다. 행정구역의 가장 큰 부분의 중심이 그 섬의 1:50m 육지 안(또는 해안선 10 km 이내)에 있으면 그 섬으로 봅니다.
