@@ -73,7 +73,7 @@ class TaxonomyApiTests(@Autowired val mvc: MockMvc) {
 			jsonPath("$.genera[*].id", contains("goliathus", "cyclommatus", "dynastes"))
 			jsonPath("$.taxa", hasSize<Any>(28))
 			jsonPath("$.baseTaxonomy[0].name") { value("Animalia") }
-			jsonPath("$.sources.length()") { value(142) }
+			jsonPath("$.sources.length()") { value(141) }
 			jsonPath("$.areas.length()") { value(13) }
 			jsonPath("$.countries.length()") { value(61) }
 			jsonPath("$.maps.length()") { value(3) }
@@ -112,7 +112,7 @@ class TaxonomyApiTests(@Autowired val mvc: MockMvc) {
 		mvc.get("/api/taxa/dynastes-hercules-lichyi").andExpect {
 			jsonPath("$.issues[0].title.ko") { value("아종인가, 종인가") }
 			jsonPath("$.issues[0].sources[0]") { exists() }
-			jsonPath("$.images", hasSize<Any>(4))
+			jsonPath("$.images", hasSize<Any>(1))
 			jsonPath("$.images[0].white") { value(true) }
 		}
 	}

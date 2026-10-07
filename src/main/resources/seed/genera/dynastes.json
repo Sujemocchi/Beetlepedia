@@ -322,15 +322,15 @@
   ],
   "images": {
     "hero": {
-      "file": "Dynastes hercules ecuatorianus MHNT.jpg",
-      "author": "Didier Descouens",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "file": "Dynastes hercules.lichyi (male).JPG",
+      "author": "Anaxibia",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
       "white": true,
       "alt": {
-        "ko": "페루 이키토스산 헤라클레스장수풍뎅이 에콰토리아누스 수컷 표본(15.5cm)의 옆모습. 밝은 회백색 바탕",
-        "en": "Male Hercules beetle (ecuatorianus) from Iquitos, Peru, 15.5 cm, lateral view on light grey-white background",
-        "ja": "ペルー・イキトス産ヘラクレスオオカブト（エクアトリアヌス）のオス、15.5 cm。明るい灰白色の背景での側面"
+        "ko": "페루산 헤라클레스 리키 수컷 표본(144mm)의 등면. 흰 스티로폼 바탕",
+        "en": "Male D. h. lichyi from Peru, 144 mm, dorsal view on white styrofoam",
+        "ja": "ペルー産D. h. lichyiのオス、144 mm。白い発泡スチロール上での背面"
       }
     }
   },
@@ -905,42 +905,6 @@
       ],
       "images": [
         {
-          "file": "Dynastes hercules lichyi (Lachaume, 1985) male (8538220569).png",
-          "author": "Udo Schmidt from Deutschland",
-          "license": "CC BY-SA 2.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-          "white": true,
-          "alt": {
-            "ko": "베네수엘라 란초그란데산 헤라클레스 리키 수컷 표본(138mm)의 옆모습. 흰 바탕",
-            "en": "Male D. h. lichyi, 138 mm, Rancho Grande, Venezuela, lateral view on white",
-            "ja": "ベネズエラ・Rancho Grande産D. h. lichyiのオス、138 mm。白背景での側面"
-          }
-        },
-        {
-          "file": "Dynastes hercules lichyi (Lachaume, 1985) female (8538216877).png",
-          "author": "Udo Schmidt from Deutschland",
-          "license": "CC BY-SA 2.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-          "white": true,
-          "alt": {
-            "ko": "베네수엘라 란초그란데산 헤라클레스 리키 암컷 표본(62mm)의 등면. 흰 바탕",
-            "en": "Female D. h. lichyi, 62 mm, Rancho Grande, Venezuela, dorsal view on white",
-            "ja": "ベネズエラ・Rancho Grande産D. h. lichyiのメス、62 mm。白背景での背面"
-          }
-        },
-        {
-          "file": "Dynastesherculeslichyi.JPG",
-          "author": "Notafly",
-          "license": "CC BY-SA 3.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-          "white": true,
-          "alt": {
-            "ko": "헤라클레스 리키 수컷 표본의 옆모습. 흰 바탕",
-            "en": "Male D. h. lichyi specimen, lateral view on white",
-            "ja": "D. h. lichyiのオス標本。白背景での側面"
-          }
-        },
-        {
           "file": "Dynastes hercules.lichyi (male).JPG",
           "author": "Anaxibia",
           "license": "CC BY-SA 3.0",
@@ -1091,18 +1055,6 @@
         }
       ],
       "images": [
-        {
-          "file": "Dynastes hercules ecuatorianus MHNT.jpg",
-          "author": "Didier Descouens",
-          "license": "CC BY-SA 4.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-          "white": true,
-          "alt": {
-            "ko": "페루 이키토스산 헤라클레스장수풍뎅이 에콰토리아누스 수컷 표본(15.5cm)의 옆모습. 밝은 회백색 바탕",
-            "en": "Male Hercules beetle (ecuatorianus) from Iquitos, Peru, 15.5 cm, lateral view on light grey-white background",
-            "ja": "ペルー・イキトス産ヘラクレスオオカブト（エクアトリアヌス）のオス、15.5 cm。明るい灰白色の背景での側面"
-          }
-        },
         {
           "file": "Dynastes hercules f2.jpg",
           "author": "JohnSka",

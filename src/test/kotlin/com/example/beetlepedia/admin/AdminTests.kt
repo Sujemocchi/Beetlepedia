@@ -85,7 +85,7 @@ class AdminEditTests(
 		mvc.get("/admin/taxa").andExpect { content { string(containsString("Dynastes hercules lichyi")) } }
 		mvc.get("/admin/taxa/cyclommatus-chewi").andExpect { content { string(containsString("츄위가위사슴벌레")) } }
 		mvc.get("/admin/sources").andExpect { content { string(containsString("dy-gbif-dh")) } }
-		mvc.get("/admin/images").andExpect { content { string(containsString("Dynastes hercules ecuatorianus MHNT.jpg")) } }
+		mvc.get("/admin/images").andExpect { content { string(containsString("Dynastes hercules.lichyi (male).JPG")) } }
 	}
 
 	@Test

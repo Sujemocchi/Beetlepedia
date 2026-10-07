@@ -285,25 +285,27 @@
   ],
   "images": {
     "hero": {
-      "file": "Goliath beetles (25553087544).jpg",
-      "author": "Thomas Quine",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "file": "Goliathus-goliathus-drury3 hg.jpg",
+      "author": "Hannes Grobe",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "white": true,
       "alt": {
-        "ko": "표본 상자 속 골리앗꽃무지들",
-        "en": "Goliath beetles in a specimen display",
-        "ja": "標本箱に並ぶゴライアスオオツノハナムグリ類"
+        "ko": "흰 바탕 위 골리앗꽃무지 수컷 표본의 등면. 흰 머리와 검은 줄무늬 앞가슴, 적갈색 딱지날개",
+        "en": "Dorsal view of a male Goliathus goliatus specimen on white: white head, black-striped pronotum, red-brown elytra",
+        "ja": "白地に置かれたGoliathus goliatus雄標本の背面：白い頭部、黒い縞のある前胸背板、赤褐色の上翅"
       }
     },
     "overview": {
-      "file": "Goliathus regius, Goliathus cacicus, Goliathus orientalis (10656790965).jpg",
-      "author": "Gennady Grachev",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "file": "Goliathus-regius 2007-04.jpg",
+      "author": "Skyscraper",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "white": true,
       "alt": {
-        "ko": "G. regius, G. cacicus, G. orientalis 표본을 나란히 놓은 사진",
-        "en": "Specimens of G. regius, G. cacicus and G. orientalis side by side",
-        "ja": "G. regius、G. cacicus、G. orientalisの標本を並べたもの"
+        "ko": "흰 바탕 위 레기우스 골리앗꽃무지 수컷 표본의 등면. 흰 딱지날개 양옆에 검은 무늬",
+        "en": "Dorsal view of a male Goliathus regius specimen on white, with black markings along the white elytra",
+        "ja": "白地に置かれたGoliathus regius雄標本の背面。白い上翅の両側に黒い斑紋がある"
       }
     }
   },
@@ -458,6 +460,7 @@
           "author": "Didier Descouens",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "white": true,
           "alt": {
             "ko": "골리앗꽃무지 수컷 표본의 등면. 흰 머리와 검은 줄무늬 앞가슴, 갈색 딱지날개",
             "en": "Dorsal view of a male Goliathus goliatus specimen: white head, black-striped pronotum, brown elytra",
@@ -465,25 +468,15 @@
           }
         },
         {
-          "file": "Goliathus goliatus vol.jpg",
-          "author": "Didier Descouens",
+          "file": "Goliathus-goliathus-drury1 hg.jpg",
+          "author": "Hannes Grobe",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
           "alt": {
-            "ko": "뒷날개를 펼친 비행 자세의 골리앗꽃무지 표본",
-            "en": "Goliathus goliatus specimen in flight position with hindwings spread",
-            "ja": "後翅を広げた飛翔姿勢のGoliathus goliatus標本"
-          }
-        },
-        {
-          "file": "Goliath beetle (Goliathus goliatus), Entomica.jpg",
-          "author": "Fungus Guy",
-          "license": "CC BY-SA 4.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-          "alt": {
-            "ko": "사람 손 위에 올려진 골리앗꽃무지. 손바닥을 거의 덮는 크기",
-            "en": "A Goliath beetle held on a human hand, covering most of the palm",
-            "ja": "人の手に載せたゴライアスオオツノハナムグリ。手のひらの大半を覆う大きさ"
+            "ko": "흰 바탕 위 골리앗꽃무지 수컷 표본의 등면(다른 개체)",
+            "en": "Dorsal view of another male Goliathus goliatus specimen on white",
+            "ja": "白地に置かれた別のGoliathus goliatus雄標本の背面"
           }
         }
       ],
@@ -645,10 +638,23 @@
           "author": "Hannes Grobe",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
           "alt": {
             "ko": "레기우스 골리앗꽃무지 표본. 흰 딱지날개에 검은 무늬",
             "en": "Goliathus regius specimen: white elytra with black markings",
             "ja": "Goliathus regius標本：黒い斑紋のある白い上翅"
+          }
+        },
+        {
+          "file": "Goliathus regius mâle GLAM muséum Lille 2016.JPG",
+          "author": "Musée d'histoire naturelle de Lille",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": {
+            "ko": "흰 바탕 위 레기우스 골리앗꽃무지 수컷 표본의 등면(릴 자연사박물관)",
+            "en": "Dorsal view of a male Goliathus regius on white (Lille Natural History Museum)",
+            "ja": "白地に置かれたGoliathus regius雄標本の背面（リール自然史博物館）"
           }
         }
       ],
@@ -818,10 +824,23 @@
       ],
       "images": [
         {
+          "file": "Goliathus-meleagris hg.jpg",
+          "author": "Hannes Grobe",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": {
+            "ko": "흰 바탕 위 오리엔탈리스 골리앗꽃무지('meleagris' 형) 수컷 표본의 등면. 흰 딱지날개에 검은 그물 무늬",
+            "en": "Dorsal view of a male Goliathus orientalis ('meleagris' form) on white, with a black net pattern on the white elytra",
+            "ja": "白地に置かれたGoliathus orientalis（'meleagris'型）雄標本の背面。白い上翅に黒い網目模様がある"
+          }
+        },
+        {
           "file": "Goliathusorientalis.JPG",
           "author": "Notafly",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "white": true,
           "alt": {
             "ko": "오리엔탈리스 골리앗꽃무지 표본. 흰 딱지날개에 검은 고리 무늬",
             "en": "Goliathus orientalis specimen with black ring markings on white elytra",
@@ -994,10 +1013,23 @@
       ],
       "images": [
         {
+          "file": "Goliathus cacicus mâle GLAM muséum Lille 2016.JPG",
+          "author": "Musée d'histoire naturelle de Lille",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
+          "alt": {
+            "ko": "흰 바탕 위 카키쿠스 골리앗꽃무지 수컷 표본의 등면. 주황빛 앞가슴과 흰 딱지날개",
+            "en": "Dorsal view of a male Goliathus cacicus on white: orange-tinged pronotum and white elytra",
+            "ja": "白地に置かれたGoliathus cacicus雄標本の背面：橙色を帯びた前胸背板と白い上翅"
+          }
+        },
+        {
           "file": "Goliathus-cacicus hg.jpg",
           "author": "Hannes Grobe",
           "license": "CC BY-SA 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "white": true,
           "alt": {
             "ko": "카키쿠스 골리앗꽃무지 표본",
             "en": "Goliathus cacicus specimen",
@@ -1175,6 +1207,7 @@
           "author": "Notafly",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "white": true,
           "alt": {
             "ko": "알보시그나투스 골리앗꽃무지 수컷 표본. 딱지날개를 가로지르는 검은 띠",
             "en": "Male Goliathus albosignatus specimen with black bands across the elytra",
@@ -1182,14 +1215,15 @@
           }
         },
         {
-          "file": "Goliathus albosignatusPair.JPG",
+          "file": "Goliathus albosignatusFemale.JPG",
           "author": "Notafly",
           "license": "CC BY-SA 3.0",
           "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "white": true,
           "alt": {
-            "ko": "알보시그나투스 골리앗꽃무지 암수 한 쌍",
-            "en": "A male and female Goliathus albosignatus",
-            "ja": "Goliathus albosignatusの雄と雌"
+            "ko": "흰 바탕 위 알보시그나투스 골리앗꽃무지 암컷 표본의 등면",
+            "en": "Dorsal view of a female Goliathus albosignatus specimen on white",
+            "ja": "白地に置かれたGoliathus albosignatus雌標本の背面"
           }
         }
       ],
