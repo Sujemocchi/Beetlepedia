@@ -56,3 +56,6 @@ tools/cutout/.review/
 
 ### Map generator downloads (Natural Earth source data) ###
 tools/mapgen/.cache/
+
+### Python bytecode ###
+__pycache__/

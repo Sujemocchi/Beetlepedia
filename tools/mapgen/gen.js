@@ -12,6 +12,8 @@ const admin0 = process.argv[4] ? JSON.parse(fs.readFileSync(path.join(path.dirna
 const COUNTRY = {};
 admin0.forEach((c) => { const p = c.properties; COUNTRY[p.ADM0_A3] = COUNTRY[p.ADM0_A3] || [p.NAME_EN, p.NAME_KO, p.NAME_JA]; });
 COUNTRY.SSD = COUNTRY.SDS;
+// Populated places (ne_10m_populated_places, places-full.geojson next to the admin-1 file): shown at the closest zoom.
+const PLACES = process.argv[4] ? JSON.parse(fs.readFileSync(path.join(path.dirname(process.argv[4]), "places-full.geojson"), "utf8")).features : [];
 
 const NUM = {
   // Africa
@@ -39,10 +41,10 @@ const NUM = {
 const AFRICA = new Set(["DZA","AGO","BEN","BWA","BFA","BDI","CMR","CAF","TCD","COM","COG","COD","CIV","DJI","EGY","GNQ","ERI","SWZ","ETH","GAB","GMB","GHA","GIN","GNB","KEN","LSO","LBR","LBY","MDG","MWI","MLI","MRT","MAR","MOZ","NAM","NER","NGA","RWA","STP","SEN","SLE","SOM","ZAF","SSD","SDN","TZA","TGO","TUN","UGA","ESH","ZMB","ZWE","SOL"]);
 
 const REGIONS = [
-  // adminTol: simplification tolerance (map units) for the administrative outlines
-  { id: "africa", lon: [-19, 53], lat: [-36, 38], k: 9.6, adminTol: 1.3, keep: (iso) => AFRICA.has(iso) },
-  { id: "southeast-asia", lon: [88, 162], lat: [-14, 27], k: 9, adminTol: 1.1, keep: () => true },
-  { id: "neotropics", lon: [-118, -33], lat: [-28, 33], k: 8, adminTol: 1.1, keep: (iso) => iso !== "N010" }
+  // adminTol: simplification tolerance (map units) for the administrative outlines; cities: how many places to keep
+  { id: "africa", lon: [-19, 53], lat: [-36, 38], k: 9.6, adminTol: 1.3, cities: 360, keep: (iso) => AFRICA.has(iso) },
+  { id: "southeast-asia", lon: [88, 162], lat: [-14, 27], k: 9, adminTol: 1.1, cities: 360, keep: () => true },
+  { id: "neotropics", lon: [-118, -33], lat: [-28, 33], k: 8, adminTol: 1.1, cities: 320, keep: (iso) => iso !== "N010" }
 ];
 
 // ---- TopoJSON decoding ----
@@ -155,6 +157,17 @@ REGIONS.forEach((R) => {
       if (!data.countries[iso]) data.countries[iso] = COUNTRY[iso] || (name ? [name, name, name] : undefined);
     });
     Object.keys(data.countries).forEach((k) => { if (!data.countries[k]) delete data.countries[k]; });
+    // Cities, largest first (the page labels them in this order and skips overlaps): [en, ko, ja, x, y, capital]
+    data.cities = PLACES.filter((c) => {
+      const p = c.properties, lon = p.LONGITUDE, lat = p.LATITUDE;
+      return lon >= R.lon[0] && lon <= R.lon[1] && lat >= R.lat[0] && lat <= R.lat[1] && R.keep(p.ADM0_A3 === "SDS" ? "SSD" : p.ADM0_A3);
+    }).sort((a, b) => (b.properties.ADM0CAP - a.properties.ADM0CAP) * 1e9 + b.properties.POP_MAX - a.properties.POP_MAX)
+      .slice(0, R.cities)
+      .sort((a, b) => b.properties.POP_MAX - a.properties.POP_MAX)
+      .map((c) => {
+        const p = c.properties, en = p.NAME_EN || p.NAME, [x, y] = proj([p.LONGITUDE, p.LATITUDE]);
+        return [en, p.NAME_KO && p.NAME_KO !== en ? p.NAME_KO : 0, p.NAME_JA && p.NAME_JA !== en ? p.NAME_JA : 0, +x.toFixed(1), +y.toFixed(1), p.ADM0CAP ? 1 : 0];
+      });
     fs.writeFileSync(path.join(__dirname, ".cache", "missing-names-" + R.id + ".txt"), a.missing.join("\n") + "\n");
     console.log(R.id, a.admin.length, "admin regions,", Object.keys(a.islands).length, "islands,", a.missing.length, "names missing (see .cache)");
     if (a.unresolved.length) console.log("  island points not on land:", a.unresolved.join(", "));
