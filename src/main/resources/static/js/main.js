@@ -360,10 +360,17 @@
     for (var i = 0; scenes[i] !== scene; i++) y += scenes[i].offsetHeight;
     return y + (el === scene ? 0 : el.getBoundingClientRect().top - scene.getBoundingClientRect().top);
   }
-  // Scrolls so that el sits just below the fixed header.
+  // Scrolls so that el sits just below the fixed header. Something near the end of a section stops where that
+  // section is still uncovered (its bottom at the bottom of the screen), not under the next one.
   function scrollToEl(el, smooth) {
     var pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
-    window.scrollTo({ top: Math.max(0, flowTop(el) - pad), behavior: smooth && !reduceMotion ? "smooth" : "auto" });
+    var y = flowTop(el) - pad;
+    var scene = scenes.filter(function (s) { return s.contains(el) && s !== el; })[0];
+    if (scene) {
+      var start = flowTop(scene);
+      y = Math.max(start - pad, Math.min(y, start + scene.offsetHeight - window.innerHeight));
+    }
+    window.scrollTo({ top: Math.max(0, y), behavior: smooth && !reduceMotion ? "smooth" : "auto" });
   }
   function initScenes() {
     var main = document.getElementById("main");

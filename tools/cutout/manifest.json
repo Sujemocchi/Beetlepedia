@@ -54,7 +54,20 @@
   {
     "file": "Dynastes hercules.lichyi (male).JPG",
     "out": "dynastes-hercules-lichyi-male.webp",
-    "floor": 42
+    "floor": 12,
+    "shadow": {
+      "L": [
+        40,
+        97
+      ],
+      "C": 8,
+      "open": 4,
+      "grow": [
+        28,
+        30
+      ]
+    },
+    "gloss": true
   },
   {
     "file": "Dynastes hercules f2.jpg",
@@ -147,5 +160,31 @@
     "out": "dynastes-hercules-lichyi-udo-female.webp",
     "rotate": -90,
     "floor": 12
+  },
+  {
+    "file": "Cyclommatus cropped.jpg",
+    "out": "cyclommatus-truncatus-male.webp",
+    "width": 4000,
+    "crop": [
+      0.655,
+      0.13,
+      0.906,
+      0.93
+    ],
+    "method": "rembg",
+    "erase": [
+      [
+        0.872,
+        0.215,
+        1.0,
+        0.27
+      ],
+      [
+        0.185,
+        0.214,
+        0.206,
+        0.228
+      ]
+    ]
   }
 ]

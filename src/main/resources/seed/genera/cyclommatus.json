@@ -1838,20 +1838,22 @@
       ],
       "images": [
         {
-          "file": "Cyclommatus.jpg",
+          "file": "Cyclommatus cropped.jpg",
           "author": "Sq10",
-          "license": "CC BY-SA 4.0",
-          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
           "white": true,
           "alt": {
-            "ko": "흰 바탕 상자 속 표본 세 종. 왼쪽부터 엘라푸스가위사슴벌레 수컷, 임페라토르가위사슴벌레 수컷, 오른쪽 갈색 한 쌍이 트룬카투스가위사슴벌레이다.",
-            "en": "Specimens on a white board: from left, C. elaphus male, C. imperator male, and on the right a brown C. truncatus pair.",
-            "ja": "白いボード上の標本。左からC. elaphus雄、C. imperator雄、右は褐色のC. truncatusのペア。"
-          }
+            "ko": "트룬카투스가위사슴벌레 수컷의 등면 표본. 적갈색 몸에 녹색 광택이 도는 큰턱을 가졌다. 세 종을 함께 찍은 표본 사진에서 이 개체만 잘라 냈다.",
+            "en": "Dorsal view of a male Cyclommatus truncatus, red-brown with green-sheened mandibles, cut out of a photo of several specimens.",
+            "ja": "トルンカートゥスホソアカクワガタ雄の背面。赤褐色の体に緑の光沢を帯びた大顎をもつ。複数の標本を写した写真からこの個体だけを切り出した。"
+          },
+          "cutout": "cutouts/cyclommatus-truncatus-male.webp"
         }
       ],
       "model3d": null,
       "sources": [
+        "cy-commons-cyclommatus-cropped",
         "cy-gbif-truncatus",
         "cy-bionica-elaphus",
         "cy-enwiki-elaphus",
@@ -2175,6 +2177,10 @@
     "cy-commons-ssp-finae": {
       "title": "Wikimedia Commons: File:Ssp finae.JPG",
       "url": "https://commons.wikimedia.org/wiki/File:Ssp_finae.JPG"
+    },
+    "cy-commons-cyclommatus-cropped": {
+      "title": "Wikimedia Commons: File:Cyclommatus cropped.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Cyclommatus_cropped.jpg"
     },
     "cy-yanagawa-imperator": {
       "title": "kuwa-yanagawa blog: 飼育種紹介 その30 インペラトールホソアカクワガタ",

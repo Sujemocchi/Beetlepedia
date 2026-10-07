@@ -202,7 +202,7 @@ tools/cutout/.venv/Scripts/python tools/cutout/cutout.py          # manifest.jso
 tools/cutout/.venv/Scripts/python tools/cutout/cutout.py elapus   # 이름에 elapus가 들어간 항목만
 ```
 - 신경망(rembg `isnet-general-use`) 마스크와, 배경색 모델과의 색 차이 마스크를 합칩니다. 신경망이 놓치는 가는 다리·더듬이 끝을 색 차이 마스크가 살립니다.
-- `manifest.json` 항목별로 `rotate`(회전), `floor`(배경으로 볼 색 차이 하한: 어두운 표본·받침 그림자용), `de`(색 차이 범위)를 조절합니다.
+- `manifest.json` 항목별로 `rotate`(회전), `floor`(배경으로 볼 색 차이 하한: 어두운 표본·받침 그림자용), `de`(색 차이 범위), `method`(`rembg`만 쓰면 라벨·그림자를 덜 집음), `shadow`(진한 회색 받침 그림자 제거), `gloss`(몸 안의 흰 광택 메우기), `crop`·`width`(단체 사진에서 한 개체 잘라 내기), `erase`(핀 등 지울 상자)를 조절합니다. 자세한 뜻은 `cutout.py` 머리 주석에 있습니다.
 - `tools/cutout/.review/`의 검토 이미지(원본 | 어두운 배경 | 자홍색 배경)로 다리·발톱·더듬이·큰턱 톱니가 남았는지, 흰 테두리나 그림자가 없는지 반드시 눈으로 확인합니다.
 - 회전한 사진(Udo Schmidt의 *D. h. lichyi* 수컷·암컷)은 누끼만 회전되어 있으므로, 누끼를 불러오지 못할 때 보이는 원본은 옆으로 누워 있습니다.
 
@@ -218,12 +218,12 @@ tools/cutout/.venv/Scripts/python tools/cutout/silhouette.py   # data/silhouette
 - 셰이딩은 같은 범위의 누끼를 흑백·저대비로 만든 이미지를 윤곽 안에 `soft-light`로 겹친 것이라, 분류군 색(`currentColor`)이 그대로 유지됩니다.
 
 ### TODO: 이미지
-- 사진 없음: *C. monguilloni*, *C. chewi*, *C. lunifer*, *D. h. reidi*, *baudrii*, *occidentalis*, *tuxtlaensis*, *trinidadensis*, *bleuzeni*, *paschoali*, *morishimai*, *takakuwai*.
-- *C. metallifer finae*의 `Ssp finae.JPG`는 파일명과 일본어 위키백과 캡션은 펠렝(finae)인데 Commons 설명란에는 *aenomicans*로 적혀 있습니다. 확인이 필요합니다.
-- *C. truncatus*의 사진은 세 종을 함께 찍은 단체 사진입니다. 단독 등면 사진이 Commons에 없어 그대로 둡니다(잘라 낸 사진이 있으면 교체하기).
-- 등면 표본 사진을 찾지 못해 기존 사진을 유지: *D. h. hercules*(야생·사육 개체), *D. h. septentrionalis*(야생 암컷·수컷). *D. h. ecuatorianus*는 수컷 등면 사진이 없어 암컷 등면 사진이 대표입니다.
+- 사진 없음: *C. monguilloni*, *C. chewi*, *C. lunifer*, *D. h. reidi*, *baudrii*, *occidentalis*, *tuxtlaensis*, *trinidadensis*, *bleuzeni*, *paschoali*, *morishimai*, *takakuwai*. (2026-10-07 재검색: Commons의 관련 파일 약 600개 제목과 분류 카테고리를 다시 확인했으나 쓸 수 있는 등면 표본 사진이 없음)
+- 등면 표본 사진을 찾지 못해 기존 사진을 유지: *D. h. hercules*(야생·사육 개체), *D. h. septentrionalis*(야생 암컷·수컷). *D. h. ecuatorianus*는 수컷 등면 사진이 없어 암컷 등면 사진이 대표입니다(MHNT 수컷 사진은 옆모습).
+- *C. truncatus*는 세 종을 함께 찍은 표본 사진(`Cyclommatus cropped.jpg`, CC BY 4.0)에서 수컷만 잘라 누끼를 만들었습니다(`tools/cutout`의 `crop`, 핀은 `erase`로 지움). 단독 등면 사진이 Commons에 올라오면 교체하기.
 - 머리가 옆을 향한 *C. m. metallifer* 수컷(Udo Schmidt)은 아종이 달라 쓰지 않았습니다. *D. h. lichyi*의 Udo Schmidt 사진은 누끼 단계에서 회전해 씁니다.
-- *D. h. lichyi* 두 번째 사진(Anaxibia, 스티로폼 위)은 뿔 옆에 받침 그림자 조각이 조금 남아 있습니다.
+- *D. h. lichyi* 두 번째 사진(Anaxibia, 스티로폼 위)의 받침 그림자는 `shadow` 옵션으로 지웠습니다. 그늘진 머리뿔은 그림자와 밝기가 같아 rembg 마스크로 구분해 남깁니다.
+- 확인 완료: *C. metallifer finae*의 `Ssp finae.JPG`는 Commons 영어 설명이 *aenomicans*로 되어 있지만, 같은 날 올린 `Ssp aenomicans.JPG`의 설명이 그대로 복사된 것이고 일본어 설명이 「ペレンメタリ」(펠렝 메탈리퍼 = finae)라서 finae로 봅니다.
 - *G. orientalis*의 대표 사진은 'meleagris' 형 표본입니다(이 사이트에서는 orientalis와 거의 같은 것으로 봅니다).
 - *C. speciosus*의 RBINS 사진 3장은 종 수준 동정이며 아종(원명아종) 확인은 되지 않았습니다.
 

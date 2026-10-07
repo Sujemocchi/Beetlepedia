@@ -73,7 +73,7 @@ class TaxonomyApiTests(@Autowired val mvc: MockMvc) {
 			jsonPath("$.genera[*].id", contains("goliathus", "cyclommatus", "dynastes"))
 			jsonPath("$.taxa", hasSize<Any>(28))
 			jsonPath("$.baseTaxonomy[0].name") { value("Animalia") }
-			jsonPath("$.sources.length()") { value(141) }
+			jsonPath("$.sources.length()") { value(142) }
 			jsonPath("$.areas.length()") { value(13) }
 			jsonPath("$.countries.length()") { value(61) }
 			jsonPath("$.maps.length()") { value(3) }
