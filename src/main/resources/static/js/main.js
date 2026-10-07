@@ -169,6 +169,27 @@
       (opts.noCaption ? "" : "<figcaption>" + creditHTML(img) + "</figcaption>") +
       "</figure>";
   }
+  // Faint habitat photo fixed behind a genus or taxon page (data/habitats.js). Decorative: empty alt, and on a
+  // load error the layer simply disappears.
+  function habitat(genusId) {
+    return (window.BP_HABITATS || {})[genusId] || null;
+  }
+  function habitatBackdrop(genusId) {
+    var h = habitat(genusId);
+    if (!h || document.querySelector(".habitat")) return;
+    var el = document.createElement("div");
+    el.className = "habitat";
+    el.setAttribute("aria-hidden", "true");
+    el.innerHTML = '<img src="' + commonsSrc(h.file, 1920) + '" alt="" decoding="async" fetchpriority="low">';
+    el.firstChild.addEventListener("error", function () { el.remove(); document.body.classList.remove("has-habitat"); });
+    el.firstChild.addEventListener("load", function () { el.classList.add("ready"); });
+    document.body.insertBefore(el, document.body.firstChild);
+    document.body.classList.add("has-habitat");
+  }
+  function habitatCreditHTML(genusId) {
+    var h = habitat(genusId);
+    return h ? esc(t("img.habitat")) + ": " + esc(L(h.place)) + " " + creditHTML(h) : "";
+  }
   // A missing cut-out falls back to the original photo; any other image that fails becomes a labelled placeholder.
   document.addEventListener("error", function (ev) {
     var img = ev.target;
@@ -395,7 +416,8 @@
     group: group, genus: genus, taxon: taxon, generaOf: generaOf, taxaOf: taxaOf, taxaOfGroup: taxaOfGroup,
     speciesName: speciesName, abbr: abbr, ladder: ladder, areaName: areaName, rangeNames: rangeNames,
     homeUrl: homeUrl, groupUrl: groupUrl, genusUrl: genusUrl, taxonUrl: taxonUrl,
-    commonsSrc: commonsSrc, commonsPage: commonsPage, creditHTML: creditHTML, imgHTML: imgHTML, figureHTML: figureHTML, frameClass: frameClass,
+    commonsSrc: commonsSrc, commonsPage: commonsPage, creditHTML: creditHTML, imgHTML: imgHTML,
+    habitat: habitat, habitatBackdrop: habitatBackdrop, habitatCreditHTML: habitatCreditHTML, figureHTML: figureHTML, frameClass: frameClass,
     silhouette: silhouette, silhouetteSVG: silhouetteSVG, silhouetteWidth: silhouetteWidth,
     setNav: setNav, breadcrumbHTML: breadcrumbHTML, observeReveals: observeReveals,
     range: range, maxMale: maxMale, taxonName: taxonName, nameHTML: nameHTML, sourceItemHTML: sourceItemHTML,
