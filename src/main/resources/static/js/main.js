@@ -118,6 +118,8 @@
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       el.textContent = t(el.getAttribute("data-i18n"));
     });
+    var silCredits = document.getElementById("silhouette-credits");
+    if (silCredits) silCredits.innerHTML = silhouetteCreditsHTML();
     document.querySelectorAll("[data-i18n-sci]").forEach(function (el) {
       el.innerHTML = sciText(t(el.getAttribute("data-i18n-sci")));
     });
@@ -192,42 +194,31 @@
   }, true);
 
   // ---------- silhouettes ----------
-  // Each drawing fits a 100 × 160 box and spans y = 5 … 158, so it can be scaled to a body length.
-  var LEGS = function (y1, y2, y3) {
-    return '<path d="M28 ' + y1 + ' L14 ' + (y1 - 8) + ' L8 ' + (y1 - 22) + ' M27 ' + y2 + ' L10 ' + (y2 + 4) + ' L4 ' + (y2 + 18) +
-      ' M27 ' + y3 + ' L12 ' + (y3 + 14) + ' L10 ' + (y3 + 36) + ' M72 ' + y1 + ' L86 ' + (y1 - 8) + ' L92 ' + (y1 - 22) +
-      ' M73 ' + y2 + ' L90 ' + (y2 + 4) + ' L96 ' + (y2 + 18) + ' M73 ' + y3 + ' L88 ' + (y3 + 14) + ' L90 ' + (y3 + 36) +
-      '" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
-  };
-  var SILHOUETTES = {
-    // Goliath-type flower chafer with a Y-shaped head horn
-    cetoniinae:
-      '<g fill="currentColor">' +
-      '<path d="M50 30 L50 17 M50 18 L41 5 M50 18 L59 5" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" fill="none"/>' +
-      '<ellipse cx="50" cy="33" rx="11" ry="8"/>' +
-      '<path d="M29 43 Q50 37 71 43 L75 69 Q50 76 25 69 Z"/>' +
-      '<path d="M25 72 Q50 79 75 72 Q82 110 72 144 Q50 162 28 144 Q18 110 25 72 Z"/>' +
-      LEGS(48, 62, 86) + "</g>",
-    // Stag beetle with long, inward-curving mandibles
-    lucanidae:
-      '<g fill="currentColor">' +
-      '<path d="M43 47 C31 39 27 22 39 5 M57 47 C69 39 73 22 61 5 M33 30 L38 29 M67 30 L62 29" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" fill="none"/>' +
-      '<path d="M33 45 Q50 39 67 45 L69 58 Q50 63 31 58 Z"/>' +
-      '<path d="M29 61 Q50 56 71 61 L74 80 Q50 85 26 80 Z"/>' +
-      '<path d="M27 83 Q50 88 73 83 Q78 118 69 147 Q50 162 31 147 Q22 118 27 83 Z"/>' +
-      LEGS(66, 80, 98) + "</g>",
-    // Hercules-type rhinoceros beetle: long thoracic horn over the head
-    dynastinae:
-      '<g fill="currentColor">' +
-      '<path d="M46.5 60 Q45.5 30 48 9 Q50 3 52 9 Q54.5 30 53.5 60 Z"/>' +
-      '<ellipse cx="50" cy="60" rx="9" ry="6"/>' +
-      '<path d="M26 62 Q50 50 74 62 L77 86 Q50 92 23 86 Z"/>' +
-      '<path d="M24 88 Q50 94 76 88 Q83 124 72 150 Q50 162 28 150 Q17 124 24 88 Z"/>' +
-      LEGS(70, 86, 104) + "</g>"
-  };
-  function silhouette(groupId) { return SILHOUETTES[groupId] || SILHOUETTES.cetoniinae; }
+  // Traced from specimen photos by tools/cutout/silhouette.py (data/silhouettes.js). Each drawing sits in a box
+  // w × 160 whose body length (front tip → elytra end) spans y = 5 … 158, so it can be scaled to a length in mm.
+  // A grey, low-contrast copy of the photo is laid over the colour (soft-light) for gentle shading.
+  var SHAPES = window.BP_SILHOUETTES || {};
+  var silUid = 0;
+  function shape(groupId) { return SHAPES[groupId] || SHAPES.cetoniinae; }
+  function silhouetteWidth(groupId) { return shape(groupId).w; }
+  function silhouette(groupId) {
+    var s = shape(groupId), id = "sil-" + (++silUid), b = s.texBox;
+    return '<g style="isolation:isolate"><clipPath id="' + id + '"><path d="' + s.d + '" clip-rule="evenodd"/></clipPath>' +
+      '<path d="' + s.d + '" fill="currentColor" fill-rule="evenodd"/>' +
+      '<image href="' + base + s.tex + '" x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] +
+      '" preserveAspectRatio="none" clip-path="url(#' + id + ')" style="mix-blend-mode:soft-light"/></g>';
+  }
   function silhouetteSVG(groupId, cls) {
-    return '<svg class="' + (cls || "") + '" viewBox="0 0 100 160" aria-hidden="true" focusable="false">' + silhouette(groupId) + "</svg>";
+    return '<svg class="' + (cls || "") + '" viewBox="0 0 ' + silhouetteWidth(groupId) + ' 160" aria-hidden="true" focusable="false">' +
+      silhouette(groupId) + "</svg>";
+  }
+  function silhouetteCreditsHTML() {
+    return esc(t("footer.silhouettes")) + " " + Object.keys(SHAPES).map(function (k) {
+      var s = SHAPES[k];
+      return '<em class="sci">' + esc(s.species) + "</em> (© " + esc(s.author) + ', <a href="' + esc(s.licenseUrl) +
+        '" target="_blank" rel="noopener">' + esc(s.license) + '</a>, <a href="' + commonsPage(s.file) +
+        '" target="_blank" rel="noopener">Wikimedia Commons</a>)';
+    }).join(" · ");
   }
 
   // ---------- header / footer ----------
@@ -238,7 +229,7 @@
     header.innerHTML =
       '<div class="container">' +
       '<a class="brand" href="' + homeUrl() + '">' +
-      '<svg viewBox="0 0 100 160" aria-hidden="true">' + SILHOUETTES.lucanidae + "</svg>" +
+      silhouetteSVG("lucanidae") +
       '<span data-i18n="site.brand"></span></a>' +
       '<nav class="site-nav" id="site-nav" data-i18n-aria="nav.menu"><ul></ul></nav>' +
       '<div class="lang-toggle" role="group" data-i18n-aria="lang.label">' +
@@ -259,7 +250,7 @@
 
     var footer = document.createElement("footer");
     footer.className = "site-footer";
-    footer.innerHTML = '<div class="container"><p data-i18n="footer.text"></p>' +
+    footer.innerHTML = '<div class="container"><p data-i18n="footer.text"></p><p class="credit" id="silhouette-credits"></p>' +
       '<p><a href="' + homeUrl() + '">Beetlepedia</a> · ' +
       BP.groups.map(function (g) { return '<a href="' + groupUrl(g.id) + '">' + esc(g.sci) + "</a>"; }).join(" · ") + "</p></div>";
     document.body.appendChild(footer);
@@ -405,7 +396,7 @@
     speciesName: speciesName, abbr: abbr, ladder: ladder, areaName: areaName, rangeNames: rangeNames,
     homeUrl: homeUrl, groupUrl: groupUrl, genusUrl: genusUrl, taxonUrl: taxonUrl,
     commonsSrc: commonsSrc, commonsPage: commonsPage, creditHTML: creditHTML, imgHTML: imgHTML, figureHTML: figureHTML, frameClass: frameClass,
-    silhouette: silhouette, silhouetteSVG: silhouetteSVG,
+    silhouette: silhouette, silhouetteSVG: silhouetteSVG, silhouetteWidth: silhouetteWidth,
     setNav: setNav, breadcrumbHTML: breadcrumbHTML, observeReveals: observeReveals,
     range: range, maxMale: maxMale, taxonName: taxonName, nameHTML: nameHTML, sourceItemHTML: sourceItemHTML,
     taxonomyHTML: taxonomyHTML, taxonCardHTML: taxonCardHTML, genusCardHTML: genusCardHTML

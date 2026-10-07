@@ -168,5 +168,6 @@ window.I18N = {
   "img.cutout": { ko: "배경 제거 등 편집", en: "background removed and edited", ja: "背景除去などの加工" },
   "img.missing": { ko: "이미지를 불러오지 못했습니다", en: "Image could not be loaded", ja: "画像を読み込めませんでした" },
 
+  "footer.silhouettes": { ko: "실루엣은 다음 표본 사진에서 배경을 제거하고 윤곽을 따서 만들었습니다:", en: "Silhouettes traced (background removed) from these specimen photos:", ja: "シルエットは次の標本写真の背景を除去し、輪郭をなぞって作成しました：" },
   "footer.text": { ko: "교육용 비영리 사이트입니다. 사진 저작권은 각 작가에게 있으며 표시된 라이선스를 따릅니다.", en: "A non-commercial educational site. Photos remain the work of their authors under the licences shown.", ja: "教育目的の非営利サイトです。写真の著作権は各作者にあり、表示したライセンスに従います。" }
 };

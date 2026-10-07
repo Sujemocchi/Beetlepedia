@@ -1,7 +1,7 @@
 /*
  * Size comparison: every item is drawn in millimetres inside one SVG,
  * so the relative sizes are true to scale. Each taxon uses the silhouette of
- * its group (flower chafer / stag beetle / rhinoceros beetle).
+ * its group (flower chafer / stag beetle / rhinoceros beetle), traced from a specimen photo.
  *
  * BPSize.mount({ stage, species, objects, legend }, { taxa, chosen })
  */
@@ -10,8 +10,9 @@
 
   var App = window.App;
 
-  // Silhouettes span y = 5 … 158 in a 100 × 160 box.
+  // Silhouettes: the body length (mandible / horn tip → elytra end) spans y = 5 … 158 in a box w × 160.
   var TOP = 5, LEN = 153;
+  function beetleWidth(groupId, len) { return len * App.silhouetteWidth(groupId) / LEN; }
 
   function beetle(groupId, x, y, len, color) {
     var s = len / LEN;
@@ -44,7 +45,7 @@
     { id: "hand", label: "obj.hand", note: "obj.hand.note", h: 185, w: 114, draw: drawHand },
     { id: "card", label: "obj.card", note: "obj.card.note", h: 85.6, w: 53.98, draw: drawCard },
     { id: "coin", label: "obj.coin", note: "obj.coin.note", h: 26.5, w: 26.5, draw: drawCoin },
-    { id: "dichotomus", label: "obj.dichotomus", note: "obj.dichotomus.note", h: 80, w: 80 * 100 / LEN,
+    { id: "dichotomus", label: "obj.dichotomus", note: "obj.dichotomus.note", h: 80, w: beetleWidth("dynastinae", 80),
       draw: function (x, y) { return beetle("dynastinae", x, y, 80, "#7a4a2a"); } }
   ];
 
@@ -65,7 +66,7 @@
         if (chosenSpecies.indexOf(x.id) === -1) return;
         var len = App.maxMale(x);
         items.push({
-          w: len * 100 / LEN, h: len, title: App.abbr(x.sci), sci: true, sub: len + " mm",
+          w: beetleWidth(x.group, len), h: len, title: App.abbr(x.sci), sci: true, sub: len + " mm",
           draw: function (px, py) { return beetle(x.group, px, py, len, x.color); }
         });
       });
