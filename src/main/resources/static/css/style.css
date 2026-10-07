@@ -443,18 +443,28 @@ table.compare .en { color: var(--text-faint); display: block; font-size: 0.85rem
    Sections stick when their bottom reaches the bottom of the screen (top is set inline) and the next one slides
    over them. The covered section is clipped at the incoming edge (--clip) while its content sinks back and fades
    (--cover, 0 → 1); a hero's photo slowly zooms in instead. No transform on <main> or the sections themselves,
-   so the fixed habitat backdrop and the header stay put. */
+   so the fixed habitat backdrop and the header stay put.
+   Pacing: every titled section fills at least one screen (short ones are centred), so it is never covered
+   before it has been shown whole, and the next section waits --scene-hold of scrolling (a transparent gap
+   above it, over the stuck section) before it starts to come up. */
+:root { --scene-hold: 40vh; }
 html.scenes main > section { position: sticky; }
-html.scenes main > section + section { box-shadow: 0 -30px 60px -30px rgba(0, 0, 0, 0.8); }
+html.scenes main > section.section {
+  min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+}
+html.scenes main > section + section { margin-top: var(--scene-hold); box-shadow: 0 -30px 60px -30px rgba(0, 0, 0, 0.8); }
 html.scenes main > section.section:not(.alt) { background: var(--bg); }
 html.scenes .has-habitat main > section.section:not(.alt) { background: transparent; }
 html.scenes main > section.covering { clip-path: inset(0 0 var(--clip, 0px) 0); }
 html.scenes main > section.covering > :not(.hero-media) {
-  transform: translateY(calc(var(--cover) * -48px)) scale(calc(1 - var(--cover) * 0.06));
-  transform-origin: 50% 0; opacity: calc(1 - var(--cover) * 1.2);
+  transform: translateY(calc(var(--cover) * -32px)) scale(calc(1 - var(--cover) * 0.04));
+  transform-origin: 50% 0; opacity: calc(1 - var(--cover) * 0.85);
 }
-html.scenes main > section.covering > .hero-media { transform: scale(calc(1 + var(--cover) * 0.12)); }
-html.scenes .site-footer { position: relative; z-index: 20; background: var(--bg); box-shadow: 0 -30px 60px -30px rgba(0, 0, 0, 0.8); }
+html.scenes main > section.covering > .hero-media { transform: scale(calc(1 + var(--cover) * 0.1)); }
+html.scenes .site-footer {
+  position: relative; z-index: 20; margin-top: var(--scene-hold);
+  background: var(--bg); box-shadow: 0 -30px 60px -30px rgba(0, 0, 0, 0.8);
+}
 
 .visually-hidden {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
