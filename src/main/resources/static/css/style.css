@@ -239,7 +239,9 @@ figure { margin: 0; }
 
 /* ---------- Comparison table ---------- */
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); -webkit-overflow-scrolling: touch; }
-table.compare { border-collapse: collapse; width: 100%; min-width: 1040px; font-size: 0.95rem; }
+/* No overflow-wrap: anywhere here (body sets it): auto layout would squeeze the name column
+   until "Goliathus" breaks mid-word. The wrapper scrolls sideways instead. */
+table.compare { border-collapse: collapse; width: 100%; min-width: 1040px; font-size: 0.95rem; overflow-wrap: normal; }
 table.compare caption { text-align: left; padding: 14px 18px; color: var(--text-faint); font-size: 0.85rem; }
 table.compare th, table.compare td { padding: 14px 16px; text-align: left; vertical-align: top; border-top: 1px solid var(--line); }
 table.compare thead th { background: var(--surface-2); border-top: 0; white-space: nowrap; padding: 0; }
