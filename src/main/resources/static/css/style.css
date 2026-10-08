@@ -156,11 +156,13 @@ p { margin: 0 0 1em; }
 }
 .credit a { color: var(--text-dim); }
 .hero .credit, .hero .credit-stack { position: absolute; right: var(--gutter); bottom: 14px; text-align: right; max-width: 70%; }
-/* Several photos (home mosaic): stack their credits instead of overlapping them, and keep room below the content */
-.hero .credit-stack { font-size: 0.75rem; line-height: 1.4; }
+/* Several photos (home mosaic): their credits stack below the content in normal flow, so however many
+   lines they wrap to (six on a phone) they never run into the button. */
+.hero.hero-multi { flex-direction: column; justify-content: flex-end; align-items: stretch; padding-bottom: 14px; }
+.hero.hero-multi > .container { margin-bottom: 40px; }
+.hero .credit-stack { position: static; align-self: flex-end; margin-right: var(--gutter); font-size: 0.75rem; line-height: 1.4; }
 .hero .credit-stack .credit { position: static; max-width: none; }
-.hero.hero-multi { padding-bottom: 96px; }
-@media (max-width: 560px) { .hero .credit-stack { max-width: none; left: var(--gutter); font-size: 0.68rem; } }
+@media (max-width: 560px) { .hero .credit-stack { max-width: none; margin-left: var(--gutter); font-size: 0.68rem; } }
 
 /* ---------- Sections ---------- */
 .section { padding: clamp(72px, 12vw, 140px) 0; }
@@ -239,7 +241,9 @@ figure { margin: 0; }
 
 /* ---------- Comparison table ---------- */
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); -webkit-overflow-scrolling: touch; }
-table.compare { border-collapse: collapse; width: 100%; min-width: 1040px; font-size: 0.95rem; }
+/* No overflow-wrap: anywhere here (body sets it): auto layout would squeeze the name column
+   until "Goliathus" breaks mid-word. The wrapper scrolls sideways instead. */
+table.compare { border-collapse: collapse; width: 100%; min-width: 1040px; font-size: 0.95rem; overflow-wrap: normal; }
 table.compare caption { text-align: left; padding: 14px 18px; color: var(--text-faint); font-size: 0.85rem; }
 table.compare th, table.compare td { padding: 14px 16px; text-align: left; vertical-align: top; border-top: 1px solid var(--line); }
 table.compare thead th { background: var(--surface-2); border-top: 0; white-space: nowrap; padding: 0; }
@@ -681,11 +685,21 @@ img.cut {
 .size-bar .rng i.open { background: linear-gradient(to right, transparent, var(--sp) 85%); }
 /* Long hero titles (e.g. 헤라클레스장수풍뎅이) stay on one line where possible */
 .hero h1.long { font-size: clamp(2.4rem, 7.4vw, 5.4rem); }
+@media (max-width: 560px) { .hero h1.long { font-size: clamp(1.75rem, 8.6vw, 2.4rem); } }
 /* A white-background specimen photo sits to the right of the hero text on wide screens */
 @media (min-width: 900px) {
   .hero-media.plate img, .hero-media.cutout img { object-position: right center; padding: 9% 3% 14% 42%; }
   /* Beside the text, the cut-out can sit above the darkening gradient */
   .hero-media.cutout { z-index: 0; pointer-events: none; }
+}
+/* Narrower, there is no room beside the text: the specimen goes above it instead of behind the title */
+@media (max-width: 899px) {
+  .hero:has(> .hero-media.plate, > .hero-media.cutout) { flex-direction: column; justify-content: flex-end; align-items: stretch; }
+  .hero-media.plate, .hero-media.cutout {
+    position: relative; inset: auto; flex: none; height: clamp(180px, 32svh, 340px); margin-bottom: 20px;
+    z-index: 0; pointer-events: none;
+  }
+  .hero-media.plate img, .hero-media.cutout img { padding: 0 var(--gutter); object-position: center; }
 }
 
 /* Japanese: JP fonts, and normal line breaking (keep-all would stop kana/kanji from wrapping) */
