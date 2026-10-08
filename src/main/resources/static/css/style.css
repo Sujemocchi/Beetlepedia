@@ -685,11 +685,21 @@ img.cut {
 .size-bar .rng i.open { background: linear-gradient(to right, transparent, var(--sp) 85%); }
 /* Long hero titles (e.g. 헤라클레스장수풍뎅이) stay on one line where possible */
 .hero h1.long { font-size: clamp(2.4rem, 7.4vw, 5.4rem); }
+@media (max-width: 560px) { .hero h1.long { font-size: clamp(1.75rem, 8.6vw, 2.4rem); } }
 /* A white-background specimen photo sits to the right of the hero text on wide screens */
 @media (min-width: 900px) {
   .hero-media.plate img, .hero-media.cutout img { object-position: right center; padding: 9% 3% 14% 42%; }
   /* Beside the text, the cut-out can sit above the darkening gradient */
   .hero-media.cutout { z-index: 0; pointer-events: none; }
+}
+/* Narrower, there is no room beside the text: the specimen goes above it instead of behind the title */
+@media (max-width: 899px) {
+  .hero:has(> .hero-media.plate, > .hero-media.cutout) { flex-direction: column; justify-content: flex-end; align-items: stretch; }
+  .hero-media.plate, .hero-media.cutout {
+    position: relative; inset: auto; flex: none; height: clamp(180px, 32svh, 340px); margin-bottom: 20px;
+    z-index: 0; pointer-events: none;
+  }
+  .hero-media.plate img, .hero-media.cutout img { padding: 0 var(--gutter); object-position: center; }
 }
 
 /* Japanese: JP fonts, and normal line breaking (keep-all would stop kana/kanji from wrapping) */
