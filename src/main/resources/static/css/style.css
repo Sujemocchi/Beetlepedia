@@ -156,11 +156,13 @@ p { margin: 0 0 1em; }
 }
 .credit a { color: var(--text-dim); }
 .hero .credit, .hero .credit-stack { position: absolute; right: var(--gutter); bottom: 14px; text-align: right; max-width: 70%; }
-/* Several photos (home mosaic): stack their credits instead of overlapping them, and keep room below the content */
-.hero .credit-stack { font-size: 0.75rem; line-height: 1.4; }
+/* Several photos (home mosaic): their credits stack below the content in normal flow, so however many
+   lines they wrap to (six on a phone) they never run into the button. */
+.hero.hero-multi { flex-direction: column; justify-content: flex-end; align-items: stretch; padding-bottom: 14px; }
+.hero.hero-multi > .container { margin-bottom: 40px; }
+.hero .credit-stack { position: static; align-self: flex-end; margin-right: var(--gutter); font-size: 0.75rem; line-height: 1.4; }
 .hero .credit-stack .credit { position: static; max-width: none; }
-.hero.hero-multi { padding-bottom: 96px; }
-@media (max-width: 560px) { .hero .credit-stack { max-width: none; left: var(--gutter); font-size: 0.68rem; } }
+@media (max-width: 560px) { .hero .credit-stack { max-width: none; margin-left: var(--gutter); font-size: 0.68rem; } }
 
 /* ---------- Sections ---------- */
 .section { padding: clamp(72px, 12vw, 140px) 0; }
